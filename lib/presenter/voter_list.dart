@@ -115,7 +115,16 @@ class VoterList extends StatelessWidget {
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           content: SingleChildScrollView(
-            child: Text('Desea agregar voto de $voter?'),
+            child: RichText(
+              text: TextSpan(
+                text: 'Desea agregar voto de ',
+                style: DefaultTextStyle.of(context).style,
+                children: <TextSpan>[
+                  TextSpan(text: voter, style: const TextStyle(fontWeight: FontWeight.bold)),
+                  const TextSpan(text: '?'),
+                ],
+              ),
+            ),
           ),
           actions: <Widget>[
             TextButton(
