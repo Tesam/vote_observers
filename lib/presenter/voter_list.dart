@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:vote_observers/presenter/my_theme.dart';
 
 enum VoteStatus { voted, notVoted }
 
@@ -8,50 +9,67 @@ class VoterList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Stream documentStream = FirebaseFirestore.instance
-        .collection('tables')
-        .doc('1')
-        .snapshots();
+    Stream documentStream =
+        FirebaseFirestore.instance.collection('tables').doc('1').snapshots();
 
-    return StreamBuilder<dynamic>(
-      stream: documentStream,
-      builder: (BuildContext context, snapshot) {
-        if (snapshot.hasError) {
-          return Text('Something went wrong');
-        }
+    return Scaffold(
+      body: SafeArea(
+        child: StreamBuilder<dynamic>(
+          stream: documentStream,
+          builder: (BuildContext context, snapshot) {
+            if (snapshot.hasError) {
+              return const Center(
+                child: Text('Algo salió mal'),
+              );
+            }
 
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
-        }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            }
 
-        var documentFields = snapshot.data;
-        return Scaffold(
-          appBar: AppBar(
-            backgroundColor: const Color(0xFF1D8233),
-            title: Text("${documentFields["observer"]}"),
-            centerTitle: true,
-            bottom: PreferredSize(
-                child: Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Text(
-                    "Mesa ${documentFields.id}",
-                    style: TextStyle(color: Colors.white, fontSize: 20.0),
+            var documentFields = snapshot.data;
+            return Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  color: MyTheme.darkColor,
+                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        "${documentFields["observer"]}",
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      const SizedBox(height: 10.0,),
+                      Text(
+                        "Mesa ${documentFields.id}",
+                        style: const TextStyle(color: MyTheme.grayBackground, fontSize: 16.0),
+                      ),
+                    ],
                   ),
                 ),
-                preferredSize: Size(double.infinity, 60)),
-          ),
-          body: GridView.count(
-            crossAxisCount: 4,
-            children: snapshot.data["voters"].map<Widget>((document) {
-              return orderContainer(
-                  index: document["order"],
-                  context: context,
-                  voter: document["name"],
-                  voteStatus: (document["state"]) ? VoteStatus.voted : VoteStatus.notVoted);
-            }).toList(),
-          ),
-        );
-      },
+                Expanded(
+                  child: GridView.count(
+                    crossAxisCount: 4,
+                    children: snapshot.data["voters"].map<Widget>((document) {
+                      return orderContainer(
+                          index: document["order"],
+                          context: context,
+                          voter: document["name"],
+                          voteStatus: (document["state"])
+                              ? VoteStatus.voted
+                              : VoteStatus.notVoted);
+                    }).toList(),
+                  ),
+                )
+              ],
+            );
+          },
+        ),
+      ),
     );
   }
 
@@ -68,15 +86,15 @@ class VoterList extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: (voteStatus == VoteStatus.voted)
-                  ? const Color(0xFFBCEEA5)
-                  : const Color(0xFFF2F2F2)),
+                  ? MyTheme.primaryColor
+                  : MyTheme.grayBackground),
           child: Center(
             child: Text(
-              "$index",
+              index,
               style: TextStyle(
                   color: (voteStatus == VoteStatus.voted)
-                      ? const Color(0xFF1D8233)
-                      : const Color(0xFF828282),
+                      ? MyTheme.darkColor
+                      : MyTheme.grayText,
                   fontSize: 20.0),
             ),
           ),
@@ -92,7 +110,7 @@ class VoterList extends StatelessWidget {
         return AlertDialog(
           title: const Text(
             "Agregar voto",
-            style: TextStyle(color: Color(0xFF1D8233)),
+            style: TextStyle(color: MyTheme.darkColor),
           ),
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
@@ -103,7 +121,7 @@ class VoterList extends StatelessWidget {
             TextButton(
               child: const Text(
                 'Cancelar',
-                style: TextStyle(color: Color(0xFF828282)),
+                style: TextStyle(color: MyTheme.grayText),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -112,7 +130,7 @@ class VoterList extends StatelessWidget {
             TextButton(
               child: const Text(
                 'Agregar',
-                style: TextStyle(color: Color(0xFF1D8233)),
+                style: TextStyle(color: MyTheme.darkColor),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
