@@ -43,10 +43,13 @@ class VoterList extends StatelessWidget {
                             fontSize: 20.0,
                             fontWeight: FontWeight.w500),
                       ),
-                      const SizedBox(height: 10.0,),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
                       Text(
                         "Mesa ${documentFields.id}",
-                        style: const TextStyle(color: MyTheme.grayBackground, fontSize: 16.0),
+                        style: const TextStyle(
+                            color: MyTheme.grayBackground, fontSize: 16.0),
                       ),
                     ],
                   ),
@@ -99,10 +102,14 @@ class VoterList extends StatelessWidget {
             ),
           ),
         ),
-        onTap: () => _showMyDialog(context: context, voter: voter),
+        onTap: () => (voteStatus == VoteStatus.notVoted)
+            ? _showAddVoterDialog(context: context, voter: voter)
+            : ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text('El voto ya fue registrado!'),
+              )),
       );
 
-  Future<void> _showMyDialog(
+  Future<void> _showAddVoterDialog(
       {required BuildContext context, required String voter}) async {
     return showDialog<void>(
       context: context,
@@ -120,7 +127,9 @@ class VoterList extends StatelessWidget {
                 text: 'Desea agregar voto de ',
                 style: DefaultTextStyle.of(context).style,
                 children: <TextSpan>[
-                  TextSpan(text: voter, style: const TextStyle(fontWeight: FontWeight.bold)),
+                  TextSpan(
+                      text: voter,
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
                   const TextSpan(text: '?'),
                 ],
               ),
