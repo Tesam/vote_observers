@@ -25,17 +25,16 @@ class VoterList extends StatelessWidget {
         }
 
         var documentFields = snapshot.data;
-        print("${documentFields["voters"][0]["name"]}");
         return Scaffold(
           appBar: AppBar(
             backgroundColor: const Color(0xFF1D8233),
-            title: Text("Juan Perez"),
+            title: Text("${documentFields["observer"]}"),
             centerTitle: true,
-            bottom: const PreferredSize(
+            bottom: PreferredSize(
                 child: Padding(
                   padding: EdgeInsets.all(20),
                   child: Text(
-                    "Mesa 1",
+                    "Mesa ${documentFields.id}",
                     style: TextStyle(color: Colors.white, fontSize: 20.0),
                   ),
                 ),
@@ -54,54 +53,6 @@ class VoterList extends StatelessWidget {
         );
       },
     );
-
-    /*  return FutureBuilder<DocumentSnapshot>(
-      future: testTableCollection.doc("NjXuo8MDpqHAoapMRiO4").get(),
-      builder:
-          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text("Something went wrong");
-        }
-
-        if (snapshot.hasData && !snapshot.data!.exists) {
-          return Text("Document does not exist");
-        }
-
-        if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data =
-              snapshot.data!.data() as Map<String, dynamic>;
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: const Color(0xFF1D8233),
-              title: Text("${data["name"]}"),
-              centerTitle: true,
-              bottom: const PreferredSize(
-                  child: Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Text(
-                      "Mesa 1",
-                      style: TextStyle(color: Colors.white, fontSize: 20.0),
-                    ),
-                  ),
-                  preferredSize: Size(double.infinity, 60)),
-            ),
-            body: GridView.count(
-              crossAxisCount: 4,
-              children: List.generate(100, (index) {
-                return orderContainer(
-                    index: index,
-                    context: context,
-                    voter: "Juanita Perez",
-                    voteStatus:
-                        (index.isOdd) ? VoteStatus.notVoted : VoteStatus.voted);
-              }),
-            ),
-          );
-        }
-
-        return Text("loading");
-      },
-    );*/
   }
 
   Widget orderContainer(
