@@ -7,6 +7,13 @@ enum VoteStatus { voted, notVoted }
 class VoterList extends StatelessWidget {
   const VoterList({Key? key}) : super(key: key);
 
+  Future<void> updateUser(documentFields) {
+    return documentFields
+        .update({'voters.0.state': true})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
   @override
   Widget build(BuildContext context) {
     Stream documentStream =
@@ -32,7 +39,7 @@ class VoterList extends StatelessWidget {
               children: [
                 Container(
                   width: double.infinity,
-                  color: MyTheme.darkColor,
+                  color: MyTheme.darkGreen,
                   padding: const EdgeInsets.symmetric(vertical: 20.0),
                   child: Column(
                     children: [
@@ -58,6 +65,7 @@ class VoterList extends StatelessWidget {
                   child: GridView.count(
                     crossAxisCount: 4,
                     children: snapshot.data["voters"].map<Widget>((document) {
+                      print("ddddic: ${document}");
                       return orderContainer(
                           index: document["order"],
                           context: context,
@@ -96,8 +104,8 @@ class VoterList extends StatelessWidget {
               index,
               style: TextStyle(
                   color: (voteStatus == VoteStatus.voted)
-                      ? MyTheme.darkColor
-                      : MyTheme.grayText,
+                      ? MyTheme.darkGreen
+                      : MyTheme.gray2Text,
                   fontSize: 20.0),
             ),
           ),
@@ -117,7 +125,7 @@ class VoterList extends StatelessWidget {
         return AlertDialog(
           title: const Text(
             "Agregar voto",
-            style: TextStyle(color: MyTheme.darkColor),
+            style: TextStyle(color: MyTheme.darkGreen),
           ),
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
@@ -139,7 +147,7 @@ class VoterList extends StatelessWidget {
             TextButton(
               child: const Text(
                 'Cancelar',
-                style: TextStyle(color: MyTheme.grayText),
+                style: TextStyle(color: MyTheme.gray2Text),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -148,9 +156,10 @@ class VoterList extends StatelessWidget {
             TextButton(
               child: const Text(
                 'Agregar',
-                style: TextStyle(color: MyTheme.darkColor),
+                style: TextStyle(color: MyTheme.darkGreen),
               ),
               onPressed: () {
+
                 Navigator.of(context).pop();
               },
             ),
