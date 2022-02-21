@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vote_observers/presenter/voter_list.dart';
+import 'package:vote_observers/presenter/home.dart';
 
 
 import 'package:firebase_core/firebase_core.dart';
@@ -18,10 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Vote Observers',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const VoterList(),
+      home: const Home(),
     );
   }
 }
