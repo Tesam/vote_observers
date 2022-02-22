@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
+import 'package:vote_observers/presenter/operators.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -13,27 +14,32 @@ class Home extends StatelessWidget {
           "MIC",
           style: TextStyle(color: MyTheme.gray2Text),
         ),
+        iconTheme: const IconThemeData(color: Colors.black),
         actions: [
           PopupMenuButton(
-              icon: const Icon(
-                Icons.more_vert,
-                color: Colors.black,
-              ),
-              itemBuilder: (context) => const [
+              itemBuilder: (context) => [
                     PopupMenuItem(
                       child: ListTile(
-                        leading: Icon(Icons.people, color: Colors.black,),
-                        title: Text("Operadores", style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w500),),
+                        leading: const Icon(
+                          Icons.people,
+                          color: Colors.black,
+                        ),
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const Operators()),
+                          );
+                        },
+                        title: const Text(
+                          "Operadores",
+                          style: TextStyle(
+                              fontSize: 14.0, fontWeight: FontWeight.w500),
+                        ),
                       ),
                       value: 1,
                     ),
                   ]),
-          /* IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.more_vert,
-                color: Colors.black,
-              ))*/
         ],
         elevation: 0,
         backgroundColor: MyTheme.background,
