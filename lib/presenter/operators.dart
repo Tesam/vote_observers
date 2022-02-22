@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:vote_observers/presenter/add_operator.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
+import 'package:vote_observers/presenter/widgets/assing_operator.dart';
 
 class Operators extends StatelessWidget {
   const Operators({Key? key}) : super(key: key);
@@ -15,31 +17,39 @@ class Operators extends StatelessWidget {
           iconTheme: const IconThemeData(color: Colors.black),
           actions: [
             PopupMenuButton(
-                itemBuilder: (context) => const [
+                itemBuilder: (context) => [
                       PopupMenuItem(
                         child: ListTile(
-                          leading: Icon(
+                          leading: const Icon(
                             Icons.person_add,
                             color: Colors.black,
                           ),
-                          title: Text(
+                          title: const Text(
                             "Crear operador",
                             style: TextStyle(
                                 fontSize: 14.0, fontWeight: FontWeight.w500),
+                          ),
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const AddOperator()),
                           ),
                         ),
                         value: 1,
                       ),
                       PopupMenuItem(
                         child: ListTile(
-                          leading: Icon(
+                          leading: const Icon(
                             Icons.mediation,
                             color: Colors.black,
                           ),
-                          title: Text(
+                          title: const Text(
                             "Asignar operador",
                             style: TextStyle(
                                 fontSize: 14.0, fontWeight: FontWeight.w500),
+                          ),
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const AssignOperator()),
                           ),
                         ),
                         value: 2,
@@ -110,7 +120,7 @@ class Operators extends StatelessWidget {
                                 color: MyTheme.gray2Text,
                                 fontWeight: FontWeight.w500),
                           ),
-                          Text(
+                          const Text(
                             "0965432345",
                             style: TextStyle(
                                 fontSize: 12.0,
