@@ -183,21 +183,8 @@ class Home extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(
-                    height: 10.0,
+                    height: 20.0,
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      child: const Text(
-                        "Ver detalles",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.fromLTRB(20, 20, 0, 20),
-                      ),
-                    ),
-                  )
                 ],
               ),
             ),
@@ -262,6 +249,377 @@ class Home extends StatelessWidget {
               ),
               padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
             ),
+            const SizedBox(
+              height: 10.0,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30), color: Colors.white,
+              ),
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text("Sucursales",
+                      style: TextStyle(
+                          fontSize: 18.0, fontWeight: FontWeight.w600)),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: MyTheme.gray4Text)
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text("San Juan", style: TextStyle(color: MyTheme.gray2Text, fontWeight: FontWeight.w600, fontSize: 14),),
+                            const SizedBox(height: 20,),
+                            RichText(
+                              text: const TextSpan(
+                                text: '400 ',
+                                style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: '/15000',
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                      )),
+                                ],
+                              ),
+                            ),
+                            const Text(
+                              "Asignados",
+                              style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: MyTheme.gray2Text,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            LinearPercentIndicator(
+                              width: 135,
+                              animation: true,
+                              lineHeight: 16.0,
+                              padding: EdgeInsets.zero,
+                              animationDuration: 2000,
+                              percent: 0.03,
+                              center: const Text(
+                                "2.7%",
+                                style: TextStyle(fontSize: 12),
+                              ),
+                              barRadius: const Radius.circular(5),
+                              progressColor: MyTheme.primaryColor,
+                              backgroundColor: const Color(0xFFC4C4C4),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: MyTheme.gray4Text)
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text("San Ignacio", style: TextStyle(color: MyTheme.gray2Text, fontWeight: FontWeight.w600, fontSize: 14),),
+                            const SizedBox(height: 20,),
+                            RichText(
+                              text: const TextSpan(
+                                text: '400 ',
+                                style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: '/15000',
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                      )),
+                                ],
+                              ),
+                            ),
+                            const Text(
+                              "Asignados",
+                              style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: MyTheme.gray2Text,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            LinearPercentIndicator(
+                              width: 135,
+                              animation: true,
+                              lineHeight: 16.0,
+                              padding: EdgeInsets.zero,
+                              animationDuration: 2000,
+                              percent: 0.03,
+                              center: const Text(
+                                "2.7%",
+                                style: TextStyle(fontSize: 12),
+                              ),
+                              barRadius: const Radius.circular(5),
+                              progressColor: MyTheme.primaryColor,
+                              backgroundColor: const Color(0xFFC4C4C4),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: MyTheme.gray4Text)
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text("San Juan", style: TextStyle(color: MyTheme.gray2Text, fontWeight: FontWeight.w600, fontSize: 14),),
+                            const SizedBox(height: 20,),
+                            RichText(
+                              text: const TextSpan(
+                                text: '400 ',
+                                style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: '/15000',
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                      )),
+                                ],
+                              ),
+                            ),
+                            const Text(
+                              "Asignados",
+                              style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: MyTheme.gray2Text,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            LinearPercentIndicator(
+                              width: 135,
+                              animation: true,
+                              lineHeight: 16.0,
+                              padding: EdgeInsets.zero,
+                              animationDuration: 2000,
+                              percent: 0.03,
+                              center: const Text(
+                                "2.7%",
+                                style: TextStyle(fontSize: 12),
+                              ),
+                              barRadius: const Radius.circular(5),
+                              progressColor: MyTheme.primaryColor,
+                              backgroundColor: const Color(0xFFC4C4C4),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: MyTheme.gray4Text)
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text("San Ignacio", style: TextStyle(color: MyTheme.gray2Text, fontWeight: FontWeight.w600, fontSize: 14),),
+                            const SizedBox(height: 20,),
+                            RichText(
+                              text: const TextSpan(
+                                text: '400 ',
+                                style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: '/15000',
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                      )),
+                                ],
+                              ),
+                            ),
+                            const Text(
+                              "Asignados",
+                              style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: MyTheme.gray2Text,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            LinearPercentIndicator(
+                              width: 135,
+                              animation: true,
+                              lineHeight: 16.0,
+                              padding: EdgeInsets.zero,
+                              animationDuration: 2000,
+                              percent: 0.03,
+                              center: const Text(
+                                "2.7%",
+                                style: TextStyle(fontSize: 12),
+                              ),
+                              barRadius: const Radius.circular(5),
+                              progressColor: MyTheme.primaryColor,
+                              backgroundColor: const Color(0xFFC4C4C4),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: MyTheme.gray4Text)
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text("San Juan", style: TextStyle(color: MyTheme.gray2Text, fontWeight: FontWeight.w600, fontSize: 14),),
+                            const SizedBox(height: 20,),
+                            RichText(
+                              text: const TextSpan(
+                                text: '400 ',
+                                style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: '/15000',
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                      )),
+                                ],
+                              ),
+                            ),
+                            const Text(
+                              "Asignados",
+                              style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: MyTheme.gray2Text,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            LinearPercentIndicator(
+                              width: 135,
+                              animation: true,
+                              lineHeight: 16.0,
+                              padding: EdgeInsets.zero,
+                              animationDuration: 2000,
+                              percent: 0.03,
+                              center: const Text(
+                                "2.7%",
+                                style: TextStyle(fontSize: 12),
+                              ),
+                              barRadius: const Radius.circular(5),
+                              progressColor: MyTheme.primaryColor,
+                              backgroundColor: const Color(0xFFC4C4C4),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: MyTheme.gray4Text)
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text("San Ignacio", style: TextStyle(color: MyTheme.gray2Text, fontWeight: FontWeight.w600, fontSize: 14),),
+                            const SizedBox(height: 20,),
+                            RichText(
+                              text: const TextSpan(
+                                text: '400 ',
+                                style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: '/15000',
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                      )),
+                                ],
+                              ),
+                            ),
+                            const Text(
+                              "Asignados",
+                              style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: MyTheme.gray2Text,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            LinearPercentIndicator(
+                              width: 135,
+                              animation: true,
+                              lineHeight: 16.0,
+                              padding: EdgeInsets.zero,
+                              animationDuration: 2000,
+                              percent: 0.03,
+                              center: const Text(
+                                "2.7%",
+                                style: TextStyle(fontSize: 12),
+                              ),
+                              barRadius: const Radius.circular(5),
+                              progressColor: MyTheme.primaryColor,
+                              backgroundColor: const Color(0xFFC4C4C4),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
