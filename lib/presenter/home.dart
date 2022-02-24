@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/operators.dart';
+import 'package:vote_observers/presenter/partners.dart';
 import 'package:vote_observers/presenter/table_list.dart';
 
 class Home extends StatelessWidget {
@@ -22,7 +23,7 @@ class Home extends StatelessWidget {
                     PopupMenuItem(
                       child: ListTile(
                         leading: const Icon(
-                          Icons.people,
+                          Icons.person,
                           color: Colors.black,
                         ),
                         onTap: () {
@@ -39,6 +40,27 @@ class Home extends StatelessWidget {
                         ),
                       ),
                       value: 1,
+                    ),
+                    PopupMenuItem(
+                      child: ListTile(
+                        leading: const Icon(
+                          Icons.people,
+                          color: Colors.black,
+                        ),
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const Partners()),
+                          );
+                        },
+                        title: const Text(
+                          "Socios",
+                          style: TextStyle(
+                              fontSize: 14.0, fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      value: 2,
                     ),
                   ]),
         ],
