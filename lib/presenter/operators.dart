@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vote_observers/presenter/add_operator.dart';
+import 'package:vote_observers/presenter/asigned_partners.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/widgets/assing_operator.dart';
 
@@ -20,38 +21,43 @@ class Operators extends StatelessWidget {
                 itemBuilder: (context) => [
                       PopupMenuItem(
                         child: ListTile(
-                          leading: const Icon(
-                            Icons.person_add,
-                            color: Colors.black,
-                          ),
-                          title: const Text(
-                            "Crear operador",
-                            style: TextStyle(
-                                fontSize: 14.0, fontWeight: FontWeight.w500),
-                          ),
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => const AddOperator()),
-                          ),
-                        ),
+                            leading: const Icon(
+                              Icons.person_add,
+                              color: Colors.black,
+                            ),
+                            title: const Text(
+                              "Crear operador",
+                              style: TextStyle(
+                                  fontSize: 14.0, fontWeight: FontWeight.w500),
+                            ),
+                            onTap: () {
+                              Navigator.of(context).pop();
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => const AddOperator()),
+                              );
+                            }),
                         value: 1,
                       ),
                       PopupMenuItem(
                         child: ListTile(
-                          leading: const Icon(
-                            Icons.mediation,
-                            color: Colors.black,
-                          ),
-                          title: const Text(
-                            "Asignar operador",
-                            style: TextStyle(
-                                fontSize: 14.0, fontWeight: FontWeight.w500),
-                          ),
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => const AssignOperator()),
-                          ),
-                        ),
+                            leading: const Icon(
+                              Icons.mediation,
+                              color: Colors.black,
+                            ),
+                            title: const Text(
+                              "Asignar operador",
+                              style: TextStyle(
+                                  fontSize: 14.0, fontWeight: FontWeight.w500),
+                            ),
+                            onTap: () {
+                              Navigator.of(context).pop();
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const AssignOperator()),
+                              );
+                            }),
                         value: 2,
                       ),
                     ]),
@@ -108,7 +114,7 @@ class Operators extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: Colors.white),
-                      padding: const EdgeInsets.fromLTRB(20, 20,20,0),
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                       margin: const EdgeInsets.only(bottom: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,8 +149,7 @@ class Operators extends StatelessWidget {
                                         style: TextStyle(
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w400,
-                                            color: MyTheme.gray2Text
-                                        )),
+                                            color: MyTheme.gray2Text)),
                                   ],
                                 ),
                               ),
@@ -153,9 +158,9 @@ class Operators extends StatelessWidget {
                                   "Ver asignados",
                                   style: TextStyle(color: Colors.black),
                                 ),
-                                onPressed: () {},
+                                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AssignedPartners())),
                                 style: TextButton.styleFrom(
-                                  padding: EdgeInsets.fromLTRB(20, 20, 0, 20),
+                                  padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
                                 ),
                               )
                             ],
@@ -167,7 +172,7 @@ class Operators extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: Colors.white),
-                      padding: const EdgeInsets.fromLTRB(20, 20,20,0),
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                       margin: const EdgeInsets.only(bottom: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,8 +207,7 @@ class Operators extends StatelessWidget {
                                         style: TextStyle(
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w400,
-                                            color: MyTheme.gray2Text
-                                        )),
+                                            color: MyTheme.gray2Text)),
                                   ],
                                 ),
                               ),
@@ -226,7 +230,7 @@ class Operators extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: Colors.white),
-                      padding: const EdgeInsets.fromLTRB(20, 20,20,0),
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                       margin: const EdgeInsets.only(bottom: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -261,8 +265,7 @@ class Operators extends StatelessWidget {
                                         style: TextStyle(
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w400,
-                                            color: MyTheme.gray2Text
-                                        )),
+                                            color: MyTheme.gray2Text)),
                                   ],
                                 ),
                               ),
@@ -285,7 +288,7 @@ class Operators extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: Colors.white),
-                      padding: const EdgeInsets.fromLTRB(20, 20,20,0),
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                       margin: const EdgeInsets.only(bottom: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -320,8 +323,7 @@ class Operators extends StatelessWidget {
                                         style: TextStyle(
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w400,
-                                            color: MyTheme.gray2Text
-                                        )),
+                                            color: MyTheme.gray2Text)),
                                   ],
                                 ),
                               ),
@@ -344,7 +346,7 @@ class Operators extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: Colors.white),
-                      padding: const EdgeInsets.fromLTRB(20, 20,20,0),
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                       margin: const EdgeInsets.only(bottom: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -379,8 +381,7 @@ class Operators extends StatelessWidget {
                                         style: TextStyle(
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w400,
-                                            color: MyTheme.gray2Text
-                                        )),
+                                            color: MyTheme.gray2Text)),
                                   ],
                                 ),
                               ),
@@ -403,7 +404,7 @@ class Operators extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: Colors.white),
-                      padding: const EdgeInsets.fromLTRB(20, 20,20,0),
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                       margin: const EdgeInsets.only(bottom: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -438,8 +439,7 @@ class Operators extends StatelessWidget {
                                         style: TextStyle(
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w400,
-                                            color: MyTheme.gray2Text
-                                        )),
+                                            color: MyTheme.gray2Text)),
                                   ],
                                 ),
                               ),
@@ -462,7 +462,7 @@ class Operators extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: Colors.white),
-                      padding: const EdgeInsets.fromLTRB(20, 20,20,0),
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                       margin: const EdgeInsets.only(bottom: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -497,8 +497,7 @@ class Operators extends StatelessWidget {
                                         style: TextStyle(
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w400,
-                                            color: MyTheme.gray2Text
-                                        )),
+                                            color: MyTheme.gray2Text)),
                                   ],
                                 ),
                               ),
@@ -521,7 +520,7 @@ class Operators extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: Colors.white),
-                      padding: const EdgeInsets.fromLTRB(20, 20,20,0),
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                       margin: const EdgeInsets.only(bottom: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -556,8 +555,7 @@ class Operators extends StatelessWidget {
                                         style: TextStyle(
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w400,
-                                            color: MyTheme.gray2Text
-                                        )),
+                                            color: MyTheme.gray2Text)),
                                   ],
                                 ),
                               ),
@@ -580,7 +578,7 @@ class Operators extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: Colors.white),
-                      padding: const EdgeInsets.fromLTRB(20, 20,20,0),
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                       margin: const EdgeInsets.only(bottom: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -615,8 +613,7 @@ class Operators extends StatelessWidget {
                                         style: TextStyle(
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w400,
-                                            color: MyTheme.gray2Text
-                                        )),
+                                            color: MyTheme.gray2Text)),
                                   ],
                                 ),
                               ),
@@ -639,7 +636,7 @@ class Operators extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: Colors.white),
-                      padding: const EdgeInsets.fromLTRB(20, 20,20,0),
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                       margin: const EdgeInsets.only(bottom: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -674,8 +671,7 @@ class Operators extends StatelessWidget {
                                         style: TextStyle(
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w400,
-                                            color: MyTheme.gray2Text
-                                        )),
+                                            color: MyTheme.gray2Text)),
                                   ],
                                 ),
                               ),
