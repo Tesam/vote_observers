@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/operators.dart';
+import 'package:vote_observers/presenter/table_list.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -226,9 +227,12 @@ class Home extends StatelessWidget {
                         "Ver detalles",
                         style: TextStyle(color: Colors.black),
                       ),
-                      onPressed: () {},
+                      onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => const TableList()),
+                      ),
                       style: TextButton.styleFrom(
-                        padding: EdgeInsets.fromLTRB(20, 20, 0, 20),
+                        padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
                       ),
                     ),
                   )
