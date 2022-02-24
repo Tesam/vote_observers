@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
+import 'package:vote_observers/presenter/table_data.dart';
 
 class TableList extends StatelessWidget {
   const TableList({Key? key}) : super(key: key);
@@ -101,7 +102,7 @@ class TableList extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Table())),
+                            IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TableData())),
                               icon: const Icon(Icons.arrow_forward,),)
                           ],
                         )),
