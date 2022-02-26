@@ -251,6 +251,8 @@ class AssignOperator extends StatelessWidget {
 
                       //add new partner to operator local object
                       operator.assignedPartners = assignedPartners;
+                      //update assigned quantity in local operator object
+                      operator.assignedQuantity = operator.assignedQuantity + 1;
 
                       //update operator on database
                       final bool _isAssigned =
