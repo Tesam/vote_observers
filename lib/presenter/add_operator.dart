@@ -29,6 +29,10 @@ class AddOperator extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
         backgroundColor: MyTheme.background,
+        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: (){
+          clearOperatorFields();
+          Navigator.of(context).pop();
+        },),
       ),
       backgroundColor: MyTheme.background,
       body: Padding(
@@ -137,13 +141,17 @@ class AddOperator extends StatelessWidget {
                           ));
                   }
 
-                  searchController.text = "";
-                  nameController.text = "";
-                  phoneController.text = "";
+                  clearOperatorFields();
                 }),
           ],
         ),
       ),
     );
+  }
+
+  void clearOperatorFields(){
+    searchController.text = "";
+    nameController.text = "";
+    phoneController.text = "";
   }
 }
