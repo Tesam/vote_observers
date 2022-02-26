@@ -19,6 +19,11 @@ class AssignOperator extends StatelessWidget {
       TextEditingController();
   static TextEditingController partnerNameController = TextEditingController();
 
+  static late Operator operator;
+  static late Partner partner;
+
+  static final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +42,8 @@ class AssignOperator extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
+                child: Form(
+              key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -48,6 +55,14 @@ class AssignOperator extends StatelessWidget {
                             child: MyTextField(
                               hintText: "Nro de socio del operador",
                               textEditingController: operatorSearchController,
+                              validator: (value) {
+                                if (value != null) {
+                                  if (value.isEmpty) {
+                                    return 'Campo requerido';
+                                  }
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           Container(
@@ -61,12 +76,12 @@ class AssignOperator extends StatelessWidget {
                                           operatorSearchController.text);
 
                                   if (_isOperatorAlreadyExist) {
-                                    final Operator operator =
-                                        await operatorsTable.getOperator(
-                                            operatorID:
-                                                operatorSearchController.text);
+                                    operator = await operatorsTable.getOperator(
+                                        operatorID:
+                                            operatorSearchController.text);
                                     operatorNameController.text = operator.name;
                                   } else {
+                                    clearOperatorFields();
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(const SnackBar(
                                       content: Text(
@@ -77,10 +92,10 @@ class AssignOperator extends StatelessWidget {
                                       ),
                                       duration: Duration(seconds: 3),
                                       backgroundColor: MyTheme.redColor,
-                                      padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 40, horizontal: 20),
                                     ));
                                   }
-
                                 },
                                 icon: const Icon(
                                   Icons.search,
@@ -99,6 +114,14 @@ class AssignOperator extends StatelessWidget {
                         hintText: "Nombre",
                         textFieldStatus: TextFieldStatus.disabled,
                         textEditingController: operatorNameController,
+                        validator: (value) {
+                          if (value != null) {
+                            if (value.isEmpty) {
+                              return 'Campo requerido';
+                            }
+                          }
+                          return null;
+                        },
                       ),
                     ],
                   ),
@@ -115,6 +138,14 @@ class AssignOperator extends StatelessWidget {
                             child: MyTextField(
                               hintText: "Nro de socio",
                               textEditingController: partnerSearchController,
+                              validator: (value) {
+                                if (value != null) {
+                                  if (value.isEmpty) {
+                                    return 'Campo requerido';
+                                  }
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           Container(
@@ -124,16 +155,16 @@ class AssignOperator extends StatelessWidget {
                               child: IconButton(
                                 onPressed: () async {
                                   final bool _isPartnerAlreadyExist =
-                                  await partnersTable.isPartnerExist(
-                                      partnerSearchController.text);
+                                      await partnersTable.isPartnerExist(
+                                          partnerSearchController.text);
 
                                   if (_isPartnerAlreadyExist) {
-                                    final Partner partner =
-                                    await partnersTable.getPartner(
+                                    partner = await partnersTable.getPartner(
                                         partnerID:
-                                        partnerSearchController.text);
+                                            partnerSearchController.text);
                                     partnerNameController.text = partner.name;
                                   } else {
+                                    clearPartnerFields();
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(const SnackBar(
                                       content: Text(
@@ -144,11 +175,10 @@ class AssignOperator extends StatelessWidget {
                                       ),
                                       duration: Duration(seconds: 3),
                                       backgroundColor: MyTheme.redColor,
-                                      padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 40, horizontal: 20),
                                     ));
                                   }
-
-
                                 },
                                 icon: const Icon(
                                   Icons.search,
@@ -167,24 +197,66 @@ class AssignOperator extends StatelessWidget {
                         hintText: "Nombre",
                         textFieldStatus: TextFieldStatus.disabled,
                         textEditingController: partnerNameController,
+                        validator: (value) {
+                          if (value != null) {
+                            if (value.isEmpty) {
+                              return 'Campo requerido';
+                            }
+                          }
+                          return null;
+                        },
                       ),
                     ],
                   )
                 ],
               ),
-            ),
+            )),
             MyButton(
                 title: "Asignar operador",
-                onPressed: () {
-                  //get assigned list
+                onPressed: () async {
+                  if(_formKey.currentState!.validate()){
+                    //get actual assigned partners list
+                    List<dynamic> assignedPartners = operator.assignedPartners;
 
-                  //add new assigned partner
+                    //add new assigned partner
+                    assignedPartners.add(partnerSearchController.text);
 
-                  //update operator document
+                    //add new partner to operator object
+                    operator.assignedPartners = assignedPartners;
+
+                    //update operator on database
+                    await operatorsTable.createOperator(
+                        operator: operator,
+                        operatorID: operatorSearchController.text);
+                  }else{
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(const SnackBar(
+                      content: Text(
+                        'Por favor, rellena los campos obligatorios',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.black, fontSize: 16),
+                      ),
+                      duration: Duration(seconds: 3),
+                      backgroundColor: MyTheme.redColor,
+                      padding: EdgeInsets.symmetric(
+                          vertical: 40, horizontal: 20),
+                    ));
+                  }
                 }),
           ],
         ),
       ),
     );
+  }
+
+  void clearOperatorFields() {
+    operatorSearchController.text = "";
+    operatorNameController.text = "";
+  }
+
+  void clearPartnerFields() {
+    partnerSearchController.text = "";
+    partnerNameController.text = "";
   }
 }
