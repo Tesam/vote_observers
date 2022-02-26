@@ -25,11 +25,11 @@ class Operator {
 
   Map<String, dynamic> toJson() {
     return {
-      '"name"': '"$name"',
-      '"phone"': '"$phone"',
-      '"identification"' : '"$identification"',
-      '"assigned_quantity"' : '"$assignedQuantity"',
-      '"assigned_partners"' : '"$assignedPartners"',
+      "name": name,
+      "phone": phone,
+      "identification" : identification,
+      "assigned_quantity" : assignedQuantity,
+      "assigned_partners" : assignedPartners,
     };
   }
 }
