@@ -10,14 +10,17 @@ class MyTextField extends StatefulWidget {
   final String hintText;
   final TextEditingController textEditingController;
   final FormFieldValidator<String>? validator;
+  final Function(String)? onChanged;
 
-  const MyTextField(
-      {Key? key,
-      this.textFieldStatus = TextFieldStatus.enabled,
-      this.textFieldType = TextFieldType.normal,
-      required this.hintText,
-      required this.textEditingController, this.validator})
-      : super(key: key);
+  const MyTextField({
+    Key? key,
+    this.textFieldStatus = TextFieldStatus.enabled,
+    this.textFieldType = TextFieldType.normal,
+    required this.hintText,
+    required this.textEditingController,
+    this.validator,
+    this.onChanged,
+  }) : super(key: key);
 
   @override
   _MyTextFieldState createState() => _MyTextFieldState();
@@ -69,6 +72,7 @@ class _MyTextFieldState extends State<MyTextField> {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: widget.textEditingController,
       cursorColor: MyTheme.darkGreen,
+      onChanged: widget.onChanged,
       obscureText:
           (widget.textFieldType == TextFieldType.password) ? true : false,
     );
