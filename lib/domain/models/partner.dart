@@ -6,6 +6,7 @@ class Partner {
   String tableNumber;
   bool voteState;
   bool assigned;
+  String partnerId;
 
   Partner({
     required this.name,
@@ -15,6 +16,7 @@ class Partner {
     required this.tableNumber,
     required this.voteState,
     required this.assigned,
+    required this.partnerId,
   });
 
   factory Partner.fromJson(Map<String, dynamic> json){
@@ -26,6 +28,7 @@ class Partner {
       tableNumber: json["table_number"],
       voteState: json["vote_state"],
       assigned: json["assigned"],
+      partnerId: json["partner_id"],
     );
   }
 
@@ -38,6 +41,7 @@ class Partner {
       "table_number" : tableNumber,
       "vote_state" : voteState,
       "assigned": assigned,
+      "partner_id" : partnerId,
     };
   }
 }
