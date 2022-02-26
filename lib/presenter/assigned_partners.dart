@@ -5,8 +5,9 @@ import 'package:vote_observers/presenter/my_theme.dart';
 
 class AssignedPartners extends StatelessWidget {
   final List<dynamic> assignedPartners;
+  final String operatorName;
 
-  const AssignedPartners({Key? key, required this.assignedPartners})
+  const AssignedPartners({Key? key, required this.assignedPartners, required this.operatorName})
       : super(key: key);
 
   static PartnersTable partnersTable = PartnersTable();
@@ -15,9 +16,9 @@ class AssignedPartners extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Juan Perez",
-          style: TextStyle(color: MyTheme.gray2Text),
+        title: Text(
+          operatorName,
+          style: const TextStyle(color: MyTheme.gray2Text),
         ),
         iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,

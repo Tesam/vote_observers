@@ -196,6 +196,7 @@ class Operators extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => AssignedPartners(
                                 assignedPartners: operator.assignedPartners,
+                            operatorName: operator.name,
                               ))),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
