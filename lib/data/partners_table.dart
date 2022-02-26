@@ -27,4 +27,13 @@ class PartnersTable {
 
     return Future.wait(partners);
   }
+
+  Future<bool> addPartner(
+      {required Partner partner, required String partnerID}) {
+    return partnersRef
+        .doc(partnerID)
+        .set(partner)
+        .then((value) => true)
+        .catchError((error) => print("Failed to add partner: $error"));
+  }
 }
