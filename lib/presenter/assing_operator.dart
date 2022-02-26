@@ -35,6 +35,11 @@ class AssignOperator extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
         backgroundColor: MyTheme.background,
+        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: (){
+          clearPartnerFields();
+          clearOperatorFields();
+          Navigator.of(context).pop();
+        },),
       ),
       backgroundColor: MyTheme.background,
       body: Padding(
