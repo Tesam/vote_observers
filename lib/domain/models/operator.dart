@@ -4,6 +4,7 @@ class Operator {
   String identification;
   int assignedQuantity;
   List<dynamic> assignedPartners;
+  String partnerId;
 
   Operator({
     required this.name,
@@ -11,6 +12,7 @@ class Operator {
     required this.identification,
     this.assignedQuantity = 0,
     required this.assignedPartners,
+    required this.partnerId,
   });
 
   factory Operator.fromJson(Map<String, dynamic> json){
@@ -20,6 +22,7 @@ class Operator {
       identification: json["identification"],
       assignedQuantity: json["assigned_quantity"],
       assignedPartners: json["assigned_partners"],
+      partnerId: json["partner_id"],
     );
   }
 
@@ -30,6 +33,7 @@ class Operator {
       "identification" : identification,
       "assigned_quantity" : assignedQuantity,
       "assigned_partners" : assignedPartners,
+      "partner_id" : partnerId,
     };
   }
 }
