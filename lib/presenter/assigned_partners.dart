@@ -3,34 +3,13 @@ import 'package:vote_observers/data/partners_table.dart';
 import 'package:vote_observers/domain/models/partner.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 
-class AssignedPartners extends StatefulWidget {
+class AssignedPartners extends StatelessWidget {
   final List<dynamic> assignedPartners;
 
   const AssignedPartners({Key? key, required this.assignedPartners})
       : super(key: key);
 
-  @override
-  _AssignedPartnersState createState() => _AssignedPartnersState();
-}
-
-class _AssignedPartnersState extends State<AssignedPartners> {
-  late List<Partner> partners;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback(
-      (_) {
-        _onInit();
-      },
-    );
-  }
-
-  void _onInit() async {
-    PartnersTable partnersTable = PartnersTable();
-    partners =
-        await partnersTable.getPartners(partnerIDs: widget.assignedPartners);
-  }
+  static PartnersTable partnersTable = PartnersTable();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +24,76 @@ class _AssignedPartnersState extends State<AssignedPartners> {
         backgroundColor: MyTheme.background,
       ),
       backgroundColor: MyTheme.background,
-      body: Padding(
+      body: FutureBuilder<List<Partner>>(
+          future: partnersTable.getPartners(partnerIDs: assignedPartners),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 10.0, vertical: 20.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide: const BorderSide(
+                                    width: 0,
+                                    style: BorderStyle.none,
+                                  ),
+                                ),
+                                filled: true),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(left: 10.0),
+                          child: CircleAvatar(
+                            backgroundColor: MyTheme.primaryColor,
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.search,
+                                color: Colors.black,
+                              ),
+                            ),
+                            maxRadius: 25,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemBuilder: (context, index) =>
+                            partnerContainer(partner: snapshot.data![index]),
+                        itemCount: snapshot.data!.length,
+                      ),
+                    )
+                  ],
+                ),
+              );
+            } else if (snapshot.hasError) {
+              return const Center(
+                child: Text("Algo salió mal"),
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(
+                  valueColor:
+                      AlwaysStoppedAnimation<Color>(MyTheme.primaryColor),
+                ),
+              );
+            }
+          }),
+      /*   Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
         child: Column(
           children: [
@@ -56,7 +104,7 @@ class _AssignedPartnersState extends State<AssignedPartners> {
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 20.0),
+                        const EdgeInsets.symmetric(horizontal: 20.0),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: const BorderSide(
@@ -93,7 +141,7 @@ class _AssignedPartnersState extends State<AssignedPartners> {
             )
           ],
         ),
-      ),
+      ),*/
     );
   }
 
