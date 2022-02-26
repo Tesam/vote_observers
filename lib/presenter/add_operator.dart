@@ -87,41 +87,59 @@ class AddOperator extends StatelessWidget {
             MyButton(
                 title: "Crear operador",
                 onPressed: () async {
-                  bool _isAdded = await operatorsTable.createOperator(
-                      operator: Operator(
-                          name: operator.name,
-                          phone: phoneController.text,
-                          identification: operator.identification,
-                          assignedPartners: []),
-                      operatorID: searchController.text);
+                  final bool _isOperatorAlreadyExist = await operatorsTable
+                      .isOperatorExist(searchController.text);
+
+                  if (_isOperatorAlreadyExist) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text(
+                        'El Operador ya existe',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                      ),
+                      duration: Duration(seconds: 3),
+                      backgroundColor: MyTheme.redColor,
+                      padding: EdgeInsets.symmetric(vertical: 40),
+                    ));
+                  } else {
+                    bool _isAdded = await operatorsTable.createOperator(
+                        operator: Operator(
+                            name: operator.name,
+                            phone: phoneController.text,
+                            identification: operator.identification,
+                            assignedPartners: []),
+                        operatorID: searchController.text);
+
+                    (_isAdded)
+                        ? ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                            content: Text(
+                              'El Operador se agregó correctamente',
+                              textAlign: TextAlign.center,
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 16),
+                            ),
+                            duration: Duration(seconds: 3),
+                            backgroundColor: MyTheme.primaryColor,
+                            padding: EdgeInsets.symmetric(vertical: 40),
+                          ))
+                        : ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                            content: Text(
+                              'Error al intentar agregar operador',
+                              textAlign: TextAlign.center,
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 16),
+                            ),
+                            duration: Duration(seconds: 3),
+                            backgroundColor: MyTheme.redColor,
+                            padding: EdgeInsets.symmetric(vertical: 40),
+                          ));
+                  }
 
                   searchController.text = "";
                   nameController.text = "";
                   phoneController.text = "";
-
-                  (_isAdded)
-                      ? ScaffoldMessenger.of(context)
-                          .showSnackBar(const SnackBar(
-                          content: Text(
-                            'El Operador se agregó correctamente',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.black, fontSize: 16),
-                          ),
-                          duration: Duration(seconds: 3),
-                          backgroundColor: MyTheme.primaryColor,
-                          padding: EdgeInsets.symmetric(vertical: 40),
-                        ))
-                      : ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(
-                    content: Text(
-                      'Error al intentar agregar operador',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.black, fontSize: 16),
-                    ),
-                    duration: Duration(seconds: 3),
-                    backgroundColor: MyTheme.redColor,
-                    padding: EdgeInsets.symmetric(vertical: 40),
-                  ));
                 }),
           ],
         ),
