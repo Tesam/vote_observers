@@ -95,6 +95,10 @@ class AddOperator extends StatelessWidget {
                           assignedPartners: []),
                       operatorID: searchController.text);
 
+                  searchController.text = "";
+                  nameController.text = "";
+                  phoneController.text = "";
+
                   (_isAdded)
                       ? ScaffoldMessenger.of(context)
                           .showSnackBar(const SnackBar(
