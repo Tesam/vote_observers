@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:vote_observers/domain/models/operators.dart';
+import 'package:vote_observers/domain/models/operator.dart';
 
 class OperatorsTable {
   final CollectionReference operatorsRef = FirebaseFirestore.instance
@@ -17,5 +17,14 @@ class OperatorsTable {
         .toList();
 
     return operators;
+  }
+
+  Future<bool> createOperator({required Operator operator, required String operatorID}) {
+
+    return operatorsRef
+        .doc(operatorID)
+        .set(operator)
+        .then((value) => true)
+        .catchError((error) => print("Failed to add user: $error"));
   }
 }
