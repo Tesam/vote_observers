@@ -4,7 +4,7 @@ import 'package:vote_observers/domain/models/operator.dart';
 import 'package:vote_observers/presenter/add_operator.dart';
 import 'package:vote_observers/presenter/assigned_partners.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
-import 'package:vote_observers/presenter/widgets/assing_operator.dart';
+import 'package:vote_observers/presenter/assing_operator.dart';
 
 class Operators extends StatelessWidget {
   const Operators({Key? key}) : super(key: key);
