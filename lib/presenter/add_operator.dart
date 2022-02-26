@@ -29,10 +29,13 @@ class AddOperator extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
         backgroundColor: MyTheme.background,
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: (){
-          clearOperatorFields();
-          Navigator.of(context).pop();
-        },),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            clearOperatorFields();
+            Navigator.of(context).pop();
+          },
+        ),
       ),
       backgroundColor: MyTheme.background,
       body: Padding(
@@ -56,9 +59,28 @@ class AddOperator extends StatelessWidget {
                           backgroundColor: MyTheme.primaryColor,
                           child: IconButton(
                             onPressed: () async {
-                              operator = await partnersTable.getPartner(
-                                  partnerID: searchController.text);
-                              nameController.text = operator.name;
+                              final bool _isOperatorAlreadyExist =
+                                  await operatorsTable
+                                      .isOperatorExist(searchController.text);
+
+                              if (!_isOperatorAlreadyExist) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text(
+                                    'El identificador no existe, por favor intente con otro',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 16),
+                                  ),
+                                  duration: Duration(seconds: 3),
+                                  backgroundColor: MyTheme.redColor,
+                                  padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                ));
+                              } else {
+                                operator = await partnersTable.getPartner(
+                                    partnerID: searchController.text);
+                                nameController.text = operator.name;
+                              }
                             },
                             icon: const Icon(
                               Icons.search,
@@ -149,7 +171,7 @@ class AddOperator extends StatelessWidget {
     );
   }
 
-  void clearOperatorFields(){
+  void clearOperatorFields() {
     searchController.text = "";
     nameController.text = "";
     phoneController.text = "";
