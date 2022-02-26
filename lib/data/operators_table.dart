@@ -16,6 +16,13 @@ class OperatorsTable {
         .then((value) => (value.exists) ? true : false);
   }
 
+  Future<Operator> getOperator({required String operatorID}) async {
+    final Operator operator =
+    (await operatorsRef.doc(operatorID).get()).data()! as Operator;
+
+    return operator;
+  }
+
   Future<List<Operator>> getOperators() async {
     final List<Operator> operators = (await operatorsRef.get())
         .docs
