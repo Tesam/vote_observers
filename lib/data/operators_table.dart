@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:vote_observers/domain/models/operators.dart';
 
-class OperatorsFirebase {
+class OperatorsTable {
   final CollectionReference operatorsRef = FirebaseFirestore.instance
       .collection("operators")
       .withConverter<Operator>(

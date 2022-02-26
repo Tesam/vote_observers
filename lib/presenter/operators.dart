@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vote_observers/data/operators_database.dart';
+import 'package:vote_observers/data/operators_table.dart';
 import 'package:vote_observers/domain/models/operators.dart';
 import 'package:vote_observers/presenter/add_operator.dart';
 import 'package:vote_observers/presenter/assigned_partners.dart';
@@ -8,7 +8,7 @@ import 'package:vote_observers/presenter/widgets/assing_operator.dart';
 
 class Operators extends StatelessWidget {
   const Operators({Key? key}) : super(key: key);
-  static OperatorsFirebase operatorsFirebase = OperatorsFirebase();
+  static OperatorsTable operatorsTable = OperatorsTable();
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class Operators extends StatelessWidget {
         ),
         backgroundColor: MyTheme.background,
         body: FutureBuilder<List<Operator>>(
-            future: operatorsFirebase.getOperators(),
+            future: operatorsTable.getOperators(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Padding(
