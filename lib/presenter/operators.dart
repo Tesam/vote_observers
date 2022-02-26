@@ -6,30 +6,9 @@ import 'package:vote_observers/presenter/assigned_partners.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/widgets/assing_operator.dart';
 
-class Operators extends StatefulWidget {
+class Operators extends StatelessWidget {
   const Operators({Key? key}) : super(key: key);
-
-  @override
-  _OperatorsState createState() => _OperatorsState();
-}
-
-class _OperatorsState extends State<Operators> {
-  late List<Operator> operators;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback(
-      (_) {
-        _onInit();
-      },
-    );
-  }
-
-  void _onInit() async {
-    OperatorsFirebase operatorsFirebase = OperatorsFirebase();
-    operators = await operatorsFirebase.getOperators();
-  }
+  static OperatorsFirebase operatorsFirebase = OperatorsFirebase();
 
   @override
   Widget build(BuildContext context) {
@@ -90,59 +69,77 @@ class _OperatorsState extends State<Operators> {
           backgroundColor: MyTheme.background,
         ),
         backgroundColor: MyTheme.background,
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 20.0),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: const BorderSide(
-                              width: 0,
-                              style: BorderStyle.none,
+        body: FutureBuilder<List<Operator>>(
+            future: operatorsFirebase.getOperators(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 20.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 20.0),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: const BorderSide(
+                                      width: 0,
+                                      style: BorderStyle.none,
+                                    ),
+                                  ),
+                                  filled: true),
                             ),
                           ),
-                          filled: true),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 10.0),
-                    child: CircleAvatar(
-                      backgroundColor: MyTheme.primaryColor,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.search,
-                          color: Colors.black,
+                          Container(
+                            margin: const EdgeInsets.only(left: 10.0),
+                            child: CircleAvatar(
+                              backgroundColor: MyTheme.primaryColor,
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.search,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              maxRadius: 25,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          itemBuilder: (context, index) {
+                            return operatorContainer(
+                                context: context,
+                                operator: snapshot.data![index]);
+                          },
+                          itemCount: snapshot.data!.length,
                         ),
                       ),
-                      maxRadius: 25,
-                    ),
+                    ],
                   ),
-                ],
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemBuilder: (context, index) {
-                    return operatorContainer(
-                        context: context, operator: operators[index]);
-                  },
-                  itemCount: operators.length,
-                ),
-              ),
-            ],
-          ),
-        ));
+                );
+              } else if (snapshot.hasError) {
+                return const Center(
+                  child: Text("Algo salió mal"),
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(MyTheme.primaryColor),
+                  ),
+                );
+              }
+            }));
   }
 
   Widget operatorContainer(
@@ -197,7 +194,9 @@ class _OperatorsState extends State<Operators> {
                   onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => AssignedPartners(assignedPartners: operator.assignedPartners,))),
+                          builder: (context) => AssignedPartners(
+                                assignedPartners: operator.assignedPartners,
+                              ))),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
                   ),
