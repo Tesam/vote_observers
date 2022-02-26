@@ -8,6 +8,13 @@ class PartnersTable {
             toFirestore: (partner, _) => partner.toJson(),
           );
 
+  Future<bool> isPartnerExist(id) async {
+    return await partnersRef
+        .doc(id)
+        .get()
+        .then((value) => (value.exists) ? true : false);
+  }
+
   Future<Partner> getPartner({required String partnerID}) async {
     final Partner partner =
         (await partnersRef.doc(partnerID).get()).data()! as Partner;
