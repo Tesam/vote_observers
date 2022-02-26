@@ -61,6 +61,10 @@ class AssignOperator extends StatelessWidget {
                                     return 'Campo requerido';
                                   }
                                 }
+
+                                if (operatorSearchController.text == partnerSearchController.text) {
+                                  return 'Operador y socio no pueden ser iguales';
+                                }
                                 return null;
                               },
                             ),
@@ -143,6 +147,10 @@ class AssignOperator extends StatelessWidget {
                                   if (value.isEmpty) {
                                     return 'Campo requerido';
                                   }
+                                }
+
+                                if (operatorSearchController.text == partnerSearchController.text) {
+                                  return 'Operador y socio no pueden ser iguales';
                                 }
                                 return null;
                               },
@@ -228,7 +236,8 @@ class AssignOperator extends StatelessWidget {
                         padding:
                             EdgeInsets.symmetric(vertical: 40, horizontal: 20),
                       ));
-                    } else {
+                    }
+                    else {
                       //get actual assigned partners list
                       List<dynamic> assignedPartners =
                           operator.assignedPartners;
@@ -282,10 +291,11 @@ class AssignOperator extends StatelessWidget {
                         ));
                       }
                     }
-                  } else {
+                  }
+                  else {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text(
-                        'Por favor, rellena los campos obligatorios',
+                        'Por favor, rellena los campos obligatorios correctamente',
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.black, fontSize: 16),
                       ),

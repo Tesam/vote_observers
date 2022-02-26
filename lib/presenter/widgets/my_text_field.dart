@@ -66,6 +66,7 @@ class _MyTextFieldState extends State<MyTextField> {
             fontWeight: hasFocus ? FontWeight.w600 : FontWeight.normal),
       ),
       validator: widget.validator,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: widget.textEditingController,
       cursorColor: MyTheme.darkGreen,
       obscureText:
