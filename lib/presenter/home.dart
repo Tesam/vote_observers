@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
-import 'package:vote_observers/presenter/operators.dart';
+import 'package:vote_observers/presenter/operators/operators.dart';
 import 'package:vote_observers/presenter/partners.dart';
 import 'package:vote_observers/presenter/table_list.dart';
 
@@ -122,8 +122,8 @@ class Home extends StatelessWidget {
                             animation: true,
                             lineHeight: 16.0,
                             padding: EdgeInsets.zero,
-                            animationDuration: 2000,
-                            percent: 0.03,
+                            animationDuration: 1000,
+                            percent: 0.7,
                             center: const Text(
                               "2.7%",
                               style: TextStyle(fontSize: 12),
@@ -168,8 +168,8 @@ class Home extends StatelessWidget {
                             animation: true,
                             lineHeight: 16.0,
                             padding: EdgeInsets.zero,
-                            animationDuration: 2000,
-                            percent: 0.09,
+                            animationDuration: 1000,
+                            percent: 0.9,
                             center: const Text(
                               "4.1%",
                               style: TextStyle(fontSize: 12),
@@ -311,8 +311,8 @@ class Home extends StatelessWidget {
                               animation: true,
                               lineHeight: 16.0,
                               padding: EdgeInsets.zero,
-                              animationDuration: 2000,
-                              percent: 0.03,
+                              animationDuration: 1000,
+                              percent: 0.30,
                               center: const Text(
                                 "2.7%",
                                 style: TextStyle(fontSize: 12),
@@ -366,8 +366,8 @@ class Home extends StatelessWidget {
                               animation: true,
                               lineHeight: 16.0,
                               padding: EdgeInsets.zero,
-                              animationDuration: 2000,
-                              percent: 0.03,
+                              animationDuration: 1000,
+                              percent: 0.45,
                               center: const Text(
                                 "2.7%",
                                 style: TextStyle(fontSize: 12),
@@ -429,8 +429,8 @@ class Home extends StatelessWidget {
                               animation: true,
                               lineHeight: 16.0,
                               padding: EdgeInsets.zero,
-                              animationDuration: 2000,
-                              percent: 0.03,
+                              animationDuration: 1000,
+                              percent: 0.6,
                               center: const Text(
                                 "2.7%",
                                 style: TextStyle(fontSize: 12),
@@ -484,8 +484,8 @@ class Home extends StatelessWidget {
                               animation: true,
                               lineHeight: 16.0,
                               padding: EdgeInsets.zero,
-                              animationDuration: 2000,
-                              percent: 0.03,
+                              animationDuration: 1000,
+                              percent: 0.9,
                               center: const Text(
                                 "2.7%",
                                 style: TextStyle(fontSize: 12),
@@ -547,8 +547,8 @@ class Home extends StatelessWidget {
                               animation: true,
                               lineHeight: 16.0,
                               padding: EdgeInsets.zero,
-                              animationDuration: 2000,
-                              percent: 0.03,
+                              animationDuration: 1000,
+                              percent: 0.5,
                               center: const Text(
                                 "2.7%",
                                 style: TextStyle(fontSize: 12),
@@ -602,8 +602,8 @@ class Home extends StatelessWidget {
                               animation: true,
                               lineHeight: 16.0,
                               padding: EdgeInsets.zero,
-                              animationDuration: 2000,
-                              percent: 0.03,
+                              animationDuration: 1000,
+                              percent: 0.6,
                               center: const Text(
                                 "2.7%",
                                 style: TextStyle(fontSize: 12),
