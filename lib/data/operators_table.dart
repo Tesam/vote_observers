@@ -9,8 +9,14 @@ class OperatorsTable {
         toFirestore: (operator, _) => operator.toJson(),
       );
 
-  Future<List<Operator>> getOperators() async {
+  Future<bool> isOperatorExist(id) async {
+    return await operatorsRef
+        .doc(id)
+        .get()
+        .then((value) => (value.exists) ? true : false);
+  }
 
+  Future<List<Operator>> getOperators() async {
     final List<Operator> operators = (await operatorsRef.get())
         .docs
         .map((document) => document.data() as Operator)
@@ -19,8 +25,8 @@ class OperatorsTable {
     return operators;
   }
 
-  Future<bool> createOperator({required Operator operator, required String operatorID}) {
-
+  Future<bool> createOperator(
+      {required Operator operator, required String operatorID}) {
     return operatorsRef
         .doc(operatorID)
         .set(operator)
