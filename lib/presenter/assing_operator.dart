@@ -225,9 +225,39 @@ class AssignOperator extends StatelessWidget {
                     operator.assignedPartners = assignedPartners;
 
                     //update operator on database
-                    await operatorsTable.createOperator(
+                    final bool _isAssigned = await operatorsTable.createOperator(
                         operator: operator,
                         operatorID: operatorSearchController.text);
+
+                    if(_isAssigned){
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(const SnackBar(
+                        content: Text(
+                          'El socio se asignó correctamente',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black, fontSize: 16),
+                        ),
+                        duration: Duration(seconds: 3),
+                        backgroundColor: MyTheme.primaryColor,
+                        padding: EdgeInsets.symmetric(
+                            vertical: 40, horizontal: 20),
+                      ));
+                    }else{
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(const SnackBar(
+                        content: Text(
+                          'Error al intentar asignar socio',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black, fontSize: 16),
+                        ),
+                        duration: Duration(seconds: 3),
+                        backgroundColor: MyTheme.redColor,
+                        padding: EdgeInsets.symmetric(
+                            vertical: 40, horizontal: 20),
+                      ));
+                    }
                   }else{
                     ScaffoldMessenger.of(context)
                         .showSnackBar(const SnackBar(
