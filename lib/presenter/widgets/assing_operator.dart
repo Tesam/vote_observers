@@ -106,7 +106,7 @@ class AssignOperator extends StatelessWidget {
                 ],
               ),
             ),
-            myButton(title: "Asignar operador"),
+            MyButton(title: "Asignar operador", onPressed: (){}),
           ],
         ),
       ),

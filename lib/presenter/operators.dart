@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vote_observers/data/operators_table.dart';
-import 'package:vote_observers/domain/models/operators.dart';
+import 'package:vote_observers/domain/models/operator.dart';
 import 'package:vote_observers/presenter/add_operator.dart';
 import 'package:vote_observers/presenter/assigned_partners.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
