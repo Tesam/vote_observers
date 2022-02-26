@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:vote_observers/data/partners_table.dart';
+import 'package:vote_observers/domain/models/partner.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/widgets/my_button.dart';
 import 'package:vote_observers/presenter/widgets/my_text_field.dart';
 
 class AssignOperator extends StatelessWidget {
   const AssignOperator({Key? key}) : super(key: key);
+  static PartnersTable partnersTable = PartnersTable();
+
+  static TextEditingController operatorSearchController = TextEditingController();
+  static TextEditingController operatorNameController = TextEditingController();
+  static TextEditingController partnerSearchController = TextEditingController();
+  static TextEditingController partnerNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +39,19 @@ class AssignOperator extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const Expanded(
+                          Expanded(
                             child: MyTextField(
-                                hintText: "Nro de socio del operador"),
+                                hintText: "Nro de socio del operador", textEditingController: operatorSearchController,),
                           ),
                           Container(
                             margin: const EdgeInsets.only(left: 10.0),
                             child: CircleAvatar(
                               backgroundColor: MyTheme.primaryColor,
                               child: IconButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  final Partner partner = await partnersTable.getPartner(partnerID:operatorSearchController.text);
+                                  operatorNameController.text = partner.name;
+                                },
                                 icon: const Icon(
                                   Icons.search,
                                   color: Colors.black,
@@ -52,9 +63,9 @@ class AssignOperator extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 10,),
-                      const MyTextField(
+                      MyTextField(
                           hintText: "Nombre",
-                          textFieldStatus: TextFieldStatus.disabled),
+                          textFieldStatus: TextFieldStatus.disabled, textEditingController: operatorNameController,),
                     ],
                   ),
                   const Icon(Icons.arrow_downward, color: Colors.black, size: 36,),
@@ -62,15 +73,18 @@ class AssignOperator extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const Expanded(
-                            child: MyTextField(hintText: "Nro de socio"),
+                          Expanded(
+                            child: MyTextField(hintText: "Nro de socio", textEditingController: partnerSearchController,),
                           ),
                           Container(
                             margin: const EdgeInsets.only(left: 10.0),
                             child: CircleAvatar(
                               backgroundColor: MyTheme.primaryColor,
                               child: IconButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  final Partner partner = await partnersTable.getPartner(partnerID:partnerSearchController.text);
+                                  partnerNameController.text = partner.name;
+                                },
                                 icon: const Icon(
                                   Icons.search,
                                   color: Colors.black,
@@ -84,9 +98,9 @@ class AssignOperator extends StatelessWidget {
                       const SizedBox(
                         height: 10.0,
                       ),
-                      const MyTextField(
+                      MyTextField(
                           hintText: "Nombre",
-                          textFieldStatus: TextFieldStatus.disabled),
+                          textFieldStatus: TextFieldStatus.disabled, textEditingController: partnerNameController,),
                     ],
                   )
                 ],
