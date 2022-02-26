@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vote_observers/data/operators_database.dart';
 import 'package:vote_observers/domain/models/operators.dart';
 import 'package:vote_observers/presenter/add_operator.dart';
-import 'package:vote_observers/presenter/asigned_partners.dart';
+import 'package:vote_observers/presenter/assigned_partners.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/widgets/assing_operator.dart';
 
@@ -29,7 +29,6 @@ class _OperatorsState extends State<Operators> {
   void _onInit() async {
     OperatorsFirebase operatorsFirebase = OperatorsFirebase();
     operators = await operatorsFirebase.getOperators();
-    print(operators);
   }
 
   @override
@@ -198,7 +197,7 @@ class _OperatorsState extends State<Operators> {
                   onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const AssignedPartners())),
+                          builder: (context) => AssignedPartners(assignedPartners: operator.assignedPartners,))),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
                   ),
