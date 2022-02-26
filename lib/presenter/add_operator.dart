@@ -74,7 +74,8 @@ class AddOperator extends StatelessWidget {
                                   ),
                                   duration: Duration(seconds: 3),
                                   backgroundColor: MyTheme.redColor,
-                                  padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 40, horizontal: 20),
                                 ));
                               } else {
                                 operator = await partnersTable.getPartner(
@@ -130,10 +131,12 @@ class AddOperator extends StatelessWidget {
                   } else {
                     bool _isAdded = await operatorsTable.createOperator(
                         operator: Operator(
-                            name: operator.name,
-                            phone: phoneController.text,
-                            identification: operator.identification,
-                            assignedPartners: []),
+                          name: operator.name,
+                          phone: phoneController.text,
+                          identification: operator.identification,
+                          assignedPartners: [],
+                          partnerId: operator.partnerId
+                        ),
                         operatorID: searchController.text);
 
                     (_isAdded)
