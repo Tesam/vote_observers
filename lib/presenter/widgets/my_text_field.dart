@@ -8,11 +8,14 @@ class MyTextField extends StatefulWidget {
   final TextFieldStatus textFieldStatus;
   final TextFieldType textFieldType;
   final String hintText;
+  final TextEditingController textEditingController;
 
   const MyTextField(
       {Key? key,
       this.textFieldStatus = TextFieldStatus.enabled,
-      this.textFieldType = TextFieldType.normal, required this.hintText})
+      this.textFieldType = TextFieldType.normal,
+      required this.hintText,
+      required this.textEditingController})
       : super(key: key);
 
   @override
@@ -53,17 +56,18 @@ class _MyTextFieldState extends State<MyTextField> {
           borderSide: BorderSide.none,
         ),
         hintText: widget.hintText,
-        enabled: (widget.textFieldStatus == TextFieldStatus.enabled) ? true : false,
+        enabled:
+            (widget.textFieldStatus == TextFieldStatus.enabled) ? true : false,
         filled: true,
         labelStyle: TextStyle(
-            color: hasFocus
-                ? MyTheme.gray3Text
-                : MyTheme.gray4Text,
+            color: hasFocus ? MyTheme.gray3Text : MyTheme.gray4Text,
             fontSize: 15,
             fontWeight: hasFocus ? FontWeight.w600 : FontWeight.normal),
       ),
+      controller: widget.textEditingController,
       cursorColor: MyTheme.darkGreen,
-      obscureText: (widget.textFieldType == TextFieldType.password) ? true : false,
+      obscureText:
+          (widget.textFieldType == TextFieldType.password) ? true : false,
     );
   }
 }
