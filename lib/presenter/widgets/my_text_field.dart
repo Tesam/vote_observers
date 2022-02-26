@@ -9,13 +9,14 @@ class MyTextField extends StatefulWidget {
   final TextFieldType textFieldType;
   final String hintText;
   final TextEditingController textEditingController;
+  final FormFieldValidator<String>? validator;
 
   const MyTextField(
       {Key? key,
       this.textFieldStatus = TextFieldStatus.enabled,
       this.textFieldType = TextFieldType.normal,
       required this.hintText,
-      required this.textEditingController})
+      required this.textEditingController, this.validator})
       : super(key: key);
 
   @override
@@ -45,7 +46,7 @@ class _MyTextFieldState extends State<MyTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       decoration: InputDecoration(
         fillColor: (widget.textFieldStatus == TextFieldStatus.enabled)
             ? Colors.white
@@ -64,6 +65,7 @@ class _MyTextFieldState extends State<MyTextField> {
             fontSize: 15,
             fontWeight: hasFocus ? FontWeight.w600 : FontWeight.normal),
       ),
+      validator: widget.validator,
       controller: widget.textEditingController,
       cursorColor: MyTheme.darkGreen,
       obscureText:
