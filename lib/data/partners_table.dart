@@ -22,10 +22,36 @@ class PartnersTable {
     return partner;
   }
 
-  Future<List<Partner>> getPartners({required List<dynamic> partnerIDs}) async {
-    final partners = partnerIDs.map((partnerID) async => await getPartner(partnerID: partnerID));
+  Future<List<Partner>> getPartnersByIds(
+      {required List<dynamic> partnerIDs}) async {
+    final partners = partnerIDs
+        .map((partnerID) async => await getPartner(partnerID: partnerID));
 
     return Future.wait(partners);
+  }
+
+  Future<List<Partner>> getPartners(
+      {int limit = 50,}) async {
+    final List<Partner> operators = (await partnersRef.limit(limit).get())
+            .docs
+            .map((document) => document.data() as Partner)
+            .toList();
+
+    return operators;
+  }
+
+  Future<List<Partner>> getNextPartners({required DocumentSnapshot documentSnapshot,int limit = 50}) async {
+    final List<Partner> operators = (await partnersRef.limit(limit).startAfterDocument(
+        documentSnapshot).get())
+        .docs
+        .map((document) => document.data() as Partner)
+        .toList();
+
+    return operators;
+  }
+
+  Future<DocumentSnapshot> getPartnerDocumentByID({required String partnerID}) async{
+    return partnersRef.doc(partnerID).get();
   }
 
   Future<bool> addPartner(
