@@ -5,10 +5,20 @@ import 'package:vote_observers/presenter/add_operator.dart';
 import 'package:vote_observers/presenter/assigned_partners.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/assing_operator.dart';
+import 'package:vote_observers/presenter/widgets/my_text_field.dart';
 
-class Operators extends StatelessWidget {
+class Operators extends StatefulWidget {
   const Operators({Key? key}) : super(key: key);
-  static OperatorsTable operatorsTable = OperatorsTable();
+
+  @override
+  _OperatorsState createState() => _OperatorsState();
+}
+
+class _OperatorsState extends State<Operators> {
+  final OperatorsTable operatorsTable = OperatorsTable();
+
+  final TextEditingController searchController = TextEditingController();
+  String searchValue = "";
 
   @override
   Widget build(BuildContext context) {
@@ -81,19 +91,10 @@ class Operators extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: TextField(
-                              decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide: const BorderSide(
-                                      width: 0,
-                                      style: BorderStyle.none,
-                                    ),
-                                  ),
-                                  filled: true),
+                            child: MyTextField(
+                              hintText: "Nro de socio",
+                              textEditingController: searchController,
+                              onChanged: (value) => updateSearchValue(newValue: value),
                             ),
                           ),
                           Container(
@@ -101,7 +102,7 @@ class Operators extends StatelessWidget {
                             child: CircleAvatar(
                               backgroundColor: MyTheme.primaryColor,
                               child: IconButton(
-                                onPressed: () {},
+                                onPressed: () => updateSearchValue(newValue: searchController.text),
                                 icon: const Icon(
                                   Icons.search,
                                   color: Colors.black,
@@ -118,9 +119,15 @@ class Operators extends StatelessWidget {
                       Expanded(
                         child: ListView.builder(
                           itemBuilder: (context, index) {
-                            return operatorContainer(
-                                context: context,
-                                operator: snapshot.data![index]);
+                            if (snapshot.data![index].partnerId ==
+                                    searchValue ||
+                                searchValue.isEmpty) {
+                              return operatorContainer(
+                                  context: context,
+                                  operator: snapshot.data![index]);
+                            } else {
+                              return Container();
+                            }
                           },
                           itemCount: snapshot.data!.length,
                         ),
@@ -135,7 +142,8 @@ class Operators extends StatelessWidget {
               } else {
                 return const Center(
                   child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(MyTheme.primaryColor),
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(MyTheme.primaryColor),
                   ),
                 );
               }
@@ -196,7 +204,7 @@ class Operators extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => AssignedPartners(
                                 assignedPartners: operator.assignedPartners,
-                            operatorName: operator.name,
+                                operatorName: operator.name,
                               ))),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
@@ -207,4 +215,10 @@ class Operators extends StatelessWidget {
           ],
         ),
       );
+
+  void updateSearchValue({required String newValue}){
+    setState(() {
+      searchValue = newValue;
+    });
+  }
 }
