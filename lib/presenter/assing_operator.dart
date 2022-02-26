@@ -214,63 +214,75 @@ class AssignOperator extends StatelessWidget {
             MyButton(
                 title: "Asignar operador",
                 onPressed: () async {
-                  if(_formKey.currentState!.validate()){
+                  if (_formKey.currentState!.validate()) {
                     //get actual assigned partners list
                     List<dynamic> assignedPartners = operator.assignedPartners;
 
-                    //add new assigned partner
-                    assignedPartners.add(partnerSearchController.text);
-
-                    //add new partner to operator object
-                    operator.assignedPartners = assignedPartners;
-
-                    //update operator on database
-                    final bool _isAssigned = await operatorsTable.createOperator(
-                        operator: operator,
-                        operatorID: operatorSearchController.text);
-
-                    if(_isAssigned){
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(const SnackBar(
+                    //detect if the partner is already assigned
+                    if(partner.assigned){
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text(
-                          'El socio se asignó correctamente',
+                          'El socio ya cuenta con operador, por favor elige otro socio',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.black, fontSize: 16),
-                        ),
-                        duration: Duration(seconds: 3),
-                        backgroundColor: MyTheme.primaryColor,
-                        padding: EdgeInsets.symmetric(
-                            vertical: 40, horizontal: 20),
-                      ));
-                    }else{
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(const SnackBar(
-                        content: Text(
-                          'Error al intentar asignar socio',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.black, fontSize: 16),
+                          style: TextStyle(color: Colors.black, fontSize: 16),
                         ),
                         duration: Duration(seconds: 3),
                         backgroundColor: MyTheme.redColor,
-                        padding: EdgeInsets.symmetric(
-                            vertical: 40, horizontal: 20),
+                        padding:
+                        EdgeInsets.symmetric(vertical: 40, horizontal: 20),
                       ));
+                    }else{
+                     //add new assigned partner
+                      assignedPartners.add(partnerSearchController.text);
+
+                      //add new partner to operator object
+                      operator.assignedPartners = assignedPartners;
+
+                      //update operator on database
+                      final bool _isAssigned =
+                      await operatorsTable.createOperator(
+                          operator: operator,
+                          operatorID: operatorSearchController.text);
+
+                      if (_isAssigned) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text(
+                            'El socio se asignó correctamente',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.black, fontSize: 16),
+                          ),
+                          duration: Duration(seconds: 3),
+                          backgroundColor: MyTheme.primaryColor,
+                          padding:
+                          EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                        ));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text(
+                            'Error al intentar asignar socio',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.black, fontSize: 16),
+                          ),
+                          duration: Duration(seconds: 3),
+                          backgroundColor: MyTheme.redColor,
+                          padding:
+                          EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                        ));
+                      }
                     }
-                  }else{
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(const SnackBar(
+                  }
+
+                  else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text(
                         'Por favor, rellena los campos obligatorios',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.black, fontSize: 16),
+                        style: TextStyle(color: Colors.black, fontSize: 16),
                       ),
                       duration: Duration(seconds: 3),
                       backgroundColor: MyTheme.redColor,
-                      padding: EdgeInsets.symmetric(
-                          vertical: 40, horizontal: 20),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 40, horizontal: 20),
                     ));
                   }
                 }),
