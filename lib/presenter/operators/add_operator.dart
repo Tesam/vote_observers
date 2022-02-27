@@ -49,7 +49,7 @@ class AddOperator extends StatelessWidget {
                     children: [
                       Expanded(
                         child: MyTextField(
-                          hintText: "Nro de socio del operador",
+                          hintText: "Nro de CI del operador",
                           textEditingController: searchController,
                         ),
                       ),
@@ -60,8 +60,8 @@ class AddOperator extends StatelessWidget {
                           child: IconButton(
                             onPressed: () async {
                               final bool _isOperatorAlreadyExist =
-                                  await operatorsTable
-                                      .isOperatorExist(searchController.text);
+                                  await partnersTable
+                                      .isPartnerExist(searchController.text);
 
                               if (!_isOperatorAlreadyExist) {
                                 ScaffoldMessenger.of(context)
@@ -77,7 +77,8 @@ class AddOperator extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(
                                       vertical: 40, horizontal: 20),
                                 ));
-                              } else {
+                              }
+                              else {
                                 operator = await partnersTable.getPartner(
                                     partnerID: searchController.text);
                                 nameController.text = operator.name;

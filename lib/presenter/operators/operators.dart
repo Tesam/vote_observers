@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vote_observers/data/operators_table.dart';
 import 'package:vote_observers/domain/models/operator.dart';
-import 'package:vote_observers/presenter/add_operator.dart';
+import 'package:vote_observers/presenter/operators/add_operator.dart';
 import 'package:vote_observers/presenter/operators/assigned_partners.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/operators/assing_operator.dart';

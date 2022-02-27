@@ -58,7 +58,7 @@ class AssignOperator extends StatelessWidget {
                         children: [
                           Expanded(
                             child: MyTextField(
-                              hintText: "Nro de socio del operador",
+                              hintText: "Nro de CI del operador",
                               textEditingController: operatorSearchController,
                               validator: (value) {
                                 if (value != null) {
@@ -145,7 +145,7 @@ class AssignOperator extends StatelessWidget {
                         children: [
                           Expanded(
                             child: MyTextField(
-                              hintText: "Nro de socio",
+                              hintText: "Nro de CI",
                               textEditingController: partnerSearchController,
                               validator: (value) {
                                 if (value != null) {
