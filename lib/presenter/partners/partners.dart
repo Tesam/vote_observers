@@ -27,6 +27,7 @@ class _PartnersState extends State<Partners> {
   }
 
   void _onInit() async {
+    //addDocuments();
     _getDocuments();
     scrollController.addListener(() async {
       if (scrollController.position.atEdge) {
@@ -36,15 +37,17 @@ class _PartnersState extends State<Partners> {
           print('ListView scroll at bottom');
 
           //get last document
-          String partnerID = partners.last.partnerId;
+          String partnerIdentification = partners.last.identification.toString();
           DocumentSnapshot documentSnapshot =
-              await partnersTable.getPartnerDocumentByID(partnerID: partnerID);
+              await partnersTable.getPartnerDocumentByIdentification(partnerIdentification: partnerIdentification);
 
           //get next documents
           List<Partner> nextList = await partnersTable.getNextPartners(
               documentSnapshot: documentSnapshot);
 
-          partners.addAll(nextList);
+          setState(() {
+            partners.addAll(nextList);
+          });
         }
       }
     });
@@ -55,6 +58,10 @@ class _PartnersState extends State<Partners> {
     setState(() {
       partners = list;
     });
+  }
+
+  void addDocuments() async {
+    //partnersTable.addPartners();
   }
 
   @override

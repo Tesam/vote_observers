@@ -1,10 +1,10 @@
 class Operator {
   String name;
   String phone;
-  String identification;
+  int identification;
   int assignedQuantity;
   List<dynamic> assignedPartners;
-  String partnerId;
+  int partnerId;
 
   Operator({
     required this.name,

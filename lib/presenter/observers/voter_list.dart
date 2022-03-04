@@ -20,66 +20,83 @@ class VoterList extends StatelessWidget {
         FirebaseFirestore.instance.collection('tables').doc('1').snapshots();
 
     return Scaffold(
-      body: SafeArea(
-        child: StreamBuilder<dynamic>(
-          stream: documentStream,
-          builder: (BuildContext context, snapshot) {
-            if (snapshot.hasError) {
-              return const Center(
-                child: Text('Algo salió mal'),
-              );
-            }
-
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator(),);
-            }
-
-            var documentFields = snapshot.data;
-            return Column(
-              children: [
-                Container(
-                  width: double.infinity,
-                  color: MyTheme.darkGreen,
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        "${documentFields["observer"]}",
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        "Mesa ${documentFields.id}",
-                        style: const TextStyle(
-                            color: MyTheme.grayBackground, fontSize: 16.0),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: GridView.count(
-                    crossAxisCount: 4,
-                    children: snapshot.data["voters"].map<Widget>((document) {
-                      print("ddddic: ${document}");
-                      return orderContainer(
-                          index: document["order"],
-                          context: context,
-                          voter: document["name"],
-                          voteStatus: (document["state"])
-                              ? VoteStatus.voted
-                              : VoteStatus.notVoted);
-                    }).toList(),
-                  ),
-                )
-              ],
-            );
-          },
+      appBar: AppBar(
+        title: const Text(
+          "Mesa 1",
+          style: TextStyle(color: MyTheme.gray2Text),
         ),
+        iconTheme: const IconThemeData(color: Colors.black),
+        elevation: 0,
+        backgroundColor: MyTheme.background,
+      ),
+      backgroundColor: MyTheme.background,
+      body: StreamBuilder<dynamic>(
+        stream: documentStream,
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text('Algo salió mal'),
+            );
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator(),);
+          }
+
+         // var documentFields = snapshot.data;
+          return Column(
+            children: [
+              /*Container(
+                width: double.infinity,
+                color: MyTheme.grayBackground,
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: Column(
+                  children: [
+                    Text(
+                      "${documentFields["observer"]}",
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "Mesa ${documentFields.id}",
+                      style: const TextStyle(
+                          color: MyTheme.grayBackground, fontSize: 16.0),
+                    ),
+                  ],
+                ),
+              ),*/
+              SizedBox(height: 20,),
+              Expanded(
+                child: GridView.count(
+                  crossAxisCount: 4,
+                 children: List.generate(100, (index) =>
+                     orderContainer(
+                         index: index.toString(),
+                         context: context,
+                         voter: "Socio $index",
+                         voteStatus: (index.isOdd)
+                             ? VoteStatus.voted
+                             : VoteStatus.notVoted)),
+                 /* children: snapshot.data["voters"].map<Widget>((document) {
+                    print("ddddic: ${document}");
+                    return orderContainer(
+                        index: document["order"],
+                        context: context,
+                        voter: document["name"],
+                        voteStatus: (document["state"])
+                            ? VoteStatus.voted
+                            : VoteStatus.notVoted);
+                  }).toList(),*/
+                ),
+              )
+            ],
+          );
+        },
       ),
     );
   }
@@ -159,7 +176,9 @@ class VoterList extends StatelessWidget {
                 style: TextStyle(color: MyTheme.darkGreen),
               ),
               onPressed: () {
-
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text('Voto registrado exitosamente!'),
+                ));
                 Navigator.of(context).pop();
               },
             ),

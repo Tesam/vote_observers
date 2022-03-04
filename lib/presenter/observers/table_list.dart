@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
-import 'package:vote_observers/presenter/table_data.dart';
+import 'package:vote_observers/presenter/observers/table_data.dart';
 
 class TableList extends StatelessWidget {
   const TableList({Key? key}) : super(key: key);

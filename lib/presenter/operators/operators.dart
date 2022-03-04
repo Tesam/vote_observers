@@ -119,7 +119,7 @@ class _OperatorsState extends State<Operators> {
                       Expanded(
                         child: ListView.builder(
                           itemBuilder: (context, index) {
-                            if (snapshot.data![index].partnerId ==
+                            if (snapshot.data![index].partnerId.toString() ==
                                     searchValue ||
                                 searchValue.isEmpty) {
                               return operatorContainer(

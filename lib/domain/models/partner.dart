@@ -1,12 +1,13 @@
 class Partner {
   String name;
   String city;
-  String identification;
+  int identification;
   String subsidiary;
-  String tableNumber;
+  int tableNumber;
   bool voteState;
   bool assigned;
-  String partnerId;
+  int partnerId;
+  String address;
 
   Partner({
     required this.name,
@@ -17,6 +18,7 @@ class Partner {
     required this.voteState,
     required this.assigned,
     required this.partnerId,
+    required this.address,
   });
 
   factory Partner.fromJson(Map<String, dynamic> json){
@@ -29,6 +31,7 @@ class Partner {
       voteState: json["vote_state"],
       assigned: json["assigned"],
       partnerId: json["partner_id"],
+      address: json["address"],
     );
   }
 
@@ -42,6 +45,7 @@ class Partner {
       "vote_state" : voteState,
       "assigned": assigned,
       "partner_id" : partnerId,
+      "address" : address,
     };
   }
 }

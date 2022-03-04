@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/operators/operators.dart';
-import 'package:vote_observers/presenter/partners.dart';
-import 'package:vote_observers/presenter/table_list.dart';
+import 'package:vote_observers/presenter/partners/partners.dart';
+import 'package:vote_observers/presenter/observers/table_list.dart';
+
+import 'observers/voter_list.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -62,6 +64,27 @@ class Home extends StatelessWidget {
                       ),
                       value: 2,
                     ),
+                PopupMenuItem(
+                  child: ListTile(
+                    leading: const Icon(
+                      Icons.people,
+                      color: Colors.black,
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => const VoterList()),
+                      );
+                    },
+                    title: const Text(
+                      "Veedores",
+                      style: TextStyle(
+                          fontSize: 14.0, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  value: 2,
+                ),
                   ]),
         ],
         elevation: 0,
