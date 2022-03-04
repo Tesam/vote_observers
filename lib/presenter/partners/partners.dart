@@ -28,6 +28,7 @@ class _PartnersState extends State<Partners> {
 
   void _onInit() async {
     //addDocuments();
+   // await partnersTable.getPartnersLength();
     _getDocuments();
     scrollController.addListener(() async {
       if (scrollController.position.atEdge) {
@@ -61,7 +62,7 @@ class _PartnersState extends State<Partners> {
   }
 
   void addDocuments() async {
-    //partnersTable.addPartners();
+   // partnersTable.addPartners();
   }
 
   @override

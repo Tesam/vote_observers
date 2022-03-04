@@ -31,7 +31,7 @@ class Partner {
       voteState: json["vote_state"],
       assigned: json["assigned"],
       partnerId: json["partner_id"],
-      address: json["address"],
+      address: json["address"].toString(),
     );
   }
 

@@ -39,6 +39,15 @@ class PartnersTable {
     return operators;
   }
 
+  Future<void> getPartnersLength() async {
+    final List<Partner> operators = (await partnersRef.get())
+        .docs
+        .map((document) => document.data() as Partner)
+        .toList();
+
+    print(operators.length);
+  }
+
   Future<List<Partner>> getNextPartners(
       {required DocumentSnapshot documentSnapshot, int limit = 50}) async {
     final List<Partner> operators = (await partnersRef.limit(limit)
@@ -65,19 +74,29 @@ class PartnersTable {
         .then((value) => true)
         .catchError((error) => print("Failed to add partner: $error"));
   }
-}
-  /*Future<void> addPartners() async {
-    jsonData.forEach((element) {
+
+  /*int c = 0;
+  Future<void> addPartners() async {
+    print("json lenght ${jsonData.length}");
+    for (var element in jsonData) {
+
       Partner partner = Partner.fromJson(element);
       partnersRef
           .doc(partner.identification.toString())
           .set(partner)
-          .then((values) {
-            print("firebase added");
-      })
-          .catchError((error) => print("Failed to add partner: $error"));
-    });
+          .then((values) async {
+        c++;
+        print("FIREBASE ADDED ${partner.identification} id = $c");
+        if(jsonData.last == element){
+          print("ULTIMO ELEMENTO");
+        }
+        await Future.delayed(Duration(seconds: 10));
+      }).catchError((error) => print("Failed to add partner: $error"));
+    }
 
   }*/
+
+}
+
 
 
