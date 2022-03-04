@@ -26,7 +26,7 @@ class AssignedPartners extends StatelessWidget {
       ),
       backgroundColor: MyTheme.background,
       body: FutureBuilder<List<Partner>>(
-          future: partnersTable.getPartnersByIds(partnerIDs: assignedPartners),
+          future: partnersTable.getPartnersByIds(partnerIdentifications: assignedPartners),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return Padding(

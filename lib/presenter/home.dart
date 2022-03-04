@@ -67,7 +67,7 @@ class Home extends StatelessWidget {
                 PopupMenuItem(
                   child: ListTile(
                     leading: const Icon(
-                      Icons.people,
+                      Icons.remove_red_eye,
                       color: Colors.black,
                     ),
                     onTap: () {

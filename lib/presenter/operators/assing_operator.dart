@@ -173,7 +173,7 @@ class AssignOperator extends StatelessWidget {
 
                                   if (_isPartnerAlreadyExist) {
                                     partner = await partnersTable.getPartner(
-                                        partnerID:
+                                        partnerIdentification:
                                             partnerSearchController.text);
                                     partnerNameController.text = partner.name;
                                   } else {

@@ -80,7 +80,7 @@ class AddOperator extends StatelessWidget {
                               }
                               else {
                                 operator = await partnersTable.getPartner(
-                                    partnerID: searchController.text);
+                                    partnerIdentification: searchController.text);
                                 nameController.text = operator.name;
                               }
                             },

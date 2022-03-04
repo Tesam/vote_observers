@@ -92,7 +92,7 @@ class _OperatorsState extends State<Operators> {
                         children: [
                           Expanded(
                             child: MyTextField(
-                              hintText: "Nro de socio",
+                              hintText: "Cédula de identidad del operador",
                               textEditingController: searchController,
                               onChanged: (value) => updateSearchValue(newValue: value),
                             ),
@@ -119,7 +119,7 @@ class _OperatorsState extends State<Operators> {
                       Expanded(
                         child: ListView.builder(
                           itemBuilder: (context, index) {
-                            if (snapshot.data![index].partnerId.toString() ==
+                            if (snapshot.data![index].identification.toString() ==
                                     searchValue ||
                                 searchValue.isEmpty) {
                               return operatorContainer(

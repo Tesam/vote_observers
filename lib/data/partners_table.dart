@@ -15,17 +15,17 @@ class PartnersTable {
         .then((value) => (value.exists) ? true : false);
   }
 
-  Future<Partner> getPartner({required String partnerID}) async {
+  Future<Partner> getPartner({required String partnerIdentification}) async {
     final Partner partner =
-    (await partnersRef.doc(partnerID).get()).data()! as Partner;
+    (await partnersRef.doc(partnerIdentification).get()).data()! as Partner;
 
     return partner;
   }
 
   Future<List<Partner>> getPartnersByIds(
-      {required List<dynamic> partnerIDs}) async {
-    final partners = partnerIDs
-        .map((partnerID) async => await getPartner(partnerID: partnerID));
+      {required List<dynamic> partnerIdentifications}) async {
+    final partners = partnerIdentifications
+        .map((partnerIdentification) async => await getPartner(partnerIdentification: partnerIdentification));
 
     return Future.wait(partners);
   }
