@@ -95,7 +95,7 @@ class _PartnersState extends State<Partners> {
                   children: [
                     Expanded(
                       child: MyTextField(
-                        hintText: "Cédula de identidad del operador",
+                        hintText: "Cédula de identidad del socio",
                         textEditingController: searchController,
                         onChanged: (value) => _manageEmptySerch(searchValue: value),
                       ),
