@@ -7,7 +7,8 @@ class AssignedPartners extends StatelessWidget {
   final List<dynamic> assignedPartners;
   final String operatorName;
 
-  const AssignedPartners({Key? key, required this.assignedPartners, required this.operatorName})
+  const AssignedPartners(
+      {Key? key, required this.assignedPartners, required this.operatorName})
       : super(key: key);
 
   static PartnersTable partnersTable = PartnersTable();
@@ -26,9 +27,11 @@ class AssignedPartners extends StatelessWidget {
       ),
       backgroundColor: MyTheme.background,
       body: FutureBuilder<List<Partner>>(
-          future: partnersTable.getPartnersByIds(partnerIdentifications: assignedPartners),
+          future: partnersTable.getPartnersByIds(
+              partnerIdentifications: assignedPartners),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
+              print("partners assigned: ${snapshot.data!.length}");
               return Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 10.0, vertical: 20.0),
@@ -72,11 +75,15 @@ class AssignedPartners extends StatelessWidget {
                       height: 20,
                     ),
                     Expanded(
-                      child: ListView.builder(
-                        itemBuilder: (context, index) =>
-                            partnerContainer(partner: snapshot.data![index]),
-                        itemCount: snapshot.data!.length,
-                      ),
+                      child: (snapshot.data!.isNotEmpty)
+                          ? ListView.builder(
+                              itemBuilder: (context, index) => partnerContainer(
+                                  partner: snapshot.data![index]),
+                              itemCount: snapshot.data!.length,
+                            )
+                          : const Center(
+                              child: Text("Este operador no tiene socios asignados"),
+                            ),
                     )
                   ],
                 ),

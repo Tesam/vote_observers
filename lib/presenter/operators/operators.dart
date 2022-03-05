@@ -92,7 +92,7 @@ class _OperatorsState extends State<Operators> {
                         children: [
                           Expanded(
                             child: MyTextField(
-                              hintText: "Cédula de identidad del operador",
+                              hintText: "Número de CI del operador",
                               textEditingController: searchController,
                               onChanged: (value) => updateSearchValue(newValue: value),
                             ),

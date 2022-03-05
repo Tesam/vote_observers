@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
+import 'package:vote_observers/presenter/widgets/data_sample_warning.dart';
 
 enum VoteStatus { voted, notVoted }
 
@@ -70,7 +71,12 @@ class VoterList extends StatelessWidget {
                   ],
                 ),
               ),*/
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: dataSampleWarning(),
+              ),
+              const SizedBox(height: 20,),
               Expanded(
                 child: GridView.count(
                   crossAxisCount: 4,
