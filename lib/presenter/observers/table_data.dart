@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
+import 'package:vote_observers/presenter/widgets/data_sample_warning.dart';
 
 class TableData extends StatelessWidget {
   const TableData({Key? key}) : super(key: key);
@@ -59,6 +60,10 @@ class TableData extends StatelessWidget {
               child: ListView(
                 children: [
                   const SizedBox(height: 30.0,),
+                  dataSampleWarning(),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
                   Stack(
                     children: [
                       Container(

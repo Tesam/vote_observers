@@ -4,6 +4,7 @@ import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/operators/operators.dart';
 import 'package:vote_observers/presenter/partners/partners.dart';
 import 'package:vote_observers/presenter/observers/table_list.dart';
+import 'package:vote_observers/presenter/widgets/data_sample_warning.dart';
 
 import 'observers/voter_list.dart';
 
@@ -64,27 +65,27 @@ class Home extends StatelessWidget {
                       ),
                       value: 2,
                     ),
-                PopupMenuItem(
-                  child: ListTile(
-                    leading: const Icon(
-                      Icons.remove_red_eye,
-                      color: Colors.black,
+                    PopupMenuItem(
+                      child: ListTile(
+                        leading: const Icon(
+                          Icons.remove_red_eye,
+                          color: Colors.black,
+                        ),
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const VoterList()),
+                          );
+                        },
+                        title: const Text(
+                          "Veedores",
+                          style: TextStyle(
+                              fontSize: 14.0, fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      value: 2,
                     ),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => const VoterList()),
-                      );
-                    },
-                    title: const Text(
-                      "Veedores",
-                      style: TextStyle(
-                          fontSize: 14.0, fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                  value: 2,
-                ),
                   ]),
         ],
         elevation: 0,
@@ -95,6 +96,10 @@ class Home extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
         child: ListView(
           children: [
+            dataSampleWarning(),
+            const SizedBox(
+              height: 10,
+            ),
             Container(
               padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
               decoration: BoxDecoration(
@@ -277,7 +282,8 @@ class Home extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+                color: Colors.white,
               ),
               padding: const EdgeInsets.all(20),
               child: Column(
@@ -295,14 +301,21 @@ class Home extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: MyTheme.gray4Text)
-                        ),
+                            border: Border.all(color: MyTheme.gray4Text)),
                         padding: const EdgeInsets.all(10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text("San Juan", style: TextStyle(color: MyTheme.gray2Text, fontWeight: FontWeight.w600, fontSize: 14),),
-                            const SizedBox(height: 20,),
+                            const Text(
+                              "San Juan",
+                              style: TextStyle(
+                                  color: MyTheme.gray2Text,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             RichText(
                               text: const TextSpan(
                                 text: '400 ',
@@ -350,14 +363,21 @@ class Home extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: MyTheme.gray4Text)
-                        ),
+                            border: Border.all(color: MyTheme.gray4Text)),
                         padding: const EdgeInsets.all(10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text("San Ignacio", style: TextStyle(color: MyTheme.gray2Text, fontWeight: FontWeight.w600, fontSize: 14),),
-                            const SizedBox(height: 20,),
+                            const Text(
+                              "San Ignacio",
+                              style: TextStyle(
+                                  color: MyTheme.gray2Text,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             RichText(
                               text: const TextSpan(
                                 text: '400 ',
@@ -413,14 +433,21 @@ class Home extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: MyTheme.gray4Text)
-                        ),
+                            border: Border.all(color: MyTheme.gray4Text)),
                         padding: const EdgeInsets.all(10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text("San Juan", style: TextStyle(color: MyTheme.gray2Text, fontWeight: FontWeight.w600, fontSize: 14),),
-                            const SizedBox(height: 20,),
+                            const Text(
+                              "San Juan",
+                              style: TextStyle(
+                                  color: MyTheme.gray2Text,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             RichText(
                               text: const TextSpan(
                                 text: '400 ',
@@ -468,14 +495,21 @@ class Home extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: MyTheme.gray4Text)
-                        ),
+                            border: Border.all(color: MyTheme.gray4Text)),
                         padding: const EdgeInsets.all(10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text("San Ignacio", style: TextStyle(color: MyTheme.gray2Text, fontWeight: FontWeight.w600, fontSize: 14),),
-                            const SizedBox(height: 20,),
+                            const Text(
+                              "San Ignacio",
+                              style: TextStyle(
+                                  color: MyTheme.gray2Text,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             RichText(
                               text: const TextSpan(
                                 text: '400 ',
@@ -531,14 +565,21 @@ class Home extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: MyTheme.gray4Text)
-                        ),
+                            border: Border.all(color: MyTheme.gray4Text)),
                         padding: const EdgeInsets.all(10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text("San Juan", style: TextStyle(color: MyTheme.gray2Text, fontWeight: FontWeight.w600, fontSize: 14),),
-                            const SizedBox(height: 20,),
+                            const Text(
+                              "San Juan",
+                              style: TextStyle(
+                                  color: MyTheme.gray2Text,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             RichText(
                               text: const TextSpan(
                                 text: '400 ',
@@ -586,14 +627,21 @@ class Home extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: MyTheme.gray4Text)
-                        ),
+                            border: Border.all(color: MyTheme.gray4Text)),
                         padding: const EdgeInsets.all(10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text("San Ignacio", style: TextStyle(color: MyTheme.gray2Text, fontWeight: FontWeight.w600, fontSize: 14),),
-                            const SizedBox(height: 20,),
+                            const Text(
+                              "San Ignacio",
+                              style: TextStyle(
+                                  color: MyTheme.gray2Text,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             RichText(
                               text: const TextSpan(
                                 text: '400 ',
