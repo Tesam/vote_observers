@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vote_observers/data/partners_table.dart';
 import 'package:vote_observers/domain/models/partner.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
+import 'package:vote_observers/presenter/widgets/my_text_field.dart';
 
 class Partners extends StatefulWidget {
   const Partners({Key? key}) : super(key: key);
@@ -15,6 +16,8 @@ class _PartnersState extends State<Partners> {
   List<Partner> partners = [];
   var scrollController = ScrollController();
   PartnersTable partnersTable = PartnersTable();
+  final TextEditingController searchController = TextEditingController();
+  String searchValue = "";
 
   @override
   void initState() {
@@ -33,10 +36,7 @@ class _PartnersState extends State<Partners> {
     scrollController.addListener(() async {
       if (scrollController.position.atEdge) {
         if (scrollController.position.pixels == 0) {
-          print('ListView scroll at top');
         } else {
-          print('ListView scroll at bottom');
-
           //get last document
           String partnerIdentification = partners.last.identification.toString();
           DocumentSnapshot documentSnapshot =
@@ -58,6 +58,14 @@ class _PartnersState extends State<Partners> {
     final List<Partner> list = await partnersTable.getPartners();
     setState(() {
       partners = list;
+    });
+  }
+
+  void _getPartner({required String partnerIdentification}) async {
+    final Partner partner = await partnersTable.getPartner(partnerIdentification: partnerIdentification);
+    setState(() {
+      partners.clear();
+      partners.add(partner);
     });
   }
 
@@ -86,19 +94,10 @@ class _PartnersState extends State<Partners> {
                 Row(
                   children: [
                     Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(
-                            fillColor: Colors.white,
-                            contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: const BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            filled: true),
+                      child: MyTextField(
+                        hintText: "Cédula de identidad del operador",
+                        textEditingController: searchController,
+                        onChanged: (value) => _manageEmptySerch(searchValue: value),
                       ),
                     ),
                     Container(
@@ -106,7 +105,7 @@ class _PartnersState extends State<Partners> {
                       child: CircleAvatar(
                         backgroundColor: MyTheme.primaryColor,
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () => _getPartner(partnerIdentification: searchController.text),
                           icon: const Icon(
                             Icons.search,
                             color: Colors.black,
@@ -117,7 +116,7 @@ class _PartnersState extends State<Partners> {
                     ),
                   ],
                 ),
-                Container(
+                /*Container(
                   height: 40,
                   margin: const EdgeInsets.symmetric(
                     vertical: 10,
@@ -134,7 +133,7 @@ class _PartnersState extends State<Partners> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           margin: const EdgeInsets.only(right: 8),
-                          child: Text(
+                          child: const Text(
                             "San Juan",
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 16),
@@ -211,7 +210,7 @@ class _PartnersState extends State<Partners> {
                       ),
                     ],
                   ),
-                ),
+                ),*/
                 const SizedBox(
                   height: 10.0,
                 ),
@@ -291,5 +290,14 @@ class _PartnersState extends State<Partners> {
       ],
       alignment: const Alignment(0.9, -1.2),
     );
+  }
+
+  void _manageEmptySerch({required String searchValue}){
+    if(searchValue.isEmpty){
+      _getDocuments();
+    }
+  /*  setState(() {
+      searchValue = newValue;
+    });*/
   }
 }
