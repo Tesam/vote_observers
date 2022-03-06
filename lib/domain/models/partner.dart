@@ -8,6 +8,7 @@ class Partner {
   bool assigned;
   int partnerId;
   String address;
+  String phone;
 
   Partner({
     required this.name,
@@ -19,6 +20,7 @@ class Partner {
     required this.assigned,
     required this.partnerId,
     required this.address,
+    required this.phone,
   });
 
   factory Partner.fromJson(Map<String, dynamic> json){
@@ -32,6 +34,7 @@ class Partner {
       assigned: json["assigned"],
       partnerId: json["partner_id"],
       address: json["address"].toString(),
+      phone: json["phone"]??"",
     );
   }
 
@@ -46,6 +49,7 @@ class Partner {
       "assigned": assigned,
       "partner_id" : partnerId,
       "address" : address,
+      "phone": phone,
     };
   }
 }

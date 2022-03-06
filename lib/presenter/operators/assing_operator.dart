@@ -18,6 +18,7 @@ class AssignOperator extends StatelessWidget {
   static TextEditingController partnerSearchController =
       TextEditingController();
   static TextEditingController partnerNameController = TextEditingController();
+  static TextEditingController partnerPhoneController = TextEditingController();
 
   static late Operator operator;
   static late Partner partner;
@@ -219,6 +220,13 @@ class AssignOperator extends StatelessWidget {
                           return null;
                         },
                       ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      MyTextField(
+                        hintText: "Celular",
+                        textEditingController: partnerPhoneController,
+                      )
                     ],
                   )
                 ],
@@ -261,6 +269,8 @@ class AssignOperator extends StatelessWidget {
                               operatorID: operatorSearchController.text);
 
                       if (_isAssigned) {
+                        //update partner phone
+                        partner.phone = partnerPhoneController.text;
                         //update assigned state on partner local object
                         partner.assigned = true;
                         //update partner on database
@@ -282,6 +292,8 @@ class AssignOperator extends StatelessWidget {
                             padding: EdgeInsets.symmetric(
                                 vertical: 40, horizontal: 20),
                           ));
+
+                          clearPartnerFields();
                         }
                       } else {
                         ScaffoldMessenger.of(context)
@@ -327,5 +339,6 @@ class AssignOperator extends StatelessWidget {
   void clearPartnerFields() {
     partnerSearchController.text = "";
     partnerNameController.text = "";
+    partnerPhoneController.text = "";
   }
 }

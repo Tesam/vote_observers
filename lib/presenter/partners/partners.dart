@@ -257,6 +257,13 @@ class _PartnersState extends State<Partners> {
                     color: MyTheme.gray2Text,
                     fontWeight: FontWeight.w500),
               ),
+              Text(
+                (partner.phone.isEmpty)? "Sin teléfono" : partner.phone,
+                style: const TextStyle(
+                    fontSize: 11.0,
+                    color: MyTheme.gray2Text,
+                    fontWeight: FontWeight.w600),
+              ),
               const SizedBox(
                 height: 5,
               ),
