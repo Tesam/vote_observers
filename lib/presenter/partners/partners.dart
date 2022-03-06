@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vote_observers/data/partners_table.dart';
 import 'package:vote_observers/domain/models/partner.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
+import 'package:vote_observers/presenter/utils.dart';
 import 'package:vote_observers/presenter/widgets/my_text_field.dart';
 
 class Partners extends StatefulWidget {
@@ -222,7 +223,7 @@ class _PartnersState extends State<Partners> {
                             controller: scrollController,
                             itemCount: partners.length,
                             itemBuilder: (context, index) {
-                              return partnerContainer(partner: partners[index]);
+                              return partnerContainer(partner: partners[index], context: context);
                             },
                           )
                         : const CircularProgressIndicator(
@@ -239,55 +240,60 @@ class _PartnersState extends State<Partners> {
     );
   }
 
-  Widget partnerContainer({required Partner partner}) {
+  Widget partnerContainer({required Partner partner, required BuildContext context}) {
     return Stack(
       children: [
-        Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30), color: Colors.white),
-          padding: const EdgeInsets.all(20),
-          margin: const EdgeInsets.only(bottom: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                partner.name,
-                style: const TextStyle(
-                    fontSize: 18.0,
-                    color: MyTheme.gray2Text,
-                    fontWeight: FontWeight.w500),
-              ),
-              Text(
-                (partner.phone.isEmpty)? "Sin teléfono" : partner.phone,
-                style: const TextStyle(
-                    fontSize: 11.0,
-                    color: MyTheme.gray2Text,
-                    fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    partner.subsidiary,
-                    style: const TextStyle(
-                        fontSize: 12.0,
-                        color: MyTheme.gray3Text,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    "Mesa ${partner.tableNumber}",
-                    style: const TextStyle(
-                        fontSize: 14.0,
-                        color: MyTheme.gray3Text,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-            ],
+        InkWell(
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30), color: Colors.white),
+            padding: const EdgeInsets.all(20),
+            margin: const EdgeInsets.only(bottom: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  partner.name,
+                  style: const TextStyle(
+                      fontSize: 18.0,
+                      color: MyTheme.gray2Text,
+                      fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  (partner.phone.isEmpty)? "Sin teléfono" : partner.phone,
+                  style: const TextStyle(
+                      fontSize: 11.0,
+                      color: MyTheme.gray2Text,
+                      fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      partner.subsidiary,
+                      style: const TextStyle(
+                          fontSize: 12.0,
+                          color: MyTheme.gray3Text,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      "Mesa ${partner.tableNumber}",
+                      style: const TextStyle(
+                          fontSize: 14.0,
+                          color: MyTheme.gray3Text,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
+          onTap: (){
+            _showCallDialog(context: context, partner: partner);
+          },
         ),
         CircleAvatar(
           backgroundColor:
@@ -303,8 +309,69 @@ class _PartnersState extends State<Partners> {
     if(searchValue.isEmpty){
       _getDocuments();
     }
-  /*  setState(() {
-      searchValue = newValue;
-    });*/
+  }
+
+  Future<void> _showCallDialog(
+      {required BuildContext context, required Partner partner}) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(
+            "Llamar",
+            style: TextStyle(color: MyTheme.darkGreen),
+          ),
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0))),
+          content: SingleChildScrollView(
+            child: RichText(
+              text: TextSpan(
+                text: 'Desea llamar al socio ',
+                style: DefaultTextStyle.of(context).style,
+                children: <TextSpan>[
+                  TextSpan(
+                      text: partner.name,
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                  const TextSpan(text: '?'),
+                ],
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text(
+                'Cancelar',
+                style: TextStyle(color: MyTheme.gray2Text),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text(
+                'Llamar',
+                style: TextStyle(color: MyTheme.darkGreen),
+              ),
+              onPressed: () {
+                (partner.phone.isEmpty)
+                    ? ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text(
+                    'Número de teléfono NO asignado',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                  duration: Duration(seconds: 3),
+                  backgroundColor: MyTheme.redColor,
+                  padding:
+                  EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                ))
+                    : makePhoneCall('tel:${partner.phone}');
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
