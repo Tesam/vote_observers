@@ -152,68 +152,77 @@ class _OperatorsState extends State<Operators> {
 
   Widget operatorContainer(
           {required BuildContext context, required Operator operator}) =>
-      Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30), color: Colors.white),
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-        margin: const EdgeInsets.only(bottom: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              operator.name,
-              style: const TextStyle(
-                  fontSize: 18.0,
-                  color: MyTheme.gray2Text,
-                  fontWeight: FontWeight.w500),
-            ),
-            Text(
-              operator.phone,
-              style: const TextStyle(
-                  fontSize: 12.0,
-                  color: MyTheme.gray3Text,
-                  fontWeight: FontWeight.w500),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                RichText(
-                  text: TextSpan(
-                    text: '0 ',
-                    style: const TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: '/${operator.assignedQuantity} asignados',
-                          style: const TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w400,
-                              color: MyTheme.gray2Text)),
-                    ],
+      InkWell(
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30), color: Colors.white),
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+          margin: const EdgeInsets.only(bottom: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                operator.name,
+                style: const TextStyle(
+                    fontSize: 18.0,
+                    color: MyTheme.gray2Text,
+                    fontWeight: FontWeight.w500),
+              ),
+              Text(
+                operator.phone,
+                style: const TextStyle(
+                    fontSize: 12.0,
+                    color: MyTheme.gray3Text,
+                    fontWeight: FontWeight.w500),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      text: '0 ',
+                      style: const TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: '/${operator.assignedQuantity} asignados',
+                            style: const TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w400,
+                                color: MyTheme.gray2Text)),
+                      ],
+                    ),
                   ),
-                ),
-                TextButton(
-                  child: const Text(
-                    "Ver asignados",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AssignedPartners(
-                                assignedPartners: operator.assignedPartners,
-                                operatorName: operator.name,
-                              ))),
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
-                  ),
-                )
-              ],
-            )
-          ],
+                  TextButton(
+                    child: const Text(
+                      "Ver asignados",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AssignedPartners(
+                              assignedPartners: operator.assignedPartners,
+                              operatorName: operator.name,
+                            ))),
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
+        onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AssignedPartners(
+                  assignedPartners: operator.assignedPartners,
+                  operatorName: operator.name,
+                ))),
       );
 
   void updateSearchValue({required String newValue}){

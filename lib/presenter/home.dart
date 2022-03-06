@@ -219,64 +219,71 @@ class Home extends StatelessWidget {
             const SizedBox(
               height: 10.0,
             ),
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(30)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text("Mesas",
-                      style: TextStyle(
-                          fontSize: 18.0, fontWeight: FontWeight.w600)),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  const Text(
-                    "Con el menor porcentaje de votos asignados registrados. ",
-                    style: TextStyle(color: MyTheme.gray2Text, fontSize: 14.0),
-                  ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  GridView.count(
-                    // Create a grid with 2 columns. If you change the scrollDirection to
-                    // horizontal, this produces 2 rows.
-                    crossAxisCount: 3,
-                    shrinkWrap: true,
-                    // Generate 100 widgets that display their index in the List.
-                    children: List.generate(9, (index) {
-                      return Center(
-                        child: Text(
-                          'Mesa $index',
-                          style: TextStyle(fontSize: 14.0),
-                        ),
-                      );
-                    }),
-                    childAspectRatio: 3,
-                  ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      child: const Text(
-                        "Ver detalles",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => const TableList()),
-                      ),
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
-                      ),
+            InkWell(
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white, borderRadius: BorderRadius.circular(30)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Mesas",
+                        style: TextStyle(
+                            fontSize: 18.0, fontWeight: FontWeight.w600)),
+                    const SizedBox(
+                      height: 10.0,
                     ),
-                  )
-                ],
+                    const Text(
+                      "Con el menor porcentaje de votos asignados registrados. ",
+                      style: TextStyle(color: MyTheme.gray2Text, fontSize: 14.0),
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    GridView.count(
+                      // Create a grid with 2 columns. If you change the scrollDirection to
+                      // horizontal, this produces 2 rows.
+                      crossAxisCount: 3,
+                      shrinkWrap: true,
+                      // Generate 100 widgets that display their index in the List.
+                      children: List.generate(9, (index) {
+                        return Center(
+                          child: Text(
+                            'Mesa $index',
+                            style: TextStyle(fontSize: 14.0),
+                          ),
+                        );
+                      }),
+                      childAspectRatio: 3,
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        child: const Text(
+                          "Ver detalles",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => const TableList()),
+                        ),
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
               ),
-              padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) => const TableList()),
+              ),
             ),
+
             const SizedBox(
               height: 10.0,
             ),

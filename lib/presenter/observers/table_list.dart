@@ -67,490 +67,720 @@ class TableList extends StatelessWidget {
               Expanded(
                 child: ListView(
                   children: [
-                    Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                RichText(
-                                  text: const TextSpan(
-                                    text: '2',
+                    InkWell(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white),
+                          padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Mesa 1",
                                     style: TextStyle(
                                         fontSize: 16.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: '/150 asignados',
-                                          style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.w400,
-                                              color: MyTheme.gray2Text)),
-                                    ],
+                                        fontWeight: FontWeight.w600),
                                   ),
-                                ),
-                              ],
-                            ),
-                            IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TableData())),
-                              icon: const Icon(Icons.arrow_forward,),)
-                          ],
-                        )),
-                    Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                RichText(
-                                  text: const TextSpan(
-                                    text: '2',
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  RichText(
+                                    text: const TextSpan(
+                                      text: '2',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '/150 asignados',
+                                            style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w400,
+                                                color: MyTheme.gray2Text)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              IconButton(onPressed: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const TableData(),),),
+                                icon: const Icon(Icons.arrow_forward,),)
+                            ],
+                          )),
+                      onTap: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const TableData(),),),
+                    ),
+                    InkWell(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white),
+                          padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Mesa 1",
                                     style: TextStyle(
                                         fontSize: 16.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: '/150 asignados',
-                                          style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.w400,
-                                              color: MyTheme.gray2Text)),
-                                    ],
+                                        fontWeight: FontWeight.w600),
                                   ),
-                                ),
-                              ],
-                            ),
-                            IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Table())),
-                              icon: const Icon(Icons.arrow_forward,),)
-                          ],
-                        )),
-                    Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                RichText(
-                                  text: const TextSpan(
-                                    text: '2',
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  RichText(
+                                    text: const TextSpan(
+                                      text: '2',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '/150 asignados',
+                                            style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w400,
+                                                color: MyTheme.gray2Text)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              IconButton(onPressed: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const TableData(),),),
+                                icon: const Icon(Icons.arrow_forward,),)
+                            ],
+                          )),
+                      onTap: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const TableData(),),),
+                    ),
+                    InkWell(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white),
+                          padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Mesa 1",
                                     style: TextStyle(
                                         fontSize: 16.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: '/150 asignados',
-                                          style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.w400,
-                                              color: MyTheme.gray2Text)),
-                                    ],
+                                        fontWeight: FontWeight.w600),
                                   ),
-                                ),
-                              ],
-                            ),
-                            IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Table())),
-                              icon: const Icon(Icons.arrow_forward,),)
-                          ],
-                        )),
-                    Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                RichText(
-                                  text: const TextSpan(
-                                    text: '2',
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  RichText(
+                                    text: const TextSpan(
+                                      text: '2',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '/150 asignados',
+                                            style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w400,
+                                                color: MyTheme.gray2Text)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              IconButton(onPressed: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const TableData(),),),
+                                icon: const Icon(Icons.arrow_forward,),)
+                            ],
+                          )),
+                      onTap: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const TableData(),),),
+                    ),
+                    InkWell(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white),
+                          padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Mesa 1",
                                     style: TextStyle(
                                         fontSize: 16.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: '/150 asignados',
-                                          style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.w400,
-                                              color: MyTheme.gray2Text)),
-                                    ],
+                                        fontWeight: FontWeight.w600),
                                   ),
-                                ),
-                              ],
-                            ),
-                            IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Table())),
-                              icon: const Icon(Icons.arrow_forward,),)
-                          ],
-                        )),
-                    Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                RichText(
-                                  text: const TextSpan(
-                                    text: '2',
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  RichText(
+                                    text: const TextSpan(
+                                      text: '2',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '/150 asignados',
+                                            style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w400,
+                                                color: MyTheme.gray2Text)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              IconButton(onPressed: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const TableData(),),),
+                                icon: const Icon(Icons.arrow_forward,),)
+                            ],
+                          )),
+                      onTap: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const TableData(),),),
+                    ),
+                    InkWell(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white),
+                          padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Mesa 1",
                                     style: TextStyle(
                                         fontSize: 16.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: '/150 asignados',
-                                          style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.w400,
-                                              color: MyTheme.gray2Text)),
-                                    ],
+                                        fontWeight: FontWeight.w600),
                                   ),
-                                ),
-                              ],
-                            ),
-                            IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Table())),
-                              icon: const Icon(Icons.arrow_forward,),)
-                          ],
-                        )),
-                    Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                RichText(
-                                  text: const TextSpan(
-                                    text: '2',
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  RichText(
+                                    text: const TextSpan(
+                                      text: '2',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '/150 asignados',
+                                            style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w400,
+                                                color: MyTheme.gray2Text)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              IconButton(onPressed: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const TableData(),),),
+                                icon: const Icon(Icons.arrow_forward,),)
+                            ],
+                          )),
+                      onTap: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const TableData(),),),
+                    ),
+                    InkWell(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white),
+                          padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Mesa 1",
                                     style: TextStyle(
                                         fontSize: 16.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: '/150 asignados',
-                                          style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.w400,
-                                              color: MyTheme.gray2Text)),
-                                    ],
+                                        fontWeight: FontWeight.w600),
                                   ),
-                                ),
-                              ],
-                            ),
-                            IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Table())),
-                              icon: const Icon(Icons.arrow_forward,),)
-                          ],
-                        )),
-                    Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                RichText(
-                                  text: const TextSpan(
-                                    text: '2',
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  RichText(
+                                    text: const TextSpan(
+                                      text: '2',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '/150 asignados',
+                                            style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w400,
+                                                color: MyTheme.gray2Text)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              IconButton(onPressed: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const TableData(),),),
+                                icon: const Icon(Icons.arrow_forward,),)
+                            ],
+                          )),
+                      onTap: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const TableData(),),),
+                    ),
+                    InkWell(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white),
+                          padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Mesa 1",
                                     style: TextStyle(
                                         fontSize: 16.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: '/150 asignados',
-                                          style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.w400,
-                                              color: MyTheme.gray2Text)),
-                                    ],
+                                        fontWeight: FontWeight.w600),
                                   ),
-                                ),
-                              ],
-                            ),
-                            IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Table())),
-                              icon: const Icon(Icons.arrow_forward,),)
-                          ],
-                        )),
-                    Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                RichText(
-                                  text: const TextSpan(
-                                    text: '2',
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  RichText(
+                                    text: const TextSpan(
+                                      text: '2',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '/150 asignados',
+                                            style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w400,
+                                                color: MyTheme.gray2Text)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              IconButton(onPressed: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const TableData(),),),
+                                icon: const Icon(Icons.arrow_forward,),)
+                            ],
+                          )),
+                      onTap: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const TableData(),),),
+                    ),
+                    InkWell(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white),
+                          padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Mesa 1",
                                     style: TextStyle(
                                         fontSize: 16.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: '/150 asignados',
-                                          style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.w400,
-                                              color: MyTheme.gray2Text)),
-                                    ],
+                                        fontWeight: FontWeight.w600),
                                   ),
-                                ),
-                              ],
-                            ),
-                            IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Table())),
-                              icon: const Icon(Icons.arrow_forward,),)
-                          ],
-                        )),
-                    Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                RichText(
-                                  text: const TextSpan(
-                                    text: '2',
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  RichText(
+                                    text: const TextSpan(
+                                      text: '2',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '/150 asignados',
+                                            style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w400,
+                                                color: MyTheme.gray2Text)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              IconButton(onPressed: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const TableData(),),),
+                                icon: const Icon(Icons.arrow_forward,),)
+                            ],
+                          )),
+                      onTap: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const TableData(),),),
+                    ),
+                    InkWell(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white),
+                          padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Mesa 1",
                                     style: TextStyle(
                                         fontSize: 16.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: '/150 asignados',
-                                          style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.w400,
-                                              color: MyTheme.gray2Text)),
-                                    ],
+                                        fontWeight: FontWeight.w600),
                                   ),
-                                ),
-                              ],
-                            ),
-                            IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Table())),
-                              icon: const Icon(Icons.arrow_forward,),)
-                          ],
-                        )),
-                    Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                RichText(
-                                  text: const TextSpan(
-                                    text: '2',
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  RichText(
+                                    text: const TextSpan(
+                                      text: '2',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '/150 asignados',
+                                            style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w400,
+                                                color: MyTheme.gray2Text)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              IconButton(onPressed: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const TableData(),),),
+                                icon: const Icon(Icons.arrow_forward,),)
+                            ],
+                          )),
+                      onTap: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const TableData(),),),
+                    ),
+                    InkWell(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white),
+                          padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Mesa 1",
                                     style: TextStyle(
                                         fontSize: 16.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: '/150 asignados',
-                                          style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.w400,
-                                              color: MyTheme.gray2Text)),
-                                    ],
+                                        fontWeight: FontWeight.w600),
                                   ),
-                                ),
-                              ],
-                            ),
-                            IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Table())),
-                              icon: const Icon(Icons.arrow_forward,),)
-                          ],
-                        )),
-                    Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                RichText(
-                                  text: const TextSpan(
-                                    text: '2',
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  RichText(
+                                    text: const TextSpan(
+                                      text: '2',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '/150 asignados',
+                                            style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w400,
+                                                color: MyTheme.gray2Text)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              IconButton(onPressed: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const TableData(),),),
+                                icon: const Icon(Icons.arrow_forward,),)
+                            ],
+                          )),
+                      onTap: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const TableData(),),),
+                    ),
+                    InkWell(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white),
+                          padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Mesa 1",
                                     style: TextStyle(
                                         fontSize: 16.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: '/150 asignados',
-                                          style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.w400,
-                                              color: MyTheme.gray2Text)),
-                                    ],
+                                        fontWeight: FontWeight.w600),
                                   ),
-                                ),
-                              ],
-                            ),
-                            IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TableData())),
-                              icon: const Icon(Icons.arrow_forward,),)
-                          ],
-                        )),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  RichText(
+                                    text: const TextSpan(
+                                      text: '2',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '/150 asignados',
+                                            style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w400,
+                                                color: MyTheme.gray2Text)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              IconButton(onPressed: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const TableData(),),),
+                                icon: const Icon(Icons.arrow_forward,),)
+                            ],
+                          )),
+                      onTap: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const TableData(),),),
+                    ),
+                    InkWell(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white),
+                          padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Mesa 1",
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  RichText(
+                                    text: const TextSpan(
+                                      text: '2',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '/150 asignados',
+                                            style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w400,
+                                                color: MyTheme.gray2Text)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              IconButton(onPressed: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const TableData(),),),
+                                icon: const Icon(Icons.arrow_forward,),)
+                            ],
+                          )),
+                      onTap: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const TableData(),),),
+                    ),
+                    InkWell(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white),
+                          padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Mesa 1",
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  RichText(
+                                    text: const TextSpan(
+                                      text: '2',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '/150 asignados',
+                                            style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w400,
+                                                color: MyTheme.gray2Text)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              IconButton(onPressed: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const TableData(),),),
+                                icon: const Icon(Icons.arrow_forward,),)
+                            ],
+                          )),
+                      onTap: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const TableData(),),),
+                    ),
+                    InkWell(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white),
+                          padding: const EdgeInsets.fromLTRB(20, 20, 8, 20),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Mesa 1",
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  RichText(
+                                    text: const TextSpan(
+                                      text: '2',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '/150 asignados',
+                                            style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w400,
+                                                color: MyTheme.gray2Text)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              IconButton(onPressed: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const TableData(),),),
+                                icon: const Icon(Icons.arrow_forward,),)
+                            ],
+                          )),
+                      onTap: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const TableData(),),),
+                    ),
                   ],
                 ),
               ),
