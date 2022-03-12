@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vote_observers/data/counters_table.dart';
 import 'package:vote_observers/data/operators_table.dart';
 import 'package:vote_observers/data/partners_table.dart';
 import 'package:vote_observers/domain/models/operator.dart';
@@ -11,6 +12,7 @@ class AssignOperator extends StatelessWidget {
   const AssignOperator({Key? key}) : super(key: key);
   static PartnersTable partnersTable = PartnersTable();
   static OperatorsTable operatorsTable = OperatorsTable();
+  static CountersTable countersTable = CountersTable();
 
   static TextEditingController operatorSearchController =
       TextEditingController();
@@ -280,6 +282,8 @@ class AssignOperator extends StatelessWidget {
                                 partnerID: partnerSearchController.text);
 
                         if (_isStateChanged) {
+                          //update counter
+                          countersTable.incrementCounter(docID: "partners_assigned");
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(content: Text(
                               'El socio se asignó correctamente',
