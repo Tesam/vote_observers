@@ -69,10 +69,6 @@ class AssignOperator extends StatelessWidget {
                                     return 'Campo requerido';
                                   }
                                 }
-
-                                if (operatorSearchController.text == partnerSearchController.text) {
-                                  return 'Operador y socio no pueden ser iguales';
-                                }
                                 return null;
                               },
                             ),
