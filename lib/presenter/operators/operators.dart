@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vote_observers/data/counters_table.dart';
 import 'package:vote_observers/data/operators_table.dart';
 import 'package:vote_observers/domain/models/operator.dart';
 import 'package:vote_observers/presenter/operators/add_operator.dart';
@@ -16,9 +17,21 @@ class Operators extends StatefulWidget {
 
 class _OperatorsState extends State<Operators> {
   final OperatorsTable operatorsTable = OperatorsTable();
+  final CountersTable countersTable = CountersTable();
 
   final TextEditingController searchController = TextEditingController();
   String searchValue = "";
+  late int operatorsCount;
+  @override
+  void initState() {
+    super.initState();
+    onInit();
+
+  }
+
+  void onInit() async{
+    operatorsCount = await countersTable.getOperatorCounter();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +100,7 @@ class _OperatorsState extends State<Operators> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 10.0, vertical: 20.0),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Row(
                         children: [
@@ -112,6 +126,13 @@ class _OperatorsState extends State<Operators> {
                             ),
                           ),
                         ],
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Text("$operatorsCount Operadores creados", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17, color: MyTheme.darkGreen),),
                       ),
                       const SizedBox(
                         height: 20.0,
