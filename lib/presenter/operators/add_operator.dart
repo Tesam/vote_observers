@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vote_observers/data/counters_table.dart';
 import 'package:vote_observers/data/operators_table.dart';
 import 'package:vote_observers/data/partners_table.dart';
 import 'package:vote_observers/domain/models/operator.dart';
@@ -11,6 +12,7 @@ class AddOperator extends StatelessWidget {
   const AddOperator({Key? key}) : super(key: key);
   static PartnersTable partnersTable = PartnersTable();
   static OperatorsTable operatorsTable = OperatorsTable();
+  static CountersTable countersTable = CountersTable();
 
   static TextEditingController searchController = TextEditingController();
   static TextEditingController nameController = TextEditingController();
@@ -140,33 +142,37 @@ class AddOperator extends StatelessWidget {
                         ),
                         operatorID: searchController.text);
 
-                    (_isAdded)
-                        ? ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                            content: Text(
-                              'El Operador se agregó correctamente',
-                              textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 16),
-                            ),
-                            duration: Duration(seconds: 3),
-                            backgroundColor: MyTheme.primaryColor,
-                            padding: EdgeInsets.symmetric(vertical: 40),
-                          ))
-                        : ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                            content: Text(
-                              'Error al intentar agregar operador',
-                              textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 16),
-                            ),
-                            duration: Duration(seconds: 3),
-                            backgroundColor: MyTheme.redColor,
-                            padding: EdgeInsets.symmetric(vertical: 40),
-                          ));
-                  }
+                    if(_isAdded){
+                      //update counter
+                      countersTable.incrementCounter(docID: "operators");
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(const SnackBar(
+                        content: Text(
+                          'El Operador se agregó correctamente',
+                          textAlign: TextAlign.center,
+                          style:
+                          TextStyle(color: Colors.black, fontSize: 16),
+                        ),
+                        duration: Duration(seconds: 3),
+                        backgroundColor: MyTheme.primaryColor,
+                        padding: EdgeInsets.symmetric(vertical: 40),
+                      ));
 
+                    }else{
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(const SnackBar(
+                        content: Text(
+                          'Error al intentar agregar operador',
+                          textAlign: TextAlign.center,
+                          style:
+                          TextStyle(color: Colors.black, fontSize: 16),
+                        ),
+                        duration: Duration(seconds: 3),
+                        backgroundColor: MyTheme.redColor,
+                        padding: EdgeInsets.symmetric(vertical: 40),
+                      ));
+                    }
+                  }
                   clearOperatorFields();
                 }),
           ],

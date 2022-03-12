@@ -21,16 +21,34 @@ class _OperatorsState extends State<Operators> {
 
   final TextEditingController searchController = TextEditingController();
   String searchValue = "";
-  late int operatorsCount;
+  int? operatorsCount;
+  int? partnersAssignedCount;
+
   @override
   void initState() {
     super.initState();
-    onInit();
+    WidgetsBinding.instance!.addPostFrameCallback(
+      (_) {
+        _onInitOperator();
+        _onInitPartners();
+      },
+    );
+  }
+
+  void _onInitOperator() async {
+    operatorsCount = await countersTable.getCounter(docID: "operators");
+    setState(() {
+
+    });
 
   }
 
-  void onInit() async{
-    operatorsCount = await countersTable.getOperatorCounter();
+  void _onInitPartners() async {
+    partnersAssignedCount =
+    await countersTable.getCounter(docID: "partners_assigned");
+    setState(() {
+
+    });
   }
 
   @override
@@ -95,7 +113,7 @@ class _OperatorsState extends State<Operators> {
         body: FutureBuilder<List<Operator>>(
             future: operatorsTable.getOperators(),
             builder: (context, snapshot) {
-              if (snapshot.hasData) {
+              if (snapshot.hasData || (partnersAssignedCount != null) || (operatorsCount != null)) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 10.0, vertical: 20.0),
@@ -108,7 +126,8 @@ class _OperatorsState extends State<Operators> {
                             child: MyTextField(
                               hintText: "Número de CI del operador",
                               textEditingController: searchController,
-                              onChanged: (value) => updateSearchValue(newValue: value),
+                              onChanged: (value) =>
+                                  updateSearchValue(newValue: value),
                             ),
                           ),
                           Container(
@@ -116,7 +135,8 @@ class _OperatorsState extends State<Operators> {
                             child: CircleAvatar(
                               backgroundColor: MyTheme.primaryColor,
                               child: IconButton(
-                                onPressed: () => updateSearchValue(newValue: searchController.text),
+                                onPressed: () => updateSearchValue(
+                                    newValue: searchController.text),
                                 icon: const Icon(
                                   Icons.search,
                                   color: Colors.black,
@@ -130,9 +150,38 @@ class _OperatorsState extends State<Operators> {
                       const SizedBox(
                         height: 20.0,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Text("$operatorsCount Operadores creados", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17, color: MyTheme.darkGreen),),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: MyTheme.primary100),
+                            padding: const EdgeInsets.all(10),
+                            child: Text(
+                              "$operatorsCount Operadores creados",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                color: MyTheme.darkGreen,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: MyTheme.lightYellow),
+                            padding: const EdgeInsets.all(10),
+                            child: Text(
+                              "$partnersAssignedCount Socios asignados",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                color: MyTheme.darkYellow,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(
                         height: 20.0,
@@ -140,7 +189,8 @@ class _OperatorsState extends State<Operators> {
                       Expanded(
                         child: ListView.builder(
                           itemBuilder: (context, index) {
-                            if (snapshot.data![index].identification.toString() ==
+                            if (snapshot.data![index].identification
+                                        .toString() ==
                                     searchValue ||
                                 searchValue.isEmpty) {
                               return operatorContainer(
@@ -225,9 +275,9 @@ class _OperatorsState extends State<Operators> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => AssignedPartners(
-                              assignedPartners: operator.assignedPartners,
-                              operatorName: operator.name,
-                            ))),
+                                  assignedPartners: operator.assignedPartners,
+                                  operatorName: operator.name,
+                                ))),
                     style: TextButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
                     ),
@@ -241,12 +291,12 @@ class _OperatorsState extends State<Operators> {
             context,
             MaterialPageRoute(
                 builder: (context) => AssignedPartners(
-                  assignedPartners: operator.assignedPartners,
-                  operatorName: operator.name,
-                ))),
+                      assignedPartners: operator.assignedPartners,
+                      operatorName: operator.name,
+                    ))),
       );
 
-  void updateSearchValue({required String newValue}){
+  void updateSearchValue({required String newValue}) {
     setState(() {
       searchValue = newValue;
     });

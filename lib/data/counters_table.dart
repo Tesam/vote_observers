@@ -9,14 +9,14 @@ class CountersTable {
     toFirestore: (operator, _) => operator.toJson(),
   );
 
-  Future<void> incrementOperatorCounter() async {
-    final shardRef = countersRef.doc("operators");
+  Future<void> incrementCounter({required String docID}) async {
+    final shardRef = countersRef.doc(docID);
     await shardRef.update({'count': FieldValue.increment(1)});
   }
 
-  Future<int> getOperatorCounter() async {
+  Future<int> getCounter({required String docID}) async {
     final Counter counter =
-    (await countersRef.doc("operators").get()).data()! as Counter;
+    (await countersRef.doc(docID).get()).data()! as Counter;
 
     return counter.count;
   }
