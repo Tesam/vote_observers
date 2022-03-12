@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:vote_observers/data/counters_table.dart';
 import 'package:vote_observers/data/partners_table.dart';
 import 'package:vote_observers/domain/models/partner.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
@@ -17,8 +18,11 @@ class _PartnersState extends State<Partners> {
   List<Partner> partners = [];
   var scrollController = ScrollController();
   PartnersTable partnersTable = PartnersTable();
+  final CountersTable countersTable = CountersTable();
   final TextEditingController searchController = TextEditingController();
   String searchValue = "";
+  int? partnersAssignedCount;
+  int? partnersGeneralCount;
 
   @override
   void initState() {
@@ -26,6 +30,8 @@ class _PartnersState extends State<Partners> {
     WidgetsBinding.instance!.addPostFrameCallback(
       (_) {
         _onInit();
+        _onInitPartnersAssigned();
+        _onInitPartners();
       },
     );
   }
@@ -74,6 +80,22 @@ class _PartnersState extends State<Partners> {
    // partnersTable.addPartners();
   }
 
+  void _onInitPartnersAssigned() async {
+    partnersAssignedCount =
+    await countersTable.getCounter(docID: "partners_assigned");
+    setState(() {
+
+    });
+  }
+
+  void _onInitPartners() async {
+    partnersGeneralCount =
+    await countersTable.getCounter(docID: "partners_general");
+    setState(() {
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,107 +139,48 @@ class _PartnersState extends State<Partners> {
                     ),
                   ],
                 ),
-                /*Container(
-                  height: 40,
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 10,
-                  ),
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    children: [
-                      InkWell(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: MyTheme.primaryColor),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          margin: const EdgeInsets.only(right: 8),
-                          child: const Text(
-                            "San Juan",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 16),
-                          ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: MyTheme.primary100),
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        "$partnersGeneralCount Socios general",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: MyTheme.darkGreen,
                         ),
                       ),
-                      InkWell(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
-                            border: Border.all(color: Colors.white),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          margin: const EdgeInsets.only(right: 8),
-                          child: Text(
-                            "San Ignacio",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 16),
-                          ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: MyTheme.lightYellow),
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        "$partnersAssignedCount Socios asignados",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: MyTheme.darkYellow,
                         ),
                       ),
-                      InkWell(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
-                            border: Border.all(color: Colors.white),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          margin: const EdgeInsets.only(right: 8),
-                          child: Text(
-                            "Ayolas",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 16),
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
-                            border: Border.all(color: Colors.white),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          margin: const EdgeInsets.only(right: 8),
-                          child: Text(
-                            "Pilar",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 16),
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
-                            border: Border.all(color: Colors.white),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          margin: const EdgeInsets.only(right: 8),
-                          child: Text(
-                            "Encarnación",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 16),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),*/
+                    ),
+                  ],
+                ),
                 const SizedBox(
                   height: 10.0,
                 ),
                 Expanded(
                   child: Center(
-                    child: partners.isNotEmpty
+                    child: (partners.isNotEmpty || (partnersAssignedCount != null) || (partnersGeneralCount != null))
                         ? ListView.builder(
                             physics: const AlwaysScrollableScrollPhysics(),
                             controller: scrollController,
