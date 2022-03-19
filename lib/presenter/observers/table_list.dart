@@ -64,7 +64,7 @@ class TableList extends StatelessWidget {
               const SizedBox(
                 height: 20.0,
               ),
-              Expanded(
+            /*  Expanded(
                 child: ListView(
                   children: [
                     InkWell(
@@ -110,7 +110,7 @@ class TableList extends StatelessWidget {
                               ),
                               IconButton(onPressed: () =>
                                   Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const TableData(),),),
+                                    builder: (context) => const TableData(tableNumber: ""),),),
                                 icon: const Icon(Icons.arrow_forward,),)
                             ],
                           )),
@@ -783,7 +783,7 @@ class TableList extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
+              ),*/
             ],
           ),
         ));

@@ -3,15 +3,16 @@ import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/widgets/data_sample_warning.dart';
 
 class TableData extends StatelessWidget {
-  const TableData({Key? key}) : super(key: key);
+  final String tableNumber;
+  const TableData({Key? key, required this.tableNumber}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Mesa 1",
-          style: TextStyle(color: MyTheme.gray2Text),
+        title: Text(
+          "Mesa $tableNumber",
+          style: const TextStyle(color: MyTheme.gray2Text),
         ),
         iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,

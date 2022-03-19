@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vote_observers/data/counters_table.dart';
 import 'package:vote_observers/data/operators_table.dart';
 import 'package:vote_observers/domain/models/operator.dart';
@@ -6,6 +7,7 @@ import 'package:vote_observers/presenter/operators/add_operator.dart';
 import 'package:vote_observers/presenter/operators/assigned_partners.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/operators/assing_operator.dart';
+import 'package:vote_observers/presenter/operators/operatorsList/operators_provider.dart';
 import 'package:vote_observers/presenter/widgets/my_text_field.dart';
 
 class Operators extends StatefulWidget {

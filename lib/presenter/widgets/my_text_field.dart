@@ -11,6 +11,9 @@ class MyTextField extends StatefulWidget {
   final TextEditingController textEditingController;
   final FormFieldValidator<String>? validator;
   final Function(String)? onChanged;
+  final bool enabledBorder;
+  final TextInputType? textInputType;
+  final Color color;
 
   const MyTextField({
     Key? key,
@@ -20,6 +23,9 @@ class MyTextField extends StatefulWidget {
     required this.textEditingController,
     this.validator,
     this.onChanged,
+    this.enabledBorder = false,
+    this.textInputType,
+    this.color = MyTheme.primaryColor
   }) : super(key: key);
 
   @override
@@ -55,6 +61,14 @@ class _MyTextFieldState extends State<MyTextField> {
             ? Colors.white
             : MyTheme.grayBackground,
         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+        enabledBorder: (widget.enabledBorder) ? OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide(color: widget.color, width: 1.0),
+        ) : null,
+        focusedBorder: (widget.enabledBorder) ? OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide(color: widget.color, width: 1.0),
+        ) : null,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide.none,
@@ -75,6 +89,7 @@ class _MyTextFieldState extends State<MyTextField> {
       onChanged: widget.onChanged,
       obscureText:
           (widget.textFieldType == TextFieldType.password) ? true : false,
+        keyboardType: widget.textInputType,
     );
   }
 }

@@ -4,7 +4,8 @@ import 'package:vote_observers/presenter/my_theme.dart';
 class MyButton extends StatelessWidget {
   final String title;
   final VoidCallback onPressed;
-  const MyButton({Key? key, required this.title, required this.onPressed}) : super(key: key);
+  final Color color;
+  const MyButton({Key? key, required this.title, required this.onPressed, this.color = MyTheme.primaryColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class MyButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30)),
             elevation: 0,
-            primary: MyTheme.primaryColor,
+            primary: color,
             minimumSize: const Size(double.infinity, 50)
         ));
   }

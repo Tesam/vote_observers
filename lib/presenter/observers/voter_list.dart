@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
+import 'package:vote_observers/presenter/observers/results.dart';
+import 'package:vote_observers/presenter/operators/operatorsList/operators.dart';
 import 'package:vote_observers/presenter/widgets/data_sample_warning.dart';
 
 enum VoteStatus { voted, notVoted }
 
 class VoterList extends StatelessWidget {
-  const VoterList({Key? key}) : super(key: key);
+  final String tableNumber;
+  const VoterList({Key? key, required this.tableNumber}) : super(key: key);
 
   Future<void> updateUser(documentFields) {
     return documentFields
@@ -22,13 +25,39 @@ class VoterList extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Mesa 1",
-          style: TextStyle(color: MyTheme.gray2Text),
+        title: Text(
+          "Mesa $tableNumber",
+          style: const TextStyle(color: MyTheme.gray2Text),
         ),
         iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
         backgroundColor: MyTheme.background,
+        actions: [
+          PopupMenuButton(
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  child: ListTile(
+                    leading: const Icon(
+                      Icons.post_add,
+                      color: Colors.black,
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => Results(tableNumber: tableNumber)),
+                      );
+                    },
+                    title: const Text(
+                      "Agregar Resultado",
+                      style: TextStyle(
+                          fontSize: 14.0, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  value: 1,
+                ),
+              ]),
+        ],
       ),
       backgroundColor: MyTheme.background,
       body: StreamBuilder<dynamic>(

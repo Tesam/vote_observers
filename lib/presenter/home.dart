@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
-import 'package:vote_observers/presenter/operators/operators.dart';
+import 'package:vote_observers/presenter/observers/tables_observers.dart';
+import 'package:vote_observers/presenter/operators/operatorsList/operators.dart';
 import 'package:vote_observers/presenter/partners/partners.dart';
 import 'package:vote_observers/presenter/observers/table_list.dart';
 import 'package:vote_observers/presenter/widgets/data_sample_warning.dart';
@@ -75,7 +76,7 @@ class Home extends StatelessWidget {
                           Navigator.of(context).pop();
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => const VoterList()),
+                                builder: (context) => const TablesObservers()),
                           );
                         },
                         title: const Text(
