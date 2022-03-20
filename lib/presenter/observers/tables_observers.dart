@@ -36,7 +36,7 @@ class _TablesObserversState extends State<TablesObservers> {
                 crossAxisCount: 3,
                 padding: const EdgeInsets.all(10),
 
-                children: List.generate(20, (int index) {
+                children: List.generate(33, (int index) {
                   return InkWell(
                     child: Container(
                         margin: const EdgeInsets.all(5),
