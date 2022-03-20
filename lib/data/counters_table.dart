@@ -14,6 +14,11 @@ class CountersTable {
     await shardRef.update({'count': FieldValue.increment(incrementValue)});
   }
 
+  Future<void> decrementCounter({required String docID, int decrementValue = 1}) async {
+    final shardRef = countersRef.doc(docID);
+    await shardRef.update({'count': FieldValue.increment(-decrementValue)});
+  }
+
   Future<int> getCounter({required String docID}) async {
     final Counter counter =
     (await countersRef.doc(docID).get()).data()! as Counter;

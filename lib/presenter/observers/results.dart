@@ -114,21 +114,75 @@ class _ResultsState extends State<Results> {
                           SizedBox(
                             width: 100,
                             child: MyButton(title: "Agregar", onPressed: () async {
-                              final bool isAdded = await tableResultsTable.incrementCounter(docID: "table${widget.tableNumber}_consejo1", incrementValue: int.parse(consejo_1.text));
-                              if(isAdded){
-                                countersTable.incrementCounter(docID: "consejo1", incrementValue: int.parse(consejo_1.text));
-                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                  content: Text(
-                                    'El conteo de ARNALDO EDUARDO PENAYO se agregó correctamente',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: Colors.black, fontSize: 16),
-                                  ),
-                                  duration: Duration(seconds: 3),
-                                  backgroundColor: MyTheme.primaryColor,
-                                  padding:
-                                  EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-                                ));
+                              //get actual count number
+                              final int count = await tableResultsTable.getCounter(docID: "table${widget.tableNumber}_consejo1");
+
+                              //add firts count
+                              if(count == 0){
+                                final bool isAdded = await tableResultsTable.incrementCounter(docID: "table${widget.tableNumber}_consejo1", incrementValue: int.parse(consejo_1.text));
+                                if(isAdded){
+                                  countersTable.incrementCounter(docID: "consejo1", incrementValue: int.parse(consejo_1.text));
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'El conteo de ARNALDO EDUARDO PENAYO se agregó correctamente',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black, fontSize: 16),
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                    backgroundColor: MyTheme.primaryColor,
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  ));
+                                }else{
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'El conteo de ARNALDO EDUARDO PENAYO NO se agregó correctamente, por favor vuelve a INTENTARLO',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black, fontSize: 16),
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                    backgroundColor: MyTheme.redColor,
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  ));
+                                }
                               }
+                              else{
+                                //reset last counter on general counter
+                                await countersTable.decrementCounter(docID: "consejo1", decrementValue: count);
+                                //reset last counter on specific table
+                                await tableResultsTable.decrementCounter(docID: "table${widget.tableNumber}_consejo1", decrementValue: count);
+
+                                final bool isAdded = await tableResultsTable.incrementCounter(docID: "table${widget.tableNumber}_consejo1", incrementValue: int.parse(consejo_1.text));
+                                if(isAdded){
+                                  countersTable.incrementCounter(docID: "consejo1", incrementValue: int.parse(consejo_1.text));
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'El conteo de ARNALDO EDUARDO PENAYO se ACTUALIZÓ correctamente',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black, fontSize: 16),
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                    backgroundColor: MyTheme.primaryColor,
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  ));
+                                }else{
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'El conteo de ARNALDO EDUARDO PENAYO no se ACTUALIZÓ correctamente, por favor vuelve a INTENTARLO',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black, fontSize: 16),
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                    backgroundColor: MyTheme.redColor,
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  ));
+                                }
+                              }
+
+                              consejo_1.text = "";
                             }),
                           ),
                         ],
