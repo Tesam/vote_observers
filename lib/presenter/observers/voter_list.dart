@@ -12,9 +12,10 @@ class VoterList extends StatelessWidget {
 
   Future<void> updatePartnerOnTable({required String order}) {
     CollectionReference table =
-    FirebaseFirestore.instance.collection('table_$tableNumber');
+        FirebaseFirestore.instance.collection('table_$tableNumber');
 
-    return table.doc(order)
+    return table
+        .doc(order)
         .set({"state": true}, SetOptions(merge: true))
         .then((value) => print("User Updated"))
         .catchError((error) => print("Failed to update user: $error"));
@@ -22,9 +23,10 @@ class VoterList extends StatelessWidget {
 
   Future<void> updatePartnerGeneral({required String identification}) {
     CollectionReference partners =
-    FirebaseFirestore.instance.collection('partners');
+        FirebaseFirestore.instance.collection('partners');
 
-    return partners.doc(identification)
+    return partners
+        .doc(identification)
         .set({"vote_state": true}, SetOptions(merge: true))
         .then((value) => print("User Updated"))
         .catchError((error) => print("Failed to update user: $error"));
@@ -34,7 +36,6 @@ class VoterList extends StatelessWidget {
   Widget build(BuildContext context) {
     Stream collectionStream =
         FirebaseFirestore.instance.collection('table_$tableNumber').snapshots();
-
 
     return Scaffold(
       appBar: AppBar(
@@ -121,40 +122,50 @@ class VoterList extends StatelessWidget {
           {required String index,
           required String voter,
           VoteStatus voteStatus = VoteStatus.notVoted,
-          required BuildContext context, required String identification}) =>
+          required BuildContext context,
+          required String identification}) =>
       InkWell(
-        child: Container(
-          width: 80.0,
-          height: 80.0,
-          margin: const EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: (voteStatus == VoteStatus.voted)
-                  ? MyTheme.primaryColor
-                  : MyTheme.grayBackground),
-          child: Center(
-            child: Text(
-              index,
-              style: TextStyle(
-                  color: (voteStatus == VoteStatus.voted)
-                      ? MyTheme.darkGreen
-                      : MyTheme.gray2Text,
-                  fontSize: 20.0),
+          child: Container(
+            width: 80.0,
+            height: 80.0,
+            margin: const EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: (voteStatus == VoteStatus.voted)
+                    ? MyTheme.primaryColor
+                    : MyTheme.grayBackground),
+            child: Center(
+              child: Text(
+                index,
+                style: TextStyle(
+                    color: (voteStatus == VoteStatus.voted)
+                        ? MyTheme.darkGreen
+                        : MyTheme.gray2Text,
+                    fontSize: 20.0),
+              ),
             ),
           ),
-        ),
-        onTap: () => (voteStatus == VoteStatus.notVoted)
-            ? _showAddVoterDialog(
-                context: context, voter: voter, index: index, identification: identification)
-            : ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text('El voto ya fue registrado!'),
-              )),
-      );
+          onTap: () => (voteStatus == VoteStatus.notVoted)
+              ? _showAddVoterDialog(
+                  context: context,
+                  voter: voter,
+                  index: index,
+                  identification: identification)
+              : ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text(
+                    'El voto ya fue registrado!',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                  duration: Duration(seconds: 3),
+                  backgroundColor: MyTheme.lightYellow,
+                  padding: EdgeInsets.symmetric(vertical: 40),
+                )));
 
   Future<void> _showAddVoterDialog(
       {required BuildContext context,
       required String voter,
-        required String identification,
+      required String identification,
       required String index}) async {
     return showDialog<void>(
       context: context,
@@ -199,7 +210,14 @@ class VoterList extends StatelessWidget {
                 updatePartnerOnTable(order: index);
                 updatePartnerGeneral(identification: identification);
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('Voto registrado exitosamente!'),
+                  content: Text(
+                    'Voto registrado correctamente',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                  duration: Duration(seconds: 3),
+                  backgroundColor: MyTheme.primaryColor,
+                  padding: EdgeInsets.symmetric(vertical: 40),
                 ));
                 Navigator.of(context).pop();
               },
