@@ -2,26 +2,39 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/observers/results.dart';
-import 'package:vote_observers/presenter/operators/operatorsList/operators.dart';
-import 'package:vote_observers/presenter/widgets/data_sample_warning.dart';
 
 enum VoteStatus { voted, notVoted }
 
 class VoterList extends StatelessWidget {
   final String tableNumber;
+
   const VoterList({Key? key, required this.tableNumber}) : super(key: key);
 
-  Future<void> updateUser(documentFields) {
-    return documentFields
-        .update({'voters.0.state': true})
+  Future<void> updatePartnerOnTable({required String order}) {
+    CollectionReference table =
+    FirebaseFirestore.instance.collection('table_$tableNumber');
+
+    return table.doc(order)
+        .set({"state": true}, SetOptions(merge: true))
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
+  Future<void> updatePartnerGeneral({required String identification}) {
+    CollectionReference partners =
+    FirebaseFirestore.instance.collection('partners');
+
+    return partners.doc(identification)
+        .set({"vote_state": true}, SetOptions(merge: true))
         .then((value) => print("User Updated"))
         .catchError((error) => print("Failed to update user: $error"));
   }
 
   @override
   Widget build(BuildContext context) {
-    Stream documentStream =
-        FirebaseFirestore.instance.collection('tables').doc('1').snapshots();
+    Stream collectionStream =
+        FirebaseFirestore.instance.collection('table_$tableNumber').snapshots();
+
 
     return Scaffold(
       appBar: AppBar(
@@ -35,33 +48,34 @@ class VoterList extends StatelessWidget {
         actions: [
           PopupMenuButton(
               itemBuilder: (context) => [
-                PopupMenuItem(
-                  child: ListTile(
-                    leading: const Icon(
-                      Icons.post_add,
-                      color: Colors.black,
+                    PopupMenuItem(
+                      child: ListTile(
+                        leading: const Icon(
+                          Icons.post_add,
+                          color: Colors.black,
+                        ),
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    Results(tableNumber: tableNumber)),
+                          );
+                        },
+                        title: const Text(
+                          "Agregar Resultado",
+                          style: TextStyle(
+                              fontSize: 14.0, fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      value: 1,
                     ),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => Results(tableNumber: tableNumber)),
-                      );
-                    },
-                    title: const Text(
-                      "Agregar Resultado",
-                      style: TextStyle(
-                          fontSize: 14.0, fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                  value: 1,
-                ),
-              ]),
+                  ]),
         ],
       ),
       backgroundColor: MyTheme.background,
       body: StreamBuilder<dynamic>(
-        stream: documentStream,
+        stream: collectionStream,
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasError) {
             return const Center(
@@ -70,63 +84,30 @@ class VoterList extends StatelessWidget {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator(),);
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
-
-         // var documentFields = snapshot.data;
           return Column(
             children: [
-              /*Container(
-                width: double.infinity,
-                color: MyTheme.grayBackground,
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: Column(
-                  children: [
-                    Text(
-                      "${documentFields["observer"]}",
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    Text(
-                      "Mesa ${documentFields.id}",
-                      style: const TextStyle(
-                          color: MyTheme.grayBackground, fontSize: 16.0),
-                    ),
-                  ],
-                ),
-              ),*/
-              const SizedBox(height: 20,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: dataSampleWarning(),
+              const SizedBox(
+                height: 20,
               ),
-              const SizedBox(height: 20,),
               Expanded(
                 child: GridView.count(
                   crossAxisCount: 4,
-                 children: List.generate(100, (index) =>
-                     orderContainer(
-                         index: index.toString(),
-                         context: context,
-                         voter: "Socio $index",
-                         voteStatus: (index.isOdd)
-                             ? VoteStatus.voted
-                             : VoteStatus.notVoted)),
-                 /* children: snapshot.data["voters"].map<Widget>((document) {
-                    print("ddddic: ${document}");
+                  children: snapshot.data!.docs.map<Widget>((document) {
+                    Map<String, dynamic> data =
+                        document.data()! as Map<String, dynamic>;
                     return orderContainer(
-                        index: document["order"],
+                        index: data["order"],
+                        identification: data["identification"],
                         context: context,
-                        voter: document["name"],
-                        voteStatus: (document["state"])
+                        voter: data["name"],
+                        voteStatus: (data["state"])
                             ? VoteStatus.voted
                             : VoteStatus.notVoted);
-                  }).toList(),*/
+                  }).toList(),
                 ),
               )
             ],
@@ -140,7 +121,7 @@ class VoterList extends StatelessWidget {
           {required String index,
           required String voter,
           VoteStatus voteStatus = VoteStatus.notVoted,
-          required BuildContext context}) =>
+          required BuildContext context, required String identification}) =>
       InkWell(
         child: Container(
           width: 80.0,
@@ -163,14 +144,18 @@ class VoterList extends StatelessWidget {
           ),
         ),
         onTap: () => (voteStatus == VoteStatus.notVoted)
-            ? _showAddVoterDialog(context: context, voter: voter)
+            ? _showAddVoterDialog(
+                context: context, voter: voter, index: index, identification: identification)
             : ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content: Text('El voto ya fue registrado!'),
               )),
       );
 
   Future<void> _showAddVoterDialog(
-      {required BuildContext context, required String voter}) async {
+      {required BuildContext context,
+      required String voter,
+        required String identification,
+      required String index}) async {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -211,6 +196,8 @@ class VoterList extends StatelessWidget {
                 style: TextStyle(color: MyTheme.darkGreen),
               ),
               onPressed: () {
+                updatePartnerOnTable(order: index);
+                updatePartnerGeneral(identification: identification);
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text('Voto registrado exitosamente!'),
                 ));
