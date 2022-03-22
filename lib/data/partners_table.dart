@@ -81,14 +81,20 @@ class PartnersTable {
   Future<void> addPartners() async {
     print("json lenght ${jsonData.length}");
     for (var element in jsonData) {
+      final CollectionReference tableRef =
+      FirebaseFirestore.instance.collection("table_30").withConverter<Voters>(
+        fromFirestore: (snapshot, _) => Voters.fromJson(snapshot.data()!),
+        toFirestore: (voter, _) => voter.toJson(),
+      );
 
-      Partner partner = Partner.fromJson(element);
-      partnersRef
-          .doc(partner.identification.toString())
-          .set(partner)
+      Voters voters = Voters.fromJson(element);
+
+      tableRef
+          .doc(voters.order.toString())
+          .set(voters)
           .then((values) async {
         c++;
-        print("FIREBASE ADDED ${partner.identification} id = $c");
+        print("FIREBASE ADDED ${voters.order} id = $c");
         if(jsonData.last == element){
           print("ULTIMO ELEMENTO");
         }
@@ -97,5 +103,4 @@ class PartnersTable {
     }
 
   }*/
-
 }

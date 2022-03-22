@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
-import 'package:vote_observers/presenter/observers/table_data.dart';
 import 'package:vote_observers/presenter/observers/voter_list.dart';
 
 class TablesObservers extends StatefulWidget {
@@ -35,8 +34,7 @@ class _TablesObserversState extends State<TablesObservers> {
             child: GridView.count(
                 crossAxisCount: 3,
                 padding: const EdgeInsets.all(10),
-
-                children: List.generate(33, (int index) {
+                children: List.generate(30, (int index) {
                   return InkWell(
                     child: Container(
                         margin: const EdgeInsets.all(5),

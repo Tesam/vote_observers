@@ -32,10 +32,13 @@ class VoterList extends StatelessWidget {
         .catchError((error) => print("Failed to update user: $error"));
   }
 
+  ///TODO: UPDATE PARTNERS_ASSIGNED_VOTES
+  ///TODO: UPDATE PARTNERS_GENERAL_VOTES
+
   @override
   Widget build(BuildContext context) {
     Stream collectionStream =
-        FirebaseFirestore.instance.collection('table_$tableNumber').snapshots();
+        FirebaseFirestore.instance.collection('table_$tableNumber').orderBy("order").snapshots();
 
     return Scaffold(
       appBar: AppBar(
@@ -119,11 +122,11 @@ class VoterList extends StatelessWidget {
   }
 
   Widget orderContainer(
-          {required String index,
+          {required int index,
           required String voter,
           VoteStatus voteStatus = VoteStatus.notVoted,
           required BuildContext context,
-          required String identification}) =>
+          required int identification}) =>
       InkWell(
           child: Container(
             width: 80.0,
@@ -136,7 +139,7 @@ class VoterList extends StatelessWidget {
                     : MyTheme.grayBackground),
             child: Center(
               child: Text(
-                index,
+                index.toString(),
                 style: TextStyle(
                     color: (voteStatus == VoteStatus.voted)
                         ? MyTheme.darkGreen
@@ -165,8 +168,8 @@ class VoterList extends StatelessWidget {
   Future<void> _showAddVoterDialog(
       {required BuildContext context,
       required String voter,
-      required String identification,
-      required String index}) async {
+      required int identification,
+      required int index}) async {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -207,8 +210,8 @@ class VoterList extends StatelessWidget {
                 style: TextStyle(color: MyTheme.darkGreen),
               ),
               onPressed: () {
-                updatePartnerOnTable(order: index);
-                updatePartnerGeneral(identification: identification);
+                updatePartnerOnTable(order: index.toString());
+                updatePartnerGeneral(identification: identification.toString());
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text(
                     'Voto registrado correctamente',
