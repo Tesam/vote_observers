@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:vote_observers/data/counters_table.dart';
+import 'package:vote_observers/data/partners_table.dart';
+import 'package:vote_observers/domain/models/partner.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/observers/results.dart';
 
@@ -33,7 +36,15 @@ class VoterList extends StatelessWidget {
   }
 
   ///TODO: UPDATE PARTNERS_ASSIGNED_VOTES
+  Future<void> updatePartnerAssignedVotes() async {
+    CountersTable countersTable = CountersTable();
+    await countersTable.incrementCounter(docID: "partners_assigned_votes");
+  }
   ///TODO: UPDATE PARTNERS_GENERAL_VOTES
+  Future<void> updatePartnerGeneralVotes() async {
+    CountersTable countersTable = CountersTable();
+    await countersTable.incrementCounter(docID: "partners_general_votes");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -209,9 +220,18 @@ class VoterList extends StatelessWidget {
                 'Agregar',
                 style: TextStyle(color: MyTheme.darkGreen),
               ),
-              onPressed: () {
+              onPressed: () async{
                 updatePartnerOnTable(order: index.toString());
                 updatePartnerGeneral(identification: identification.toString());
+                updatePartnerGeneralVotes();
+
+                //update partners assigned votes if it's an assigned partner
+                PartnersTable partnersTable = PartnersTable();
+                final Partner partner = await partnersTable.getPartner(partnerIdentification: identification.toString());
+                if(partner.assigned){
+                  updatePartnerAssignedVotes();
+                }
+
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text(
                     'Voto registrado correctamente',
