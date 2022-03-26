@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:vote_observers/data/counters_table.dart';
+import 'package:vote_observers/presenter/candidates/candidates.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/observers/tables_observers.dart';
 import 'package:vote_observers/presenter/operators/operatorsList/operators.dart';
@@ -353,7 +354,56 @@ class _HomeState extends State<Home> {
                       const SizedBox(
                         height: 10.0,
                       ),
-                      Container(
+                      InkWell(
+                        child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white,
+                            ),
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text("Conteo",
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w600)),
+                                const SizedBox(
+                                  height: 10.0,
+                                ),
+                                const Text("Ingresa para observar el conteo de votos de los candidatos"),
+                                const SizedBox(
+                                  height: 10.0,
+                                ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: TextButton(
+                                    child: const Text(
+                                      "Ver Conteo",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    onPressed: () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                          const Candidates()),
+                                    ),
+                                    style: TextButton.styleFrom(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20, 20, 0, 20),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            )
+                        ),
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) =>
+                              const Candidates()),
+                        ),
+                      )
+
+                      /*Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: Colors.white,
@@ -362,81 +412,83 @@ class _HomeState extends State<Home> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text("Sucursales",
+                            const Text("Consejo de Administración",
                                 style: TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.w600)),
                             const SizedBox(
                               height: 10.0,
                             ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  border:
+                                  Border.all(color: MyTheme.gray4Text)),
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    "ARNALDO EDUARDO PENAYO EDUARDO PENAYO",
+                                    style: TextStyle(
+                                        color: MyTheme.gray2Text,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  RichText(
+                                    text: const TextSpan(
+                                      text: '400 ',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '/15000',
+                                            style: TextStyle(
+                                              fontSize: 14.0,
+                                            )),
+                                      ],
+                                    ),
+                                  ),
+                                  const Text(
+                                    "Asignados",
+                                    style: TextStyle(
+                                        fontSize: 12.0,
+                                        color: MyTheme.gray2Text,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  LinearPercentIndicator(
+                                    width: 135,
+                                    animation: true,
+                                    lineHeight: 16.0,
+                                    padding: EdgeInsets.zero,
+                                    animationDuration: 1000,
+                                    percent: 0.30,
+                                    center: const Text(
+                                      "2.7%",
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                    barRadius: const Radius.circular(5),
+                                    progressColor: MyTheme.primaryColor,
+                                    backgroundColor:
+                                    const Color(0xFFC4C4C4),
+                                  ),
+                                ],
+                              ),
+                              margin: const EdgeInsets.symmetric(horizontal: 10),
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      border:
-                                          Border.all(color: MyTheme.gray4Text)),
-                                  padding: const EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      const Text(
-                                        "San Juan",
-                                        style: TextStyle(
-                                            color: MyTheme.gray2Text,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 14),
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      RichText(
-                                        text: const TextSpan(
-                                          text: '400 ',
-                                          style: TextStyle(
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.black),
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                                text: '/15000',
-                                                style: TextStyle(
-                                                  fontSize: 14.0,
-                                                )),
-                                          ],
-                                        ),
-                                      ),
-                                      const Text(
-                                        "Asignados",
-                                        style: TextStyle(
-                                            fontSize: 12.0,
-                                            color: MyTheme.gray2Text,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      LinearPercentIndicator(
-                                        width: 135,
-                                        animation: true,
-                                        lineHeight: 16.0,
-                                        padding: EdgeInsets.zero,
-                                        animationDuration: 1000,
-                                        percent: 0.30,
-                                        center: const Text(
-                                          "2.7%",
-                                          style: TextStyle(fontSize: 12),
-                                        ),
-                                        barRadius: const Radius.circular(5),
-                                        progressColor: MyTheme.primaryColor,
-                                        backgroundColor:
-                                            const Color(0xFFC4C4C4),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                                 Container(
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15),
@@ -782,7 +834,7 @@ class _HomeState extends State<Home> {
                             ),
                           ],
                         ),
-                      )
+                      )*/
                     ],
                   ),
           )),
