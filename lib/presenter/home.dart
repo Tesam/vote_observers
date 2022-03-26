@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:vote_observers/data/counters_table.dart';
@@ -22,6 +23,10 @@ class _HomeState extends State<Home> {
   late int partnersAssigned;
   late double partnersGeneralVotesPercent;
   late double partnersAssignedVotesPercent;
+  Map<String,int> tablesCounter = {};
+
+  late int consejo1;
+  late int consejo2;
 
   bool _isLoading = false;
 
@@ -34,12 +39,23 @@ class _HomeState extends State<Home> {
     partnersAssignedVotes =
         await countersTable.getCounter(docID: "partners_assigned_votes");
     partnersAssigned =
-    await countersTable.getCounter(docID: "partners_assigned");
+        await countersTable.getCounter(docID: "partners_assigned");
+
+    for (int i = 0; i < 6; i++) {
+      CollectionReference tableRef =
+          FirebaseFirestore.instance.collection("table_${i+1}");
+
+      int tableCounter = (await tableRef.where("state", isEqualTo: true).get()).docs.length;
+      setState(() {
+        tablesCounter["Mesa ${i+1}"] = tableCounter;
+      });
+    }
 
     setState(() {
       _isLoading = false;
       partnersGeneralVotesPercent = partnersGeneralVotes * 100 / 16437;
-      partnersAssignedVotesPercent = partnersAssignedVotes * 100 / partnersAssigned;
+      partnersAssignedVotesPercent =
+          partnersAssignedVotes * 100 / partnersAssigned;
     });
   }
 
@@ -200,7 +216,8 @@ class _HomeState extends State<Home> {
                                       lineHeight: 16.0,
                                       padding: EdgeInsets.zero,
                                       animationDuration: 1000,
-                                      percent: partnersGeneralVotesPercent/100,
+                                      percent:
+                                          partnersGeneralVotesPercent / 100,
                                       center: Text(
                                         "${partnersGeneralVotesPercent.toStringAsFixed(2)}%",
                                         style: const TextStyle(fontSize: 12),
@@ -246,7 +263,8 @@ class _HomeState extends State<Home> {
                                       lineHeight: 16.0,
                                       padding: EdgeInsets.zero,
                                       animationDuration: 1000,
-                                      percent: partnersAssignedVotesPercent / 100,
+                                      percent:
+                                          partnersAssignedVotesPercent / 100,
                                       center: Text(
                                         "${partnersAssignedVotesPercent.toStringAsFixed(2)}%",
                                         style: const TextStyle(fontSize: 12),
@@ -283,29 +301,23 @@ class _HomeState extends State<Home> {
                               const SizedBox(
                                 height: 10.0,
                               ),
-                              const Text(
-                                "Con el menor porcentaje de votos asignados registrados. ",
-                                style: TextStyle(
-                                    color: MyTheme.gray2Text, fontSize: 14.0),
-                              ),
+                              const Text("Cantidad de socios votantes por cada mesa"),
                               const SizedBox(
                                 height: 10.0,
                               ),
                               GridView.count(
-                                // Create a grid with 2 columns. If you change the scrollDirection to
-                                // horizontal, this produces 2 rows.
                                 crossAxisCount: 3,
                                 shrinkWrap: true,
-                                // Generate 100 widgets that display their index in the List.
-                                children: List.generate(9, (index) {
+                                children: List.generate(tablesCounter.length, (index) {
                                   return Center(
                                     child: Text(
-                                      'Mesa $index',
-                                      style: TextStyle(fontSize: 14.0),
+                                      'Mesa ${index+1}\n${tablesCounter["Mesa ${index+1}"]}',
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(fontSize: 15.0, fontWeight: FontWeight.w500),
                                     ),
                                   );
                                 }),
-                                childAspectRatio: 3,
+                                childAspectRatio: 1.5,
                               ),
                               const SizedBox(
                                 height: 10.0,
@@ -314,7 +326,7 @@ class _HomeState extends State<Home> {
                                 alignment: Alignment.centerRight,
                                 child: TextButton(
                                   child: const Text(
-                                    "Ver detalles",
+                                    "Ver Mesas",
                                     style: TextStyle(color: Colors.black),
                                   ),
                                   onPressed: () => Navigator.of(context).push(
