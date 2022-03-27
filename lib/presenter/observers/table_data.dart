@@ -1,13 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
-import 'package:vote_observers/presenter/widgets/data_sample_warning.dart';
+import 'package:vote_observers/presenter/observers/voter_list.dart';
 
 class TableData extends StatelessWidget {
   final String tableNumber;
+
   const TableData({Key? key, required this.tableNumber}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Stream collectionStream = FirebaseFirestore.instance
+        .collection('table_$tableNumber')
+        .orderBy("order")
+        .snapshots();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -19,418 +26,110 @@ class TableData extends StatelessWidget {
         backgroundColor: MyTheme.background,
       ),
       backgroundColor: MyTheme.background,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                        fillColor: Colors.white,
-                        contentPadding:
-                        const EdgeInsets.symmetric(horizontal: 20.0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: const BorderSide(
-                            width: 0,
-                            style: BorderStyle.none,
-                          ),
-                        ),
-                        filled: true),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 10.0),
-                  child: CircleAvatar(
-                    backgroundColor: MyTheme.primaryColor,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.search,
-                        color: Colors.black,
-                      ),
-                    ),
-                    maxRadius: 25,
-                  ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: ListView(
+      body: StreamBuilder<dynamic>(
+        stream: collectionStream,
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text('Algo salió mal'),
+            );
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: MyTheme.darkGreen,
+              ),
+            );
+          }
+
+          /*return ListView.builder(
+            itemBuilder: (context, index) {
+              return voterContainer();
+            },
+            itemCount: ,
+
+          );*/
+
+          return ListView(
+            children: snapshot.data!.docs.map<Widget>((document) {
+              Map<String, dynamic> data =
+                  document.data()! as Map<String, dynamic>;
+              return voterContainer(
+                  index: data["order"],
+                  identification: data["identification"],
+                  voter: data["name"],
+                  voteStatus:
+                      (data["state"]) ? VoteStatus.voted : VoteStatus.notVoted);
+            }).toList(),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget voterContainer(
+      {required int index,
+      required int identification,
+      required String voter,
+      required VoteStatus voteStatus}) {
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30), color: Colors.white),
+          padding: const EdgeInsets.all(20),
+          margin: const EdgeInsets.only(bottom: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                voter,
+                style: const TextStyle(
+                    fontSize: 18.0,
+                    color: MyTheme.gray2Text,
+                    fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                "Orden: $index",
+                style: const TextStyle(
+                    fontSize: 12.0,
+                    color: MyTheme.gray3Text,
+                    fontWeight: FontWeight.w500),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const SizedBox(height: 30.0,),
-                  dataSampleWarning(),
-                  const SizedBox(
-                    height: 20.0,
+                  Text(
+                    "Cédula: $identification",
+                    style: const TextStyle(
+                        fontSize: 12.0,
+                        color: MyTheme.gray3Text,
+                        fontWeight: FontWeight.w500),
                   ),
-                  Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.all(20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Juan Perez",
-                              style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: MyTheme.gray2Text,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            const SizedBox(height: 5,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "San Juan Bautista",
-                                  style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: MyTheme.gray3Text,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      color: MyTheme.gray3Text,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      CircleAvatar(backgroundColor: MyTheme.primaryColor, radius: 10,),
-                    ],
-                    alignment: Alignment(0.9,-1.2),
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.all(20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Juan Perez",
-                              style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: MyTheme.gray2Text,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            const SizedBox(height: 5,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "San Juan Bautista",
-                                  style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: MyTheme.gray3Text,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      color: MyTheme.gray3Text,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      CircleAvatar(backgroundColor: MyTheme.redColor, radius: 10,),
-                    ],
-                    alignment: Alignment(0.9,-1.2),
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.all(20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Juan Perez",
-                              style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: MyTheme.gray2Text,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            const SizedBox(height: 5,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "San Juan Bautista",
-                                  style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: MyTheme.gray3Text,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      color: MyTheme.gray3Text,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      CircleAvatar(backgroundColor: MyTheme.primaryColor, radius: 10,),
-                    ],
-                    alignment: Alignment(0.9,-1.2),
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.all(20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Juan Perez",
-                              style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: MyTheme.gray2Text,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            const SizedBox(height: 5,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "San Juan Bautista",
-                                  style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: MyTheme.gray3Text,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      color: MyTheme.gray3Text,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      CircleAvatar(backgroundColor: MyTheme.redColor, radius: 10,),
-                    ],
-                    alignment: Alignment(0.9,-1.2),
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.all(20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Juan Perez",
-                              style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: MyTheme.gray2Text,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            const SizedBox(height: 5,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "San Juan Bautista",
-                                  style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: MyTheme.gray3Text,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      color: MyTheme.gray3Text,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      CircleAvatar(backgroundColor: MyTheme.primaryColor, radius: 10,),
-                    ],
-                    alignment: Alignment(0.9,-1.2),
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.all(20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Juan Perez",
-                              style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: MyTheme.gray2Text,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            const SizedBox(height: 5,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "San Juan Bautista",
-                                  style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: MyTheme.gray3Text,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      color: MyTheme.gray3Text,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      CircleAvatar(backgroundColor: MyTheme.redColor, radius: 10,),
-                    ],
-                    alignment: Alignment(0.9,-1.2),
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.all(20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Juan Perez",
-                              style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: MyTheme.gray2Text,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            const SizedBox(height: 5,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "San Juan Bautista",
-                                  style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: MyTheme.gray3Text,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      color: MyTheme.gray3Text,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      CircleAvatar(backgroundColor: MyTheme.primaryColor, radius: 10,),
-                    ],
-                    alignment: Alignment(0.9,-1.2),
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
-                        padding: const EdgeInsets.all(20),
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Juan Perez",
-                              style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: MyTheme.gray2Text,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            const SizedBox(height: 5,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "San Juan Bautista",
-                                  style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: MyTheme.gray3Text,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                const Text(
-                                  "Mesa 1",
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      color: MyTheme.gray3Text,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      CircleAvatar(backgroundColor: MyTheme.redColor, radius: 10,),
-                    ],
-                    alignment: Alignment(0.9,-1.2),
+                  Text(
+                    "Mesa $tableNumber",
+                    style: const TextStyle(
+                        fontSize: 14.0,
+                        color: MyTheme.gray3Text,
+                        fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
+        CircleAvatar(
+          backgroundColor: (voteStatus == VoteStatus.voted)
+              ? MyTheme.primaryColor
+              : MyTheme.redColor,
+          radius: 10,
+        ),
+      ],
+      alignment: const Alignment(0.9, -1.2),
     );
   }
 }
