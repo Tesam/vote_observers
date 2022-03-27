@@ -5,7 +5,7 @@ import 'package:vote_observers/presenter/candidates/candidates.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/observers/tables_observers.dart';
 import 'package:vote_observers/presenter/operators/operatorsList/operators.dart';
-import 'package:vote_observers/presenter/partners/partners.dart';
+import 'package:vote_observers/presenter/partners/partner_consults.dart';
 import 'package:vote_observers/presenter/observers/table_list.dart';
 
 class Home extends StatefulWidget {
@@ -87,18 +87,18 @@ class _HomeState extends State<Home> {
                     PopupMenuItem(
                       child: ListTile(
                         leading: const Icon(
-                          Icons.people,
+                          Icons.search,
                           color: Colors.black,
                         ),
                         onTap: () {
                           Navigator.of(context).pop();
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => const Partners()),
+                                builder: (context) => const PartnerConsults()),
                           );
                         },
                         title: const Text(
-                          "Socios",
+                          "Consultas",
                           style: TextStyle(
                               fontSize: 14.0, fontWeight: FontWeight.w500),
                         ),

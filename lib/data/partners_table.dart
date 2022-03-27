@@ -22,6 +22,33 @@ class PartnersTable {
     return partner;
   }
 
+  Future<Partner?> getPartnerByIdentification({required int partnerIdentification}) async {
+    Partner? partner;
+    await partnersRef
+        .where("identification", isEqualTo: partnerIdentification)
+        .get()
+        .then((value) {
+      partner = value.docs.first.data() as Partner;
+    }).onError((error, stackTrace) {
+      partner = null;
+    });
+    return partner;
+  }
+
+  Future<Partner?> getPartnerById({required int partnerId}) async {
+    Partner? partner;
+    await partnersRef
+        .where("partner_id", isEqualTo: partnerId)
+        .get()
+        .then((value) {
+      partner = value.docs.first.data() as Partner;
+    }).onError((error, stackTrace) {
+      partner = null;
+    });
+
+    return partner;
+  }
+
   Future<List<Partner>> getPartnersByIds(
       {required List<dynamic> partnerIdentifications}) async {
     final partners = partnerIdentifications.map((partnerIdentification) async =>
