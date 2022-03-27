@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:vote_observers/data/counters_table.dart';
 import 'package:vote_observers/data/operators_table.dart';
+import 'package:vote_observers/data/partners_table.dart';
 import 'package:vote_observers/domain/models/operator.dart';
 import 'package:vote_observers/presenter/operators/add_operator.dart';
 import 'package:vote_observers/presenter/operators/assigned_partners.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/operators/assing_operator.dart';
-import 'package:vote_observers/presenter/operators/operatorsList/operators_provider.dart';
 import 'package:vote_observers/presenter/widgets/my_text_field.dart';
 
 class Operators extends StatefulWidget {
@@ -20,6 +19,7 @@ class Operators extends StatefulWidget {
 class _OperatorsState extends State<Operators> {
   final OperatorsTable operatorsTable = OperatorsTable();
   final CountersTable countersTable = CountersTable();
+  final PartnersTable partnersTable = PartnersTable();
 
   final TextEditingController searchController = TextEditingController();
   String searchValue = "";
@@ -251,22 +251,12 @@ class _OperatorsState extends State<Operators> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  RichText(
-                    text: TextSpan(
-                      text: '0 ',
-                      style: const TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: '/${operator.assignedQuantity} asignados',
-                            style: const TextStyle(
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w400,
-                                color: MyTheme.gray2Text)),
-                      ],
-                    ),
+                  Text(
+                    '${operator.assignedQuantity} asignados',
+                    style: const TextStyle(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black),
                   ),
                   TextButton(
                     child: const Text(

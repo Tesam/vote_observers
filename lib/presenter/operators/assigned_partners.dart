@@ -33,6 +33,15 @@ class AssignedPartners extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               print("partners assigned: ${snapshot.data!.length}");
+              int c = 0;
+              for(int i = 0; i < snapshot.data!.length; i++){
+                Partner partner = snapshot.data![i];
+                if(partner.voteState){
+                  c++;
+                }
+              }
+
+              print("cantidad $c");
               return Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 10.0, vertical: 20.0),
@@ -68,6 +77,42 @@ class AssignedPartners extends StatelessWidget {
                               ),
                             ),
                             maxRadius: 25,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: MyTheme.primary100),
+                          padding: const EdgeInsets.all(10),
+                          child: Text(
+                            "$c Socios votaron",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              color: MyTheme.darkGreen,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: MyTheme.lightYellow),
+                          padding: const EdgeInsets.all(10),
+                          child: Text(
+                            "${snapshot.data!.length} Socios faltan votar",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              color: MyTheme.darkYellow,
+                            ),
                           ),
                         ),
                       ],
