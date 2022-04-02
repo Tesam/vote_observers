@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vote_observers/data/counters_table.dart';
 import 'package:vote_observers/data/operators_table.dart';
 import 'package:vote_observers/data/partners_table.dart';
 import 'package:vote_observers/domain/models/operator.dart';
 import 'package:vote_observers/domain/models/partner.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
+import 'package:vote_observers/presenter/operators/operatorsList/operators_provider.dart';
 import 'package:vote_observers/presenter/widgets/my_button.dart';
 import 'package:vote_observers/presenter/widgets/my_text_field.dart';
 
@@ -157,6 +159,9 @@ class AddOperator extends StatelessWidget {
                         backgroundColor: MyTheme.primaryColor,
                         padding: EdgeInsets.symmetric(vertical: 40),
                       ));
+                 //     await provider.initializeOperatorsData();
+                      Provider.of<OperatorsProvider>(context, listen: false).initializeOperatorsData();
+                      Navigator.pop(context);
 
                     }else{
                       ScaffoldMessenger.of(context)
