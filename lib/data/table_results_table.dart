@@ -3,7 +3,7 @@ import 'package:vote_observers/domain/models/table_results.dart';
 
 class TableResultsTable {
   final CollectionReference tableResultsRef = FirebaseFirestore.instance
-      .collection("table_results")
+      .collection("table_results_21")
       .withConverter<TableResults>(
     fromFirestore: (snapshot, _) => TableResults.fromJson(snapshot.data()!),
     toFirestore: (operator, _) => operator.toJson(),

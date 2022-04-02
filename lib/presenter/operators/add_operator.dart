@@ -136,7 +136,7 @@ class AddOperator extends StatelessWidget {
                         operator: Operator(
                           name: operator.name,
                           phone: phoneController.text,
-                          identification: operator.identification,
+                          identification: operator.partnerIdentification,
                           assignedPartners: [],
                           partnerId: operator.partnerId
                         ),

@@ -215,7 +215,7 @@ class _PartnerConsultsState extends State<PartnerConsults> {
                                   fontWeight: FontWeight.w500),
                             ),
                             Text(
-                              _partner!.identification.toString(),
+                              _partner!.partnerIdentification.toString(),
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                   fontSize: 16.0,

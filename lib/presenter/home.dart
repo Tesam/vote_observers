@@ -7,6 +7,7 @@ import 'package:vote_observers/presenter/observers/tables_observers.dart';
 import 'package:vote_observers/presenter/operators/operatorsList/operators.dart';
 import 'package:vote_observers/presenter/partners/partner_consults.dart';
 import 'package:vote_observers/presenter/observers/table_list.dart';
+import 'package:vote_observers/presenter/partners/partners.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -94,7 +95,9 @@ class _HomeState extends State<Home> {
                           Navigator.of(context).pop();
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => const PartnerConsults()),
+                                builder: (context) => const Partners()),
+                          /*  MaterialPageRoute(
+                                builder: (context) => const PartnerConsults()),*/
                           );
                         },
                         title: const Text(

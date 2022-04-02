@@ -7,6 +7,7 @@ import 'package:vote_observers/presenter/operators/add_operator.dart';
 import 'package:vote_observers/presenter/operators/assigned_partners.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/operators/assing_operator.dart';
+import 'package:vote_observers/presenter/partners/partner_consults.dart';
 import 'package:vote_observers/presenter/widgets/my_text_field.dart';
 
 class Operators extends StatefulWidget {
@@ -25,6 +26,8 @@ class _OperatorsState extends State<Operators> {
   String searchValue = "";
   int? operatorsCount;
   int? partnersAssignedCount;
+
+  ConsultType _consultType = ConsultType.partnerId;
 
   @override
   void initState() {
@@ -123,6 +126,79 @@ class _OperatorsState extends State<Operators> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Radio(
+                                  value: ConsultType.partnerId,
+                                  groupValue: _consultType,
+                                  activeColor: MyTheme.darkGreen,
+                                  onChanged: (ConsultType? value) {
+                                    setState(() {
+                                      _consultType = value!;
+                                      searchValue = "";
+                                      searchController.text = "";
+                                    });
+                                  }),
+                              const Text("Nro Socio"),
+                            ],
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                  value: ConsultType.identification,
+                                  groupValue: _consultType,
+                                  activeColor: MyTheme.darkGreen,
+                                  onChanged: (ConsultType? value) {
+                                    setState(() {
+                                      _consultType = value!;
+                                      searchValue = "";
+                                      searchController.text = "";
+                                    });
+                                  }),
+                              const Text("Nro Cédula"),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: MyTextField(
+                              hintText: (_consultType == ConsultType.identification)
+                                  ? "Cédula de identidad del socio"
+                                  : "Número de socio",
+                              textEditingController: searchController,
+                              textInputType: TextInputType.number,
+                              onChanged: (value) {
+                                if (value.isEmpty) {
+                                  updateSearchValue(newValue: value);
+                                }
+                              },
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(left: 10.0),
+                            child: CircleAvatar(
+                              backgroundColor: MyTheme.primaryColor,
+                              child: IconButton(
+                                onPressed: () => updateSearchValue(
+                                    newValue: searchController.text),
+                                icon: const Icon(
+                                  Icons.search,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              maxRadius: 25,
+                            ),
+                          ),
+                        ],
+                      ),
+                      /*Row(
                         children: [
                           Expanded(
                             child: MyTextField(
@@ -148,12 +224,12 @@ class _OperatorsState extends State<Operators> {
                             ),
                           ),
                         ],
-                      ),
+                      ),*/
                       const SizedBox(
                         height: 20.0,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
                             decoration: BoxDecoration(
@@ -189,7 +265,8 @@ class _OperatorsState extends State<Operators> {
                         height: 20.0,
                       ),
                       Expanded(
-                        child: ListView.builder(
+                        child: (snapshot.data!.length > 0)
+                        ? ListView.builder(
                           itemBuilder: (context, index) {
                             if (snapshot.data![index].identification
                                         .toString() ==
@@ -203,7 +280,8 @@ class _OperatorsState extends State<Operators> {
                             }
                           },
                           itemCount: snapshot.data!.length,
-                        ),
+                        )
+                        : const Center(child: Text("No hay operadores creados", style: TextStyle(color: MyTheme.gray3Text, fontSize: 18),),),
                       ),
                     ],
                   ),
@@ -220,7 +298,16 @@ class _OperatorsState extends State<Operators> {
                   ),
                 );
               }
-            }));
+            },),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.of(context).push(
+          MaterialPageRoute(
+              builder: (context) => const AddOperator()),
+        ),
+        child: const Icon(Icons.add, color: Colors.black,),
+        backgroundColor: MyTheme.primaryColor,
+      ),
+    );
   }
 
   Widget operatorContainer(

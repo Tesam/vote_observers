@@ -3,7 +3,7 @@ import 'package:vote_observers/domain/models/operator.dart';
 
 class OperatorsTable {
   final CollectionReference operatorsRef = FirebaseFirestore.instance
-      .collection("operators")
+      .collection("operators_21")
       .withConverter<Operator>(
         fromFirestore: (snapshot, _) => Operator.fromJson(snapshot.data()!),
         toFirestore: (operator, _) => operator.toJson(),

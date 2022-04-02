@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:vote_observers/data/json.dart';
 import 'package:vote_observers/domain/models/partner.dart';
 
 class PartnersTable {
   final CollectionReference partnersRef =
-      FirebaseFirestore.instance.collection("partners").withConverter<Partner>(
+      FirebaseFirestore.instance.collection("partners_21").withConverter<Partner>(
             fromFirestore: (snapshot, _) => Partner.fromJson(snapshot.data()!),
             toFirestore: (partner, _) => partner.toJson(),
           );
@@ -25,7 +26,7 @@ class PartnersTable {
   Future<Partner?> getPartnerByIdentification({required int partnerIdentification}) async {
     Partner? partner;
     await partnersRef
-        .where("identification", isEqualTo: partnerIdentification)
+        .where("partner_identification", isEqualTo: partnerIdentification)
         .get()
         .then((value) {
       partner = value.docs.first.data() as Partner;
@@ -104,24 +105,24 @@ class PartnersTable {
         .catchError((error) => print("Failed to add partner: $error"));
   }
 
-  /*int c = 0;
+  int c = 0;
   Future<void> addPartners() async {
     print("json lenght ${jsonData.length}");
     for (var element in jsonData) {
-      final CollectionReference tableRef =
+     /* final CollectionReference tableRef =
       FirebaseFirestore.instance.collection("table_30").withConverter<Voters>(
         fromFirestore: (snapshot, _) => Voters.fromJson(snapshot.data()!),
         toFirestore: (voter, _) => voter.toJson(),
-      );
+      );*/
 
-      Voters voters = Voters.fromJson(element);
+      Partner partner = Partner.fromJson(element);
 
-      tableRef
-          .doc(voters.order.toString())
-          .set(voters)
+      partnersRef
+          .doc(partner.partnerIdentification.toString())
+          .set(partner)
           .then((values) async {
         c++;
-        print("FIREBASE ADDED ${voters.order} id = $c");
+        print("FIREBASE ADDED ${partner.partnerId} id = $c");
         if(jsonData.last == element){
           print("ULTIMO ELEMENTO");
         }
@@ -129,5 +130,5 @@ class PartnersTable {
       }).catchError((error) => print("Failed to add partner: $error"));
     }
 
-  }*/
+  }
 }

@@ -30,22 +30,22 @@ class _PartnersState extends State<Partners> {
     WidgetsBinding.instance!.addPostFrameCallback(
       (_) {
         _onInit();
-        _onInitPartnersAssigned();
-        _onInitPartners();
+     /*   _onInitPartnersAssigned();
+        _onInitPartners();*/
       },
     );
   }
 
   void _onInit() async {
-    //addDocuments();
+    addDocuments();
    // await partnersTable.getPartnersLength();
-    _getDocuments();
+ /*   _getDocuments();
     scrollController.addListener(() async {
       if (scrollController.position.atEdge) {
         if (scrollController.position.pixels == 0) {
         } else {
           //get last document
-          String partnerIdentification = partners.last.identification.toString();
+          String partnerIdentification = partners.last.partnerIdentification.toString();
           DocumentSnapshot documentSnapshot =
               await partnersTable.getPartnerDocumentByIdentification(partnerIdentification: partnerIdentification);
 
@@ -58,7 +58,7 @@ class _PartnersState extends State<Partners> {
           });
         }
       }
-    });
+    });*/
   }
 
   void _getDocuments() async {
@@ -77,7 +77,7 @@ class _PartnersState extends State<Partners> {
   }
 
   void addDocuments() async {
-   // partnersTable.addPartners();
+    partnersTable.addPartners();
   }
 
   void _onInitPartnersAssigned() async {

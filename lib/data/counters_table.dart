@@ -3,7 +3,7 @@ import 'package:vote_observers/domain/models/counter.dart';
 
 class CountersTable {
   final CollectionReference countersRef = FirebaseFirestore.instance
-      .collection("counters")
+      .collection("counters_21")
       .withConverter<Counter>(
     fromFirestore: (snapshot, _) => Counter.fromJson(snapshot.data()!),
     toFirestore: (operator, _) => operator.toJson(),
