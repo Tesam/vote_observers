@@ -8,8 +8,17 @@ import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/widgets/my_button.dart';
 import 'package:vote_observers/presenter/widgets/my_text_field.dart';
 
-class AssignOperator extends StatelessWidget {
-  const AssignOperator({Key? key}) : super(key: key);
+class AssignOperator extends StatefulWidget {
+  final String operatorIdentification;
+
+  const AssignOperator({Key? key, required this.operatorIdentification})
+      : super(key: key);
+
+  @override
+  _AssignOperatorState createState() => _AssignOperatorState();
+}
+
+class _AssignOperatorState extends State<AssignOperator> {
   static PartnersTable partnersTable = PartnersTable();
   static OperatorsTable operatorsTable = OperatorsTable();
   static CountersTable countersTable = CountersTable();
@@ -28,6 +37,20 @@ class AssignOperator extends StatelessWidget {
   static final _formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+    getOperator();
+  }
+
+  Future<void> getOperator() async {
+    final getOperator = await operatorsTable.getOperator(
+        operatorID: widget.operatorIdentification);
+    setState(() {
+      operator = getOperator;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -38,11 +61,14 @@ class AssignOperator extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
         backgroundColor: MyTheme.background,
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: (){
-          clearPartnerFields();
-          clearOperatorFields();
-          Navigator.of(context).pop();
-        },),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            clearPartnerFields();
+            clearOperatorFields();
+            Navigator.of(context).pop();
+          },
+        ),
       ),
       backgroundColor: MyTheme.background,
       body: Padding(
@@ -57,7 +83,35 @@ class AssignOperator extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      Row(
+                      Container(
+                        decoration: BoxDecoration(
+                          color: MyTheme.grayBackground,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        width: double.infinity,
+                        height: 50,
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(operator.identification.toString()),
+                        ),
+                      ),
+                      const SizedBox(height: 10,),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: MyTheme.grayBackground,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        width: double.infinity,
+                        height: 50,
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(operator.name),
+                        ),
+                      ),
+                      const SizedBox(height: 10,),
+                     /* Row(
                         children: [
                           Expanded(
                             child: MyTextField(
@@ -130,7 +184,7 @@ class AssignOperator extends StatelessWidget {
                           }
                           return null;
                         },
-                      ),
+                      ),*/
                     ],
                   ),
                   const Icon(
@@ -153,7 +207,8 @@ class AssignOperator extends StatelessWidget {
                                   }
                                 }
 
-                                if (operatorSearchController.text == partnerSearchController.text) {
+                                if (operatorSearchController.text ==
+                                    partnerSearchController.text) {
                                   return 'Operador y socio no pueden ser iguales';
                                 }
                                 return null;
@@ -247,8 +302,7 @@ class AssignOperator extends StatelessWidget {
                         padding:
                             EdgeInsets.symmetric(vertical: 40, horizontal: 20),
                       ));
-                    }
-                    else {
+                    } else {
                       //get actual assigned partners list
                       List<dynamic> assignedPartners =
                           operator.assignedPartners;
@@ -264,7 +318,7 @@ class AssignOperator extends StatelessWidget {
                       final bool _isAssigned =
                           await operatorsTable.createOperator(
                               operator: operator,
-                              operatorID: operatorSearchController.text);
+                              operatorID: operator.identification.toString());
 
                       if (_isAssigned) {
                         //update partner phone
@@ -279,9 +333,11 @@ class AssignOperator extends StatelessWidget {
 
                         if (_isStateChanged) {
                           //update counter
-                          countersTable.incrementCounter(docID: "partners_assigned");
+                          countersTable.incrementCounter(
+                              docID: "partners_assigned");
                           ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(content: Text(
+                              .showSnackBar(const SnackBar(
+                            content: Text(
                               'El socio se asignó correctamente',
                               textAlign: TextAlign.center,
                               style:
@@ -310,8 +366,7 @@ class AssignOperator extends StatelessWidget {
                         ));
                       }
                     }
-                  }
-                  else {
+                  } else {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text(
                         'Por favor, rellena los campos obligatorios correctamente',

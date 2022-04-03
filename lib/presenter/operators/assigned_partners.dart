@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:vote_observers/data/partners_table.dart';
 import 'package:vote_observers/domain/models/partner.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
+import 'package:vote_observers/presenter/operators/assing_operator.dart';
 import 'package:vote_observers/presenter/utils.dart';
 
 class AssignedPartners extends StatelessWidget {
   final List<dynamic> assignedPartners;
   final String operatorName;
+  final String operatorIdentification;
 
   const AssignedPartners(
-      {Key? key, required this.assignedPartners, required this.operatorName})
+      {Key? key, required this.assignedPartners, required this.operatorName, required this.operatorIdentification})
       : super(key: key);
 
   static PartnersTable partnersTable = PartnersTable();
@@ -34,9 +36,9 @@ class AssignedPartners extends StatelessWidget {
             if (snapshot.hasData) {
               print("partners assigned: ${snapshot.data!.length}");
               int c = 0;
-              for(int i = 0; i < snapshot.data!.length; i++){
+              for (int i = 0; i < snapshot.data!.length; i++) {
                 Partner partner = snapshot.data![i];
-                if(partner.voteState){
+                if (partner.voteState) {
                   c++;
                 }
               }
@@ -85,7 +87,7 @@ class AssignedPartners extends StatelessWidget {
                       height: 20,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
                           decoration: BoxDecoration(
@@ -124,11 +126,13 @@ class AssignedPartners extends StatelessWidget {
                       child: (snapshot.data!.isNotEmpty)
                           ? ListView.builder(
                               itemBuilder: (context, index) => partnerContainer(
-                                  partner: snapshot.data![index], context: context),
+                                  partner: snapshot.data![index],
+                                  context: context),
                               itemCount: snapshot.data!.length,
                             )
                           : const Center(
-                              child: Text("Este operador no tiene socios asignados"),
+                              child: Text(
+                                  "Este operador no tiene socios asignados"),
                             ),
                     )
                   ],
@@ -147,6 +151,12 @@ class AssignedPartners extends StatelessWidget {
               );
             }
           }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.push(
+            context, MaterialPageRoute(builder: (context) => AssignOperator(operatorIdentification: operatorIdentification,))),
+        child: const Icon(Icons.add, color: Colors.black),
+        backgroundColor: MyTheme.primaryColor,
+      ),
       /*   Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
         child: Column(
@@ -199,7 +209,9 @@ class AssignedPartners extends StatelessWidget {
     );
   }
 
-  Widget partnerContainer({required Partner partner, required BuildContext context}) => Stack(
+  Widget partnerContainer(
+          {required Partner partner, required BuildContext context}) =>
+      Stack(
         children: [
           InkWell(
             child: Container(
@@ -218,7 +230,7 @@ class AssignedPartners extends StatelessWidget {
                         fontWeight: FontWeight.w500),
                   ),
                   Text(
-                    (partner.phone.isEmpty)? "Sin teléfono" : partner.phone,
+                    (partner.phone.isEmpty) ? "Sin teléfono" : partner.phone,
                     style: const TextStyle(
                         fontSize: 11.0,
                         color: MyTheme.gray2Text,
@@ -249,7 +261,7 @@ class AssignedPartners extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: (){
+            onTap: () {
               _showCallDialog(context: context, partner: partner);
             },
           ),
@@ -306,17 +318,17 @@ class AssignedPartners extends StatelessWidget {
               onPressed: () {
                 (partner.phone.isEmpty)
                     ? ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text(
-                    'Número de teléfono NO asignado',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black, fontSize: 16),
-                  ),
-                  duration: Duration(seconds: 3),
-                  backgroundColor: MyTheme.redColor,
-                  padding:
-                  EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-                ))
-                  : makePhoneCall('tel:${partner.phone}');
+                        content: Text(
+                          'Número de teléfono NO asignado',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.black, fontSize: 16),
+                        ),
+                        duration: Duration(seconds: 3),
+                        backgroundColor: MyTheme.redColor,
+                        padding:
+                            EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                      ))
+                    : makePhoneCall('tel:${partner.phone}');
                 Navigator.pop(context);
               },
             ),
