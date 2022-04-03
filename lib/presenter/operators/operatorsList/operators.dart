@@ -249,15 +249,22 @@ class _OperatorsState extends State<Operators> {
                       "Ver asignados",
                       style: TextStyle(color: Colors.black),
                     ),
-                    onPressed: () => Navigator.push(
+                    onPressed: () {
+                      Provider.of<OperatorsProvider>(context, listen: false)
+                          .setCurrentOperator(
+                              operatorIdentification: operator.identification.toString(),);
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => AssignedPartners(
-                                  assignedPartners: operator.assignedPartners,
-                                  operatorName: operator.name,
-                                  operatorIdentification:
-                                      operator.identification.toString(),
-                                ))),
+                          builder: (context) => AssignedPartners(
+                            assignedPartners: operator.assignedPartners,
+                            operatorName: operator.name,
+                            operatorIdentification:
+                                operator.identification.toString(),
+                          ),
+                        ),
+                      );
+                    },
                     style: TextButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
                     ),
@@ -267,15 +274,20 @@ class _OperatorsState extends State<Operators> {
             ],
           ),
         ),
-        onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => AssignedPartners(
-                      assignedPartners: operator.assignedPartners,
-                      operatorName: operator.name,
-                      operatorIdentification:
-                          operator.identification.toString(),
-                    ))),
+        onTap: () {
+          Provider.of<OperatorsProvider>(context, listen: false)
+              .setCurrentOperator(
+            operatorIdentification: operator.identification.toString(),);
+
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AssignedPartners(
+                    assignedPartners: operator.assignedPartners,
+                    operatorName: operator.name,
+                    operatorIdentification: operator.identification.toString(),
+                  )));
+        },
       );
 
   void updateSearchValue({required String newValue}) {

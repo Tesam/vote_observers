@@ -7,23 +7,18 @@ class OperatorsProvider with ChangeNotifier {
   int? operatorsCount;
   int? partnersAssignedCount;
   List<Operator> operatorList = [];
+  Operator? currentOperator;
 
   final OperatorsTable operatorsTable = OperatorsTable();
   final CountersTable countersTable = CountersTable();
 
   bool isLoading = false;
 
-  OperatorsProvider(){
+  OperatorsProvider() {
     initializeOperatorsData();
   }
 
-  void setIsLoading(bool value){
-    isLoading = value;
-    notifyListeners();
-  }
-
   Future<void> initializeOperatorsData() async {
-    print("ENTRE EN INICIALIZAR");
     isLoading = true;
     await getOperators();
     await getOperatorsCount();
@@ -38,10 +33,17 @@ class OperatorsProvider with ChangeNotifier {
 
   Future<void> getPartnersAssignedCount() async {
     partnersAssignedCount =
-    await countersTable.getCounter(docID: "partners_assigned");
+        await countersTable.getCounter(docID: "partners_assigned");
   }
 
   Future<void> getOperators() async {
     operatorList = await operatorsTable.getOperators();
   }
+
+  Future<void> setCurrentOperator(
+      {required String operatorIdentification}) async {
+    currentOperator =
+        await operatorsTable.getOperator(operatorID: operatorIdentification);
+  }
+
 }
