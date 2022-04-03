@@ -1,216 +1,163 @@
 import 'package:flutter/material.dart';
-import 'package:vote_observers/data/partners_table.dart';
+import 'package:provider/provider.dart';
 import 'package:vote_observers/domain/models/partner.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/operators/assing_operator.dart';
+import 'package:vote_observers/presenter/operators/operatorsList/operators_provider.dart';
 import 'package:vote_observers/presenter/utils.dart';
 
 class AssignedPartners extends StatelessWidget {
-  final List<dynamic> assignedPartners;
-  final String operatorName;
-  final String operatorIdentification;
-
-  const AssignedPartners(
-      {Key? key, required this.assignedPartners, required this.operatorName, required this.operatorIdentification})
-      : super(key: key);
-
-  static PartnersTable partnersTable = PartnersTable();
+  final String currentOperatorName;
+  const AssignedPartners({
+    Key? key,
+    required this.currentOperatorName,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          operatorName,
-          style: const TextStyle(color: MyTheme.gray2Text),
-        ),
-        iconTheme: const IconThemeData(color: Colors.black),
-        elevation: 0,
-        backgroundColor: MyTheme.background,
-      ),
-      backgroundColor: MyTheme.background,
-      body: FutureBuilder<List<Partner>>(
-          future: partnersTable.getPartnersByIds(
-              partnerIdentifications: assignedPartners),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              print("partners assigned: ${snapshot.data!.length}");
-              int c = 0;
-              for (int i = 0; i < snapshot.data!.length; i++) {
-                Partner partner = snapshot.data![i];
-                if (partner.voteState) {
-                  c++;
-                }
-              }
+    return Consumer<OperatorsProvider>(builder: (_, provider, __) {
+      int c = 0;
+      for (int i = 0; i < provider.assignedPartners.length; i++) {
+        Partner partner = provider.assignedPartners[i];
+        if (partner.voteState) {
+          c++;
+        }
+      }
 
-              print("cantidad $c");
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 20.0),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 20.0),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: const BorderSide(
-                                    width: 0,
-                                    style: BorderStyle.none,
-                                  ),
-                                ),
-                                filled: true),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(left: 10.0),
-                          child: CircleAvatar(
-                            backgroundColor: MyTheme.primaryColor,
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.search,
-                                color: Colors.black,
-                              ),
-                            ),
-                            maxRadius: 25,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: MyTheme.primary100),
-                          padding: const EdgeInsets.all(10),
-                          child: Text(
-                            "$c Socios votaron",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: MyTheme.darkGreen,
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            currentOperatorName,
+            style: const TextStyle(color: MyTheme.gray2Text),
+          ),
+          iconTheme: const IconThemeData(color: Colors.black),
+          elevation: 0,
+          backgroundColor: MyTheme.background,
+        ),
+        backgroundColor: MyTheme.background,
+        body: (provider.isLoading)
+            ? const Center(
+          child: CircularProgressIndicator(
+            color: MyTheme.darkGreen,
+          ),
+        )
+            : Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: 10.0, vertical: 20.0),
+          child: Column(
+            children: [
+              ///TODO: Enabled searchbar
+              /*Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 20.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: const BorderSide(
+                              width: 0,
+                              style: BorderStyle.none,
                             ),
                           ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: MyTheme.lightYellow),
-                          padding: const EdgeInsets.all(10),
-                          child: Text(
-                            "${snapshot.data!.length} Socios faltan votar",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: MyTheme.darkYellow,
-                            ),
-                          ),
-                        ),
-                      ],
+                          filled: true),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Expanded(
-                      child: (snapshot.data!.isNotEmpty)
-                          ? ListView.builder(
-                              itemBuilder: (context, index) => partnerContainer(
-                                  partner: snapshot.data![index],
-                                  context: context),
-                              itemCount: snapshot.data!.length,
-                            )
-                          : const Center(
-                              child: Text(
-                                  "Este operador no tiene socios asignados"),
-                            ),
-                    )
-                  ],
-                ),
-              );
-            } else if (snapshot.hasError) {
-              return const Center(
-                child: Text("Algo salió mal"),
-              );
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(
-                  valueColor:
-                      AlwaysStoppedAnimation<Color>(MyTheme.primaryColor),
-                ),
-              );
-            }
-          }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => AssignOperator(operatorIdentification: operatorIdentification,))),
-        child: const Icon(Icons.add, color: Colors.black),
-        backgroundColor: MyTheme.primaryColor,
-      ),
-      /*   Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                        fillColor: Colors.white,
-                        contentPadding:
-                        const EdgeInsets.symmetric(horizontal: 20.0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: const BorderSide(
-                            width: 0,
-                            style: BorderStyle.none,
-                          ),
-                        ),
-                        filled: true),
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 10.0),
-                  child: CircleAvatar(
-                    backgroundColor: MyTheme.primaryColor,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.search,
-                        color: Colors.black,
+                  Container(
+                    margin: const EdgeInsets.only(left: 10.0),
+                    child: CircleAvatar(
+                      backgroundColor: MyTheme.primaryColor,
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.search,
+                          color: Colors.black,
+                        ),
+                      ),
+                      maxRadius: 25,
+                    ),
+                  ),
+                ],
+              ),*/
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: MyTheme.primary100),
+                    padding: const EdgeInsets.all(10),
+                    child: Text(
+                      "$c Socios votaron",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                        color: MyTheme.darkGreen,
                       ),
                     ),
-                    maxRadius: 25,
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20,),
-            Expanded(
-              child: ListView.builder(
-                itemBuilder: (context, index) =>
-                    partnerContainer(partner: partners[index]),
-                itemCount: partners.length,
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: MyTheme.lightYellow),
+                    padding: const EdgeInsets.all(10),
+                    child: Text(
+                      "${provider.assignedPartners.length} Socios faltan votar",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                        color: MyTheme.darkYellow,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            )
-          ],
+              const SizedBox(
+                height: 20,
+              ),
+              Expanded(
+                child: (provider.assignedPartners.isNotEmpty)
+                    ? ListView.builder(
+                  itemBuilder: (context, index) => partnerContainer(
+                      partner: provider.assignedPartners[index],
+                      context: context),
+                  itemCount: provider.assignedPartners.length,
+                )
+                    : const Center(
+                  child: Text(
+                      "Este operador no tiene socios asignados"),
+                ),
+              )
+            ],
+          ),
         ),
-      ),*/
-    );
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AssignOperator(
+                operatorIdentification:
+                provider.currentOperator!.identification.toString(),
+              ),
+            ),
+          ),
+          child: const Icon(
+            Icons.add,
+            color: Colors.black,
+          ),
+          backgroundColor: MyTheme.primaryColor,
+        ),
+      );
+    });
   }
 
   Widget partnerContainer(
-          {required Partner partner, required BuildContext context}) =>
+      {required Partner partner, required BuildContext context}) =>
       Stack(
         children: [
           InkWell(
@@ -267,7 +214,7 @@ class AssignedPartners extends StatelessWidget {
           ),
           CircleAvatar(
             backgroundColor:
-                (partner.voteState) ? MyTheme.primaryColor : MyTheme.redColor,
+            (partner.voteState) ? MyTheme.primaryColor : MyTheme.redColor,
             radius: 10,
           ),
         ],
@@ -318,16 +265,16 @@ class AssignedPartners extends StatelessWidget {
               onPressed: () {
                 (partner.phone.isEmpty)
                     ? ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text(
-                          'Número de teléfono NO asignado',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.black, fontSize: 16),
-                        ),
-                        duration: Duration(seconds: 3),
-                        backgroundColor: MyTheme.redColor,
-                        padding:
-                            EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-                      ))
+                  content: Text(
+                    'Número de teléfono NO asignado',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                  duration: Duration(seconds: 3),
+                  backgroundColor: MyTheme.redColor,
+                  padding:
+                  EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                ))
                     : makePhoneCall('tel:${partner.phone}');
                 Navigator.pop(context);
               },

@@ -1,7 +1,10 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:vote_observers/data/counters_table.dart';
 import 'package:vote_observers/data/operators_table.dart';
+import 'package:vote_observers/data/partners_table.dart';
 import 'package:vote_observers/domain/models/operator.dart';
+import 'package:vote_observers/domain/models/partner.dart';
 
 class OperatorsProvider with ChangeNotifier {
   int? operatorsCount;
@@ -9,8 +12,11 @@ class OperatorsProvider with ChangeNotifier {
   List<Operator> operatorList = [];
   Operator? currentOperator;
 
+  List<Partner> assignedPartners = [];
+
   final OperatorsTable operatorsTable = OperatorsTable();
   final CountersTable countersTable = CountersTable();
+  final PartnersTable partnersTable = PartnersTable();
 
   bool isLoading = false;
 
@@ -44,6 +50,15 @@ class OperatorsProvider with ChangeNotifier {
       {required String operatorIdentification}) async {
     currentOperator =
         await operatorsTable.getOperator(operatorID: operatorIdentification);
+    notifyListeners();
   }
 
+  Future<void> setAssignedPartners({required List<dynamic> newAssignedPartners}) async {
+
+    print("RECIBO $newAssignedPartners");
+    assignedPartners = await partnersTable.getPartnersByIds(
+        partnerIdentifications: newAssignedPartners);
+
+    notifyListeners();
+  }
 }

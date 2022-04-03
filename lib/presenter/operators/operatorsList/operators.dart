@@ -42,160 +42,165 @@ class _OperatorsState extends State<Operators> {
       ),
       backgroundColor: MyTheme.background,
       body: Consumer<OperatorsProvider>(
-          builder: (_, provider, __) => (provider.isLoading)
-              ? const Center(
-                  child: CircularProgressIndicator(
-                    color: MyTheme.darkGreen,
-                  ),
-                )
-              : Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0, vertical: 20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+          builder: (_, provider, __) => RefreshIndicator(
+              color: MyTheme.darkGreen,
+              child: (provider.isLoading)
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                        color: MyTheme.darkGreen,
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Radio(
-                                  value: ConsultType.partnerId,
-                                  groupValue: _consultType,
-                                  activeColor: MyTheme.darkGreen,
-                                  onChanged: (ConsultType? value) {
-                                    setState(() {
-                                      _consultType = value!;
-                                      searchValue = "";
-                                      searchController.text = "";
-                                    });
-                                  }),
-                              const Text("Nro Socio"),
+                              Row(
+                                children: [
+                                  Radio(
+                                      value: ConsultType.partnerId,
+                                      groupValue: _consultType,
+                                      activeColor: MyTheme.darkGreen,
+                                      onChanged: (ConsultType? value) {
+                                        setState(() {
+                                          _consultType = value!;
+                                          searchValue = "";
+                                          searchController.text = "";
+                                        });
+                                      }),
+                                  const Text("Nro Socio"),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Radio(
+                                      value: ConsultType.identification,
+                                      groupValue: _consultType,
+                                      activeColor: MyTheme.darkGreen,
+                                      onChanged: (ConsultType? value) {
+                                        setState(() {
+                                          _consultType = value!;
+                                          searchValue = "";
+                                          searchController.text = "";
+                                        });
+                                      }),
+                                  const Text("Nro Cédula"),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: MyTextField(
+                                  hintText: (_consultType ==
+                                          ConsultType.identification)
+                                      ? "Cédula de identidad del socio"
+                                      : "Número de socio",
+                                  textEditingController: searchController,
+                                  textInputType: TextInputType.number,
+                                  onChanged: (value) {
+                                    if (value.isEmpty) {
+                                      updateSearchValue(newValue: value);
+                                    }
+                                  },
+                                ),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(left: 10.0),
+                                child: CircleAvatar(
+                                  backgroundColor: MyTheme.primaryColor,
+                                  child: IconButton(
+                                    onPressed: () => updateSearchValue(
+                                        newValue: searchController.text),
+                                    icon: const Icon(
+                                      Icons.search,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  maxRadius: 25,
+                                ),
+                              ),
                             ],
                           ),
                           const SizedBox(
-                            width: 10,
+                            height: 20.0,
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Radio(
-                                  value: ConsultType.identification,
-                                  groupValue: _consultType,
-                                  activeColor: MyTheme.darkGreen,
-                                  onChanged: (ConsultType? value) {
-                                    setState(() {
-                                      _consultType = value!;
-                                      searchValue = "";
-                                      searchController.text = "";
-                                    });
-                                  }),
-                              const Text("Nro Cédula"),
+                              Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: MyTheme.primary100),
+                                padding: const EdgeInsets.all(10),
+                                child: Text(
+                                  "${provider.operatorsCount} Operadores creados",
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: MyTheme.darkGreen,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: MyTheme.lightYellow),
+                                padding: const EdgeInsets.all(10),
+                                child: Text(
+                                  "${provider.partnersAssignedCount} Socios asignados",
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: MyTheme.darkYellow,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
-                        ],
-                      ),
-                      Row(
-                        children: [
+                          const SizedBox(
+                            height: 20.0,
+                          ),
                           Expanded(
-                            child: MyTextField(
-                              hintText:
-                                  (_consultType == ConsultType.identification)
-                                      ? "Cédula de identidad del socio"
-                                      : "Número de socio",
-                              textEditingController: searchController,
-                              textInputType: TextInputType.number,
-                              onChanged: (value) {
-                                if (value.isEmpty) {
-                                  updateSearchValue(newValue: value);
-                                }
-                              },
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(left: 10.0),
-                            child: CircleAvatar(
-                              backgroundColor: MyTheme.primaryColor,
-                              child: IconButton(
-                                onPressed: () => updateSearchValue(
-                                    newValue: searchController.text),
-                                icon: const Icon(
-                                  Icons.search,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              maxRadius: 25,
-                            ),
+                            child: (provider.operatorList.isNotEmpty)
+                                ? ListView.builder(
+                                    itemBuilder: (context, index) {
+                                      if (provider.operatorList[index]
+                                                  .identification
+                                                  .toString() ==
+                                              searchValue ||
+                                          searchValue.isEmpty) {
+                                        return operatorContainer(
+                                            context: context,
+                                            operator:
+                                                provider.operatorList[index]);
+                                      } else {
+                                        return Container();
+                                      }
+                                    },
+                                    itemCount: provider.operatorList.length,
+                                  )
+                                : const Center(
+                                    child: Text(
+                                      "No hay operadores creados",
+                                      style: TextStyle(
+                                          color: MyTheme.gray3Text,
+                                          fontSize: 18),
+                                    ),
+                                  ),
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: MyTheme.primary100),
-                            padding: const EdgeInsets.all(10),
-                            child: Text(
-                              "${provider.operatorsCount} Operadores creados",
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14,
-                                color: MyTheme.darkGreen,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: MyTheme.lightYellow),
-                            padding: const EdgeInsets.all(10),
-                            child: Text(
-                              "${provider.partnersAssignedCount} Socios asignados",
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14,
-                                color: MyTheme.darkYellow,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      Expanded(
-                        child: (provider.operatorList.isNotEmpty)
-                            ? ListView.builder(
-                                itemBuilder: (context, index) {
-                                  if (provider.operatorList[index]
-                                              .identification
-                                              .toString() ==
-                                          searchValue ||
-                                      searchValue.isEmpty) {
-                                    return operatorContainer(
-                                        context: context,
-                                        operator: provider.operatorList[index]);
-                                  } else {
-                                    return Container();
-                                  }
-                                },
-                                itemCount: provider.operatorList.length,
-                              )
-                            : const Center(
-                                child: Text(
-                                  "No hay operadores creados",
-                                  style: TextStyle(
-                                      color: MyTheme.gray3Text, fontSize: 18),
-                                ),
-                              ),
-                      ),
-                    ],
-                  ),
-                )),
+                    ),
+              onRefresh: () => provider.initializeOperatorsData())),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const AddOperator()),
@@ -252,15 +257,19 @@ class _OperatorsState extends State<Operators> {
                     onPressed: () {
                       Provider.of<OperatorsProvider>(context, listen: false)
                           .setCurrentOperator(
-                              operatorIdentification: operator.identification.toString(),);
+                        operatorIdentification:
+                            operator.identification.toString(),
+                      );
+
+                      Provider.of<OperatorsProvider>(context, listen: false)
+                          .setAssignedPartners(
+                              newAssignedPartners: operator.assignedPartners);
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => AssignedPartners(
-                            assignedPartners: operator.assignedPartners,
-                            operatorName: operator.name,
-                            operatorIdentification:
-                                operator.identification.toString(),
+                            currentOperatorName: operator.name,
                           ),
                         ),
                       );
@@ -274,19 +283,24 @@ class _OperatorsState extends State<Operators> {
             ],
           ),
         ),
-        onTap: () {
-          Provider.of<OperatorsProvider>(context, listen: false)
+        onTap: () async {
+          await Provider.of<OperatorsProvider>(context, listen: false)
               .setCurrentOperator(
-            operatorIdentification: operator.identification.toString(),);
+            operatorIdentification: operator.identification.toString(),
+          );
+
+          print("ASSIGNED: ${operator.assignedPartners}");
+          await Provider.of<OperatorsProvider>(context, listen: false)
+              .setAssignedPartners(
+                  newAssignedPartners: operator.assignedPartners);
 
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => AssignedPartners(
-                    assignedPartners: operator.assignedPartners,
-                    operatorName: operator.name,
-                    operatorIdentification: operator.identification.toString(),
-                  )));
+                builder: (context) => AssignedPartners(
+                  currentOperatorName: operator.name,
+                ),
+              ));
         },
       );
 
