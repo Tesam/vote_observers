@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tesam.vote_observers">
    <application
-        android:label="MIC app"
+        android:label="MICOOP app"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

@@ -43,12 +43,12 @@ dependencies:
 
 flutter_native_splash:
   color: "#E9F3E4"
-  image: assets/mic_logo.png
+  image: assets/micoop-logo.png
 
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/mic_icon.png"
+  image_path: "assets/micoop-icon.png"
 
 dev_dependencies:
   flutter_test:
