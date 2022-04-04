@@ -173,18 +173,34 @@ class _OperatorsState extends State<Operators> {
                             child: (provider.operatorList.isNotEmpty)
                                 ? ListView.builder(
                                     itemBuilder: (context, index) {
-                                      if (provider.operatorList[index]
-                                                  .identification
-                                                  .toString() ==
-                                              searchValue ||
-                                          searchValue.isEmpty) {
-                                        return operatorContainer(
-                                            context: context,
-                                            operator:
-                                                provider.operatorList[index]);
-                                      } else {
-                                        return Container();
+                                      if(_consultType == ConsultType.identification){
+                                        if (provider.operatorList[index]
+                                            .identification
+                                            .toString() ==
+                                            searchValue ||
+                                            searchValue.isEmpty) {
+                                          return operatorContainer(
+                                              context: context,
+                                              operator:
+                                              provider.operatorList[index]);
+                                        } else {
+                                          return Container();
+                                        }
+                                      }else{
+                                        if (provider.operatorList[index]
+                                            .partnerId
+                                            .toString() ==
+                                            searchValue ||
+                                            searchValue.isEmpty) {
+                                          return operatorContainer(
+                                              context: context,
+                                              operator:
+                                              provider.operatorList[index]);
+                                        } else {
+                                          return Container();
+                                        }
                                       }
+
                                     },
                                     itemCount: provider.operatorList.length,
                                   )
