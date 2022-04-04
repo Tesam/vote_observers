@@ -11,6 +11,7 @@ class Partner {
   String phone;
   int operatorIdentification;
   String operatorName;
+  int tableOrder;
 
   Partner({
     required this.name,
@@ -25,6 +26,7 @@ class Partner {
     required this.phone,
     required this.operatorIdentification,
     required this.operatorName,
+    required this.tableOrder,
   });
 
   factory Partner.fromJson(Map<String, dynamic> json){
@@ -41,6 +43,7 @@ class Partner {
       phone: json["phone"]??"",
       operatorIdentification: json["operator_identification"],
       operatorName: json["operator_name"],
+      tableOrder: json["table_order"],
     );
   }
 
@@ -58,6 +61,7 @@ class Partner {
       "phone": phone,
       "operator_identification": operatorIdentification,
       "operator_name": operatorName,
+      "table_order": tableOrder,
     };
   }
 }

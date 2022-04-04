@@ -178,7 +178,7 @@ class _PartnerConsultsState extends State<PartnerConsults> {
                               height: 5,
                             ),
                             Text(
-                              _partner!.subsidiary,
+                              _partner!.city,
                               style: const TextStyle(
                                   fontSize: 12.0,
                                   color: MyTheme.gray2Text,
@@ -223,12 +223,19 @@ class _PartnerConsultsState extends State<PartnerConsults> {
                                   fontWeight: FontWeight.w500),
                             ),
                             const SizedBox(
-                              height: 15,
+                              height: 30,
                             ),
                             Text(
                               "Mesa ${_partner!.tableNumber}",
                               style: const TextStyle(
                                   fontSize: 20.0,
+                                  color: MyTheme.gray2Text,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            Text(
+                              "Orden ${_partner!.tableOrder}",
+                              style: const TextStyle(
+                                  fontSize: 17.0,
                                   color: MyTheme.gray2Text,
                                   fontWeight: FontWeight.w500),
                             ),

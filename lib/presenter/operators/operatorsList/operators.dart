@@ -37,6 +37,32 @@ class _OperatorsState extends State<Operators> {
           style: TextStyle(color: MyTheme.gray2Text),
         ),
         iconTheme: const IconThemeData(color: Colors.black),
+        actions: [
+          PopupMenuButton(
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  child: ListTile(
+                    leading: const Icon(
+                      Icons.search,
+                      color: Colors.black,
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).push(
+                          MaterialPageRoute(
+                                builder: (context) => const PartnerConsults()),
+                      );
+                    },
+                    title: const Text(
+                      "Consultas",
+                      style: TextStyle(
+                          fontSize: 14.0, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  value: 2,
+                ),
+              ]),
+        ],
         elevation: 0,
         backgroundColor: MyTheme.background,
       ),
