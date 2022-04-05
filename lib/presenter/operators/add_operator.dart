@@ -189,8 +189,14 @@ class _AddOperatorState extends State<AddOperator> {
             MyButton(
                 title: "Crear operador",
                 onPressed: () async {
-                  final bool _isOperatorAlreadyExist = await operatorsTable
+                  bool _isOperatorAlreadyExist = false;
+                  if(_consultType == ConsultType.identification){
+                    _isOperatorAlreadyExist = await operatorsTable
                       .isOperatorExist(searchController.text);
+                  }else{
+                    _isOperatorAlreadyExist = await operatorsTable
+                        .isOperatorExist(operator.partnerIdentification.toString());
+                  }
 
                   if (_isOperatorAlreadyExist) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -211,7 +217,7 @@ class _AddOperatorState extends State<AddOperator> {
                             identification: operator.partnerIdentification,
                             assignedPartners: [],
                             partnerId: operator.partnerId),
-                        operatorID: searchController.text);
+                        operatorID: operator.partnerIdentification.toString());
 
                     if (_isAdded) {
                       //update counter
