@@ -7,6 +7,7 @@ import 'package:vote_observers/domain/models/operator.dart';
 import 'package:vote_observers/domain/models/partner.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/operators/operatorsList/operators_provider.dart';
+import 'package:vote_observers/presenter/partners/partner_consults.dart';
 import 'package:vote_observers/presenter/widgets/my_button.dart';
 import 'package:vote_observers/presenter/widgets/my_text_field.dart';
 
@@ -33,10 +34,13 @@ class _AssignOperatorState extends State<AssignOperator> {
   static TextEditingController partnerNameController = TextEditingController();
   static TextEditingController partnerPhoneController = TextEditingController();
 
-  static late Operator operator;
+  static Operator? operator;
   static late Partner partner;
 
   static final _formKey = GlobalKey<FormState>();
+
+  ConsultType _consultType = ConsultType.partnerId;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -45,10 +49,15 @@ class _AssignOperatorState extends State<AssignOperator> {
   }
 
   Future<void> getOperator() async {
+    setState(() {
+      _isLoading = true;
+    });
+
     final getOperator = await operatorsTable.getOperator(
         operatorID: widget.operatorIdentification);
     setState(() {
       operator = getOperator;
+      _isLoading = false;
     });
   }
 
@@ -76,7 +85,7 @@ class _AssignOperatorState extends State<AssignOperator> {
       resizeToAvoidBottomInset: true,
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
+        child: (_isLoading) ? const Center(child: CircularProgressIndicator(color: MyTheme.darkGreen,),) : Column(
           children: [
             Expanded(
               child: SingleChildScrollView(
@@ -97,7 +106,7 @@ class _AssignOperatorState extends State<AssignOperator> {
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Align(
                             alignment: Alignment.centerLeft,
-                            child: Text(operator.identification.toString()),
+                            child: Text(operator!.identification.toString()),
                           ),
                         ),
                         const SizedBox(
@@ -113,7 +122,7 @@ class _AssignOperatorState extends State<AssignOperator> {
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Align(
                             alignment: Alignment.centerLeft,
-                            child: Text(operator.name),
+                            child: Text(operator!.name),
                           ),
                         ),
                         const SizedBox(
@@ -121,34 +130,69 @@ class _AssignOperatorState extends State<AssignOperator> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 30,),
+                    const SizedBox(
+                      height: 30,
+                    ),
                     const Icon(
                       Icons.arrow_downward,
                       color: Colors.black,
                       size: 36,
                     ),
-                    const SizedBox(height: 30,),
+                    const SizedBox(
+                      height: 30,
+                    ),
                     Column(
                       children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Radio(
+                                    value: ConsultType.partnerId,
+                                    groupValue: _consultType,
+                                    activeColor: MyTheme.darkGreen,
+                                    onChanged: (ConsultType? value) {
+                                      setState(() {
+                                        _consultType = value!;
+                                      });
+
+                                      clearPartnerFields();
+                                    }),
+                                const Text("Nro Socio"),
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Row(
+                              children: [
+                                Radio(
+                                    value: ConsultType.identification,
+                                    groupValue: _consultType,
+                                    activeColor: MyTheme.darkGreen,
+                                    onChanged: (ConsultType? value) {
+                                      setState(() {
+                                        _consultType = value!;
+                                      });
+
+                                      clearPartnerFields();
+                                    }),
+                                const Text("Nro Cédula"),
+                              ],
+                            ),
+                          ],
+                        ),
                         Row(
                           children: [
                             Expanded(
                               child: MyTextField(
-                                hintText: "Nro de CI del socio",
+                                hintText:
+                                    (_consultType == ConsultType.identification)
+                                        ? "Cédula de identidad del socio"
+                                        : "Número de socio",
                                 textEditingController: partnerSearchController,
-                                validator: (value) {
-                                  if (value != null) {
-                                    if (value.isEmpty) {
-                                      return 'Campo requerido';
-                                    }
-                                  }
-
-                                  if (operatorSearchController.text ==
-                                      partnerSearchController.text) {
-                                    return 'Operador y socio no pueden ser iguales';
-                                  }
-                                  return null;
-                                },
+                                textInputType: TextInputType.number,
                               ),
                             ),
                             Container(
@@ -157,14 +201,34 @@ class _AssignOperatorState extends State<AssignOperator> {
                                 backgroundColor: MyTheme.primaryColor,
                                 child: IconButton(
                                   onPressed: () async {
-                                    final bool _isPartnerAlreadyExist =
-                                        await partnersTable.isPartnerExist(
-                                            partnerSearchController.text);
+                                    bool _isPartnerAlreadyExist = false;
+
+                                    if (_consultType ==
+                                        ConsultType.identification) {
+                                      _isPartnerAlreadyExist =
+                                          await partnersTable.isPartnerExist(
+                                              partnerSearchController.text);
+                                    } else {
+                                      Partner? partner =
+                                          await partnersTable.getPartnerById(
+                                              partnerId: int.parse(
+                                                  partnerSearchController
+                                                      .text));
+
+                                      if (partner != null) {
+                                        _isPartnerAlreadyExist = true;
+                                      }
+                                    }
 
                                     if (_isPartnerAlreadyExist) {
-                                      partner = await partnersTable.getPartner(
-                                          partnerIdentification:
-                                              partnerSearchController.text);
+                                      if(_consultType == ConsultType.identification){
+                                        partner = await partnersTable.getPartner(
+                                            partnerIdentification:
+                                            partnerSearchController.text);
+                                      }else{
+                                        partner = (await partnersTable.getPartnerById(partnerId: int.parse(partnerSearchController.text)))!;
+                                      }
+
                                       partnerNameController.text = partner.name;
                                     } else {
                                       clearPartnerFields();
@@ -195,7 +259,7 @@ class _AssignOperatorState extends State<AssignOperator> {
                           ],
                         ),
                         const SizedBox(
-                          height: 10.0,
+                          height: 20.0,
                         ),
                         MyTextField(
                           hintText: "Nombre",
@@ -240,23 +304,24 @@ class _AssignOperatorState extends State<AssignOperator> {
                         padding:
                             EdgeInsets.symmetric(vertical: 40, horizontal: 20),
                       ));
-                    } else {
+                    }
+                    else {
                       //get actual assigned partners list
                       List<dynamic> assignedPartners =
-                          operator.assignedPartners;
+                          operator!.assignedPartners;
                       //add new assigned partner
-                      assignedPartners.add(partnerSearchController.text);
+                      assignedPartners.add(partner.partnerIdentification.toString());
 
                       //add new partner to operator local object
-                      operator.assignedPartners = assignedPartners;
+                      operator!.assignedPartners = assignedPartners;
                       //update assigned quantity in local operator object
-                      operator.assignedQuantity = operator.assignedQuantity + 1;
+                      operator!.assignedQuantity = operator!.assignedQuantity + 1;
 
                       //update operator on database
                       final bool _isAssigned =
                           await operatorsTable.createOperator(
-                              operator: operator,
-                              operatorID: operator.identification.toString());
+                              operator: operator!,
+                              operatorID: operator!.identification.toString());
 
                       if (_isAssigned) {
                         //update partner phone
@@ -265,28 +330,29 @@ class _AssignOperatorState extends State<AssignOperator> {
                         partner.assigned = true;
                         //update operator identification on partner local object
                         partner.operatorIdentification =
-                            operator.identification;
+                            operator!.identification;
                         //update operator name on partner local object
-                        partner.operatorName = operator.name;
+                        partner.operatorName = operator!.name;
                         //update partner on database
                         final bool _isStateChanged =
                             await partnersTable.addPartner(
                                 partner: partner,
-                                partnerID: partnerSearchController.text);
+                                partnerID: partner.partnerIdentification.toString());
 
                         if (_isStateChanged) {
                           //update counter
-                          countersTable.incrementCounter(
+                          await countersTable.incrementCounter(
                               docID: "partners_assigned");
 
                           await Provider.of<OperatorsProvider>(context,
                                   listen: false)
                               .initializeOperatorsData();
+
                           await Provider.of<OperatorsProvider>(context,
                                   listen: false)
                               .setAssignedPartners(
                                   newAssignedPartners:
-                                      operator.assignedPartners);
+                                      operator!.assignedPartners);
 
                           Navigator.of(context).pop();
 
