@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vote_observers/presenter/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:vote_observers/presenter/operators/operatorsList/operators.dart';
 import 'package:vote_observers/presenter/operators/operatorsList/operators_provider.dart';
