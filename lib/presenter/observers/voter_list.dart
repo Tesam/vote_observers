@@ -221,9 +221,9 @@ class VoterList extends StatelessWidget {
                 style: TextStyle(color: MyTheme.darkGreen),
               ),
               onPressed: () async{
-                updatePartnerOnTable(order: index.toString());
-                updatePartnerGeneral(identification: identification.toString());
-                updatePartnerGeneralVotes();
+                await updatePartnerOnTable(order: index.toString());
+                await updatePartnerGeneral(identification: identification.toString());
+                await updatePartnerGeneralVotes();
 
                 //update partners assigned votes if it's an assigned partner
                 PartnersTable partnersTable = PartnersTable();

@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:vote_observers/data/json.dart';
 import 'package:vote_observers/domain/models/partner.dart';
+import 'package:vote_observers/domain/models/voters.dart';
 
 class PartnersTable {
   final CollectionReference partnersRef =
-      FirebaseFirestore.instance.collection("partners_21").withConverter<Partner>(
+      FirebaseFirestore.instance.collection("partners_21")
+          .withConverter<Partner>(
             fromFirestore: (snapshot, _) => Partner.fromJson(snapshot.data()!),
             toFirestore: (partner, _) => partner.toJson(),
           );
@@ -107,19 +109,16 @@ class PartnersTable {
 
   int c = 0;
   Future<void> addPartners() async {
-    print("json lenght ${jsonData.length}");
+   /* print("json lenght ${jsonData.length}");
     for (var element in jsonData) {
-     /* final CollectionReference tableRef =
-      FirebaseFirestore.instance.collection("table_30").withConverter<Voters>(
-        fromFirestore: (snapshot, _) => Voters.fromJson(snapshot.data()!),
-        toFirestore: (voter, _) => voter.toJson(),
-      );*/
-
       Partner partner = Partner.fromJson(element);
 
       partnersRef
           .doc(partner.partnerIdentification.toString())
-          .set(partner)
+          .set({
+        'table_number': partner.tableNumber,
+        'table_order': partner.tableOrder
+      }, SetOptions(merge: true),)
           .then((values) async {
         c++;
         print("FIREBASE ADDED ${partner.partnerId} id = $c");
@@ -128,7 +127,33 @@ class PartnersTable {
         }
         await Future.delayed(Duration(seconds: 10));
       }).catchError((error) => print("Failed to add partner: $error"));
-    }
+    }*/
 
+  }
+
+  Future<void> addVoters() async {
+    /*final CollectionReference tableRef =
+    FirebaseFirestore.instance.collection("table_12_21").withConverter<Voters>(
+      fromFirestore: (snapshot, _) => Voters.fromJson(snapshot.data()!),
+      toFirestore: (voter, _) => voter.toJson(),
+    );
+
+    print("json lenght ${jsonData.length}");
+    for (var element in jsonData) {
+
+      Voters voter =  Voters.fromJson(element);
+
+      tableRef
+          .doc(voter.order.toString())
+          .set(voter)
+          .then((values) async {
+        c++;
+        print("FIREBASE ADDED ${voter.partnerId} id = $c");
+        if(jsonData.last == element){
+          print("ULTIMO ELEMENTO");
+        }
+        await Future.delayed(Duration(seconds: 10));
+      }).catchError((error) => print("Failed to add partner: $error"));
+    }*/
   }
 }

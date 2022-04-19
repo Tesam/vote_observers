@@ -34,14 +34,14 @@ class _TablesObserversState extends State<TablesObservers> {
             child: GridView.count(
                 crossAxisCount: 3,
                 padding: const EdgeInsets.all(10),
-                children: List.generate(30, (int index) {
+                children: List.generate(12, (int index) {
                   return InkWell(
                     child: Container(
                         margin: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             color: Colors.white),
-                        child: Center(child: Text("Mesa ${index+1}", style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),),)
+                        child: Center(child: Text("Mesa ${index+1}", style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500),),)
                     ),
                     onTap: (){
                       Navigator.of(context).push(
