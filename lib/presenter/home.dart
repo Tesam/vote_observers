@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:vote_observers/data/counters_table.dart';
+import 'package:vote_observers/data/counters_table_2.dart';
 import 'package:vote_observers/presenter/candidates/candidates.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/observers/tables_observers.dart';
@@ -17,10 +18,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   static CountersTable countersTable = CountersTable();
+  static CountersTable2 countersTable2 = CountersTable2();
 
   late int partnersGeneralVotes;
   late int partnersAssignedVotes;
-  late int partnersAssigned;
+  late int partnersAssigned, partnersAssigned2, partnersAssignedTotal;
   late double partnersGeneralVotesPercent;
   late double partnersAssignedVotesPercent;
 
@@ -37,11 +39,16 @@ class _HomeState extends State<Home> {
     partnersAssigned =
         await countersTable.getCounter(docID: "partners_assigned");
 
+    partnersAssigned2 =
+    await countersTable2.getCounter(docID: "partners_assigned");
+
     setState(() {
       _isLoading = false;
+      partnersAssignedTotal = partnersAssigned + partnersAssigned2;
       partnersGeneralVotesPercent = partnersGeneralVotes * 100 / 4008;
       partnersAssignedVotesPercent =
-          partnersAssignedVotes * 100 / partnersAssigned;
+          partnersAssignedVotes * 100 / partnersAssignedTotal;
+
     });
   }
 
