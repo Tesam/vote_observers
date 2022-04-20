@@ -5,7 +5,7 @@ import 'package:vote_observers/data/counters_table_2.dart';
 import 'package:vote_observers/presenter/candidates/candidates.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/observers/tables_observers.dart';
-import 'package:vote_observers/presenter/operators/operatorsList/operators.dart';
+import 'package:vote_observers/presenter/operators/operators_group.dart';
 import 'package:vote_observers/presenter/partners/partner_consults.dart';
 import 'package:vote_observers/presenter/observers/table_list.dart';
 
@@ -80,7 +80,7 @@ class _HomeState extends State<Home> {
                           Navigator.of(context).pop();
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => const Operators()),
+                                builder: (context) => const OperatorsGroup()),
                           );
                         },
                         title: const Text(
@@ -235,7 +235,7 @@ class _HomeState extends State<Home> {
                                             color: Colors.black),
                                         children: <TextSpan>[
                                           TextSpan(
-                                              text: '/$partnersAssigned',
+                                              text: '/$partnersAssignedTotal',
                                               style: const TextStyle(
                                                 fontSize: 14.0,
                                               )),
