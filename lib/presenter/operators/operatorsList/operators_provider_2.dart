@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:vote_observers/data/counters_table.dart';
-import 'package:vote_observers/data/operators_table.dart';
+import 'package:vote_observers/data/counters_table_2.dart';
+//import 'package:vote_observers/data/operators_table_2.dart';
 import 'package:vote_observers/data/partners_table.dart';
 import 'package:vote_observers/domain/models/operator.dart';
 import 'package:vote_observers/domain/models/partner.dart';
@@ -14,13 +14,13 @@ class OperatorsProvider2 with ChangeNotifier {
 
   List<Partner> assignedPartners = [];
 
-  final OperatorsTable operatorsTable = OperatorsTable();
-  final CountersTable countersTable = CountersTable();
+  //final OperatorsTable2 operatorsTable = OperatorsTable2();
+  final CountersTable2 countersTable = CountersTable2();
   final PartnersTable partnersTable = PartnersTable();
 
   bool isLoading = false;
 
-  OperatorsProvider() {
+  OperatorsProvider2() {
     initializeOperatorsData();
   }
 
@@ -43,13 +43,12 @@ class OperatorsProvider2 with ChangeNotifier {
   }
 
   Future<void> getOperators() async {
-    operatorList = await operatorsTable.getOperators();
+   // operatorList = await operatorsTable.getOperators();
   }
 
   Future<void> setCurrentOperator(
       {required String operatorIdentification}) async {
-    currentOperator =
-    await operatorsTable.getOperator(operatorID: operatorIdentification);
+    //currentOperator = await operatorsTable.getOperator(operatorID: operatorIdentification);
     notifyListeners();
   }
 
@@ -62,3 +61,4 @@ class OperatorsProvider2 with ChangeNotifier {
     notifyListeners();
   }
 }
+
