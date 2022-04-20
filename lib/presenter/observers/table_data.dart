@@ -11,7 +11,7 @@ class TableData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Stream collectionStream = FirebaseFirestore.instance
-        .collection('table_$tableNumber')
+        .collection('table_${tableNumber}_21')
         .orderBy("order")
         .snapshots();
 

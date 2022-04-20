@@ -290,7 +290,6 @@ class _HomeState extends State<Home> {
                                 height: 10.0,
                               ),
                               const Text("Ingresa para observar la cantidad de votantes en cada mesa"),
-                             // const Text("Cantidad de socios votantes por cada mesa"),
                               const SizedBox(
                                 height: 10.0,
                               ),

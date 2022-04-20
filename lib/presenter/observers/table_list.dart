@@ -25,9 +25,9 @@ class _TableListState extends State<TableList> {
       _isLoading = true;
     });
 
-    for (int i = 0; i < 30; i++) {
+    for (int i = 0; i < 12; i++) {
       CollectionReference tableRef =
-          FirebaseFirestore.instance.collection("table_${i + 1}");
+          FirebaseFirestore.instance.collection("table_${i + 1}_21");
 
       int tableCounter =
           (await tableRef.where("state", isEqualTo: true).get()).docs.length;
@@ -74,16 +74,14 @@ class _TableListState extends State<TableList> {
                       Expanded(
                         child: ListView(
                           children: List.generate(
-                              tablesCounter.length,
-                              (index) => tableContainer(
-                                  tableNumber: "${index + 1}",
-                                  voters:
-                                      "${tablesCounter["Mesa ${index + 1}"]}",
-                                  partners: (index < 28)
-                                      ? "544"
-                                      : (index == 28)
-                                          ? "612"
-                                          : "593")),
+                            tablesCounter.length,
+                            (index) => tableContainer(
+                              tableNumber: "${index + 1}",
+                              voters:
+                                  "${tablesCounter["Mesa ${index + 1}"]}",
+                              partners: "344",
+                            ),
+                          ),
                         ),
                       ),
                     ],
