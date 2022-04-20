@@ -17,10 +17,13 @@ class AssignedPartners extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<OperatorsProvider>(builder: (_, provider, __) {
       int c = 0;
+      int noVoters = 0;
       for (int i = 0; i < provider.assignedPartners.length; i++) {
         Partner partner = provider.assignedPartners[i];
         if (partner.voteState) {
           c++;
+        }else{
+          noVoters++;
         }
       }
 
@@ -107,7 +110,7 @@ class AssignedPartners extends StatelessWidget {
                         color: MyTheme.lightYellow),
                     padding: const EdgeInsets.all(10),
                     child: Text(
-                      "${provider.assignedPartners.length} Socios faltan votar",
+                      "$noVoters Socios faltan votar",
                       style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
