@@ -15,7 +15,7 @@ class VoterList extends StatelessWidget {
 
   Future<void> updatePartnerOnTable({required String order}) {
     CollectionReference table =
-        FirebaseFirestore.instance.collection('table_$tableNumber');
+        FirebaseFirestore.instance.collection('table_${tableNumber}_21');
 
     return table
         .doc(order)
@@ -26,7 +26,7 @@ class VoterList extends StatelessWidget {
 
   Future<void> updatePartnerGeneral({required String identification}) {
     CollectionReference partners =
-        FirebaseFirestore.instance.collection('partners');
+        FirebaseFirestore.instance.collection('partners_21');
 
     return partners
         .doc(identification)
@@ -35,12 +35,11 @@ class VoterList extends StatelessWidget {
         .catchError((error) => print("Failed to update user: $error"));
   }
 
-  ///TODO: UPDATE PARTNERS_ASSIGNED_VOTES
   Future<void> updatePartnerAssignedVotes() async {
     CountersTable countersTable = CountersTable();
     await countersTable.incrementCounter(docID: "partners_assigned_votes");
   }
-  ///TODO: UPDATE PARTNERS_GENERAL_VOTES
+
   Future<void> updatePartnerGeneralVotes() async {
     CountersTable countersTable = CountersTable();
     await countersTable.incrementCounter(docID: "partners_general_votes");
@@ -49,7 +48,7 @@ class VoterList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Stream collectionStream =
-        FirebaseFirestore.instance.collection('table_$tableNumber').orderBy("order").snapshots();
+        FirebaseFirestore.instance.collection('table_${tableNumber}_21').orderBy("order").snapshots();
 
     return Scaffold(
       appBar: AppBar(
@@ -100,7 +99,7 @@ class VoterList extends StatelessWidget {
 
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(color: MyTheme.darkGreen,),
             );
           }
           return Column(
