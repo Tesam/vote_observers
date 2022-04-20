@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/operators/operatorsList/operators.dart';
-//import 'package:vote_observers/presenter/operators/operatorsList/operators_2.dart';
+import 'package:vote_observers/presenter/operators/operatorsList/operators_2.dart';
 import 'package:vote_observers/presenter/operators/operatorsList/operators_provider.dart';
 import 'package:vote_observers/presenter/operators/operatorsList/operators_provider_2.dart';
 
@@ -128,8 +128,8 @@ class _OperatorsGroupState extends State<OperatorsGroup> {
                     ),
                   ),
                   onTap: () {
-                  /*  Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Operators2()));*/
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Operators2()));
                   },
                 ),
               ],
