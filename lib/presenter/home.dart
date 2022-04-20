@@ -7,7 +7,6 @@ import 'package:vote_observers/presenter/observers/tables_observers.dart';
 import 'package:vote_observers/presenter/operators/operatorsList/operators.dart';
 import 'package:vote_observers/presenter/partners/partner_consults.dart';
 import 'package:vote_observers/presenter/observers/table_list.dart';
-import 'package:vote_observers/presenter/partners/partners.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -40,7 +39,7 @@ class _HomeState extends State<Home> {
 
     setState(() {
       _isLoading = false;
-      partnersGeneralVotesPercent = partnersGeneralVotes * 100 / 16437;
+      partnersGeneralVotesPercent = partnersGeneralVotes * 100 / 4008;
       partnersAssignedVotesPercent =
           partnersAssignedVotes * 100 / partnersAssigned;
     });
@@ -57,7 +56,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "MIC",
+          "MICOOP",
           style: TextStyle(color: MyTheme.gray2Text),
         ),
         iconTheme: const IconThemeData(color: Colors.black),
@@ -94,10 +93,10 @@ class _HomeState extends State<Home> {
                         onTap: () {
                           Navigator.of(context).pop();
                           Navigator.of(context).push(
+                            /*MaterialPageRoute(
+                                builder: (context) => const Partners()),*/
                             MaterialPageRoute(
-                                builder: (context) => const Partners()),
-                          /*  MaterialPageRoute(
-                                builder: (context) => const PartnerConsults()),*/
+                                builder: (context) => const PartnerConsults()),
                           );
                         },
                         title: const Text(
@@ -182,7 +181,7 @@ class _HomeState extends State<Home> {
                                             color: Colors.black),
                                         children: const <TextSpan>[
                                           TextSpan(
-                                              text: '/16437',
+                                              text: '/4008',
                                               style: TextStyle(
                                                 fontSize: 14.0,
                                               )),
