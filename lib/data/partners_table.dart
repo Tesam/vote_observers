@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:vote_observers/data/json.dart';
 import 'package:vote_observers/domain/models/partner.dart';
 import 'package:vote_observers/domain/models/voters.dart';
 
