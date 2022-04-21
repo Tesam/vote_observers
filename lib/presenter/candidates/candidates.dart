@@ -20,18 +20,28 @@ class _CandidatesState extends State<Candidates> {
   late int consejo5;
   late int consejo6;
   late int consejo7;
+  late int consejo8;
+  late int consejo9;
+  late int consejo10;
+  late int consejo11;
+  late int consejo12;
 
   late int vigilancia1;
   late int vigilancia2;
   late int vigilancia3;
   late int vigilancia4;
   late int vigilancia5;
+  late int vigilancia6;
+  late int vigilancia7;
+  late int vigilancia8;
+  late int vigilancia9;
+  late int vigilancia10;
 
   late int tribunal1;
   late int tribunal2;
   late int tribunal3;
   late int tribunal4;
-  late int tribunal5;
+  //late int tribunal5;
 
   bool _isLoading = false;
 
@@ -52,18 +62,28 @@ class _CandidatesState extends State<Candidates> {
     final int con5 = await countersTable.getCounter(docID: "consejo5");
     final int con6 = await countersTable.getCounter(docID: "consejo6");
     final int con7 = await countersTable.getCounter(docID: "consejo7");
+    final int con8 = await countersTable.getCounter(docID: "consejo8");
+    final int con9 = await countersTable.getCounter(docID: "consejo9");
+    final int con10 = await countersTable.getCounter(docID: "consejo10");
+    final int con11 = await countersTable.getCounter(docID: "consejo11");
+    final int con12 = await countersTable.getCounter(docID: "consejo12");
 
     final int vig1 = await countersTable.getCounter(docID: "vigilancia1");
     final int vig2 = await countersTable.getCounter(docID: "vigilancia2");
     final int vig3 = await countersTable.getCounter(docID: "vigilancia3");
     final int vig4 = await countersTable.getCounter(docID: "vigilancia4");
     final int vig5 = await countersTable.getCounter(docID: "vigilancia5");
+    final int vig6 = await countersTable.getCounter(docID: "vigilancia6");
+    final int vig7 = await countersTable.getCounter(docID: "vigilancia7");
+    final int vig8 = await countersTable.getCounter(docID: "vigilancia8");
+    final int vig9 = await countersTable.getCounter(docID: "vigilancia9");
+    final int vig10 = await countersTable.getCounter(docID: "vigilancia10");
 
     final int tri1 = await countersTable.getCounter(docID: "tribunal1");
     final int tri2 = await countersTable.getCounter(docID: "tribunal2");
     final int tri3 = await countersTable.getCounter(docID: "tribunal3");
     final int tri4 = await countersTable.getCounter(docID: "tribunal4");
-    final int tri5 = await countersTable.getCounter(docID: "tribunal5");
+    //final int tri5 = await countersTable.getCounter(docID: "tribunal5");
 
     setState(() {
       _isLoading = false;
@@ -74,18 +94,28 @@ class _CandidatesState extends State<Candidates> {
       consejo5 = con5;
       consejo6 = con6;
       consejo7 = con7;
+      consejo8 = con8;
+      consejo9 = con9;
+      consejo10 = con10;
+      consejo11 = con11;
+      consejo12 = con12;
 
       vigilancia1 = vig1;
       vigilancia2 = vig2;
       vigilancia3 = vig3;
       vigilancia4 = vig4;
       vigilancia5 = vig5;
+      vigilancia6 = vig6;
+      vigilancia7 = vig7;
+      vigilancia8 = vig8;
+      vigilancia9 = vig9;
+      vigilancia10 = vig10;
 
       tribunal1 = tri1;
       tribunal2 = tri2;
       tribunal3 = tri3;
       tribunal4 = tri4;
-      tribunal5 = tri5;
+      //tribunal5 = tri5;
     });
   }
 
@@ -152,7 +182,7 @@ class _CandidatesState extends State<Candidates> {
                                   height: 5,
                                 ),
                                 const Text(
-                                  "ARNALDO EDUARDO PENAYO",
+                                  "ATILIO BENITEZ",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 18),
@@ -183,7 +213,7 @@ class _CandidatesState extends State<Candidates> {
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
                                 builder: (context) => const CandidatesTables(
-                                      candidateName: "ARNALDO EDUARDO PENAYO",
+                                      candidateName: "ATILIO BENITEZ",
                                       candidate: 1,
                                       place: "consejo",
                                     )),
@@ -194,7 +224,7 @@ class _CandidatesState extends State<Candidates> {
                             MaterialPageRoute(
                                 builder: (context) => const CandidatesTables(
                                       candidateName:
-                                          "DELCY MAXIMINA AMARILLA FERNANDEZ",
+                                          "CLARA MACIEL",
                                       candidate: 2,
                                       place: "consejo",
                                     )),
@@ -219,7 +249,7 @@ class _CandidatesState extends State<Candidates> {
                                   height: 5,
                                 ),
                                 const Text(
-                                  "DELCY MAXIMINA AMARILLA FERNANDEZ",
+                                  "CLARA MACIEL",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 18),
@@ -253,7 +283,7 @@ class _CandidatesState extends State<Candidates> {
                             MaterialPageRoute(
                                 builder: (context) => const CandidatesTables(
                                       candidateName:
-                                          "IVAN GONZALEZ GAVILAN",
+                                          "FERNANDO RIOS",
                                       candidate: 3,
                                       place: "consejo",
                                     )),
@@ -278,7 +308,7 @@ class _CandidatesState extends State<Candidates> {
                                   height: 5,
                                 ),
                                 const Text(
-                                  "IVAN GONZALEZ GAVILAN",
+                                  "FERNANDO RIOS",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 18),
@@ -312,7 +342,7 @@ class _CandidatesState extends State<Candidates> {
                               MaterialPageRoute(
                                   builder: (context) => const CandidatesTables(
                                     candidateName:
-                                    "MARIA ALEJANDRA ROJAS IBARRA",
+                                    "HUGO AQUINO",
                                     candidate: 4,
                                     place: "consejo",
                                   )),
@@ -336,7 +366,7 @@ class _CandidatesState extends State<Candidates> {
                                     height: 5,
                                   ),
                                   const Text(
-                                    "MARIA ALEJANDRA ROJAS IBARRA",
+                                    "HUGO AQUINO",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500, fontSize: 18),
                                   ),
@@ -369,7 +399,7 @@ class _CandidatesState extends State<Candidates> {
                               MaterialPageRoute(
                                   builder: (context) => const CandidatesTables(
                                     candidateName:
-                                    "ALBERTO OSMAR RODAS MONZON",
+                                    "ARNALDO ARANDA",
                                     candidate: 5,
                                     place: "consejo",
                                   )),
@@ -393,7 +423,7 @@ class _CandidatesState extends State<Candidates> {
                                     height: 5,
                                   ),
                                   const Text(
-                                    "ALBERTO OSMAR RODAS MONZON",
+                                    "ARNALDO ARANDA",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500, fontSize: 18),
                                   ),
@@ -426,7 +456,7 @@ class _CandidatesState extends State<Candidates> {
                               MaterialPageRoute(
                                   builder: (context) => const CandidatesTables(
                                     candidateName:
-                                    "ELIDA GERTRUDIS SALINAS RAMIREZ",
+                                    "JESUS QUINTANA",
                                     candidate: 6,
                                     place: "consejo",
                                   )),
@@ -450,7 +480,7 @@ class _CandidatesState extends State<Candidates> {
                                     height: 5,
                                   ),
                                   const Text(
-                                    "ELIDA GERTRUDIS SALINAS RAMIREZ",
+                                    "JESUS QUINTANA",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500, fontSize: 18),
                                   ),
@@ -483,7 +513,7 @@ class _CandidatesState extends State<Candidates> {
                               MaterialPageRoute(
                                   builder: (context) => const CandidatesTables(
                                     candidateName:
-                                    "WALTER RAMON AQUINO PORTILLO",
+                                    "LAURA FURTADO",
                                     candidate: 7,
                                     place: "consejo",
                                   )),
@@ -507,7 +537,7 @@ class _CandidatesState extends State<Candidates> {
                                     height: 5,
                                   ),
                                   const Text(
-                                    "WALTER RAMON AQUINO PORTILLO",
+                                    "LAURA FURTADO",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500, fontSize: 18),
                                   ),
@@ -535,6 +565,291 @@ class _CandidatesState extends State<Candidates> {
                               ),
                             ),
                         ),
+                        InkWell(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const CandidatesTables(
+                                  candidateName:
+                                  "MARCOS GOITIA",
+                                  candidate: 8,
+                                  place: "consejo",
+                                )),
+                          ),
+                          child: Container(
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: MyTheme.primary100,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Lugar 8",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 14),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                const Text(
+                                  "MARCOS GOITIA",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 18),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text: "$consejo8 ",
+                                    style: const TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                                    children: const <TextSpan>[
+                                      TextSpan(
+                                          text: 'votos',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: MyTheme.gray2Text)),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const CandidatesTables(
+                                  candidateName:
+                                  "ENRIQUE PELOZO",
+                                  candidate: 9,
+                                  place: "consejo",
+                                )),
+                          ),
+                          child: Container(
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: MyTheme.primary100,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Lugar 9",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 14),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                const Text(
+                                  "ENRIQUE PELOZO",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 18),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text: "$consejo9 ",
+                                    style: const TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                                    children: const <TextSpan>[
+                                      TextSpan(
+                                          text: 'votos',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: MyTheme.gray2Text)),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const CandidatesTables(
+                                  candidateName:
+                                  "ALEJANDRA ROLON",
+                                  candidate: 10,
+                                  place: "consejo",
+                                )),
+                          ),
+                          child: Container(
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: MyTheme.primary100,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Lugar 10",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 14),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                const Text(
+                                  "ALEJANDRA ROLON",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 18),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text: "$consejo10 ",
+                                    style: const TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                                    children: const <TextSpan>[
+                                      TextSpan(
+                                          text: 'votos',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: MyTheme.gray2Text)),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const CandidatesTables(
+                                  candidateName:
+                                  "NILZA RODAS",
+                                  candidate: 11,
+                                  place: "consejo",
+                                )),
+                          ),
+                          child: Container(
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: MyTheme.primary100,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Lugar 11",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 14),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                const Text(
+                                  "NILZA RODAS",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 18),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text: "$consejo11 ",
+                                    style: const TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                                    children: const <TextSpan>[
+                                      TextSpan(
+                                          text: 'votos',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: MyTheme.gray2Text)),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const CandidatesTables(
+                                  candidateName:
+                                  "GREGORIA CARDOZO",
+                                  candidate: 12,
+                                  place: "consejo",
+                                )),
+                          ),
+                          child: Container(
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: MyTheme.primary100,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Lugar 12",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 14),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                const Text(
+                                  "GREGORIA CARDOZO",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 18),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text: "$consejo12 ",
+                                    style: const TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                                    children: const <TextSpan>[
+                                      TextSpan(
+                                          text: 'votos',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: MyTheme.gray2Text)),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                         const SizedBox(
                           height: 30,
                         ),
@@ -552,7 +867,7 @@ class _CandidatesState extends State<Candidates> {
                               MaterialPageRoute(
                                   builder: (context) => const CandidatesTables(
                                     candidateName:
-                                    "VICTOR JOSE SALAZAR CABALLERO",
+                                    "MIRTA MACIEL",
                                     candidate: 1,
                                     place: "vigilancia",
                                   )),
@@ -576,7 +891,7 @@ class _CandidatesState extends State<Candidates> {
                                     height: 5,
                                   ),
                                   const Text(
-                                    "VICTOR JOSE SALAZAR CABALLERO",
+                                    "MIRTA MACIEL",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500, fontSize: 18),
                                   ),
@@ -609,7 +924,7 @@ class _CandidatesState extends State<Candidates> {
                               MaterialPageRoute(
                                   builder: (context) => const CandidatesTables(
                                     candidateName:
-                                    "GERONIMO DEL VALLE PAREDES",
+                                    "ALICIA GONZALEZ",
                                     candidate: 2,
                                     place: "vigilancia",
                                   )),
@@ -633,7 +948,7 @@ class _CandidatesState extends State<Candidates> {
                                     height: 5,
                                   ),
                                   const Text(
-                                    "GERONIMO DEL VALLE PAREDES",
+                                    "ALICIA GONZALEZ",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500, fontSize: 18),
                                   ),
@@ -666,7 +981,7 @@ class _CandidatesState extends State<Candidates> {
                               MaterialPageRoute(
                                   builder: (context) => const CandidatesTables(
                                     candidateName:
-                                    "ALBERTO DAVID MARTINEZ AGUERO",
+                                    "JOSE ZORILLA",
                                     candidate: 3,
                                     place: "vigilancia",
                                   )),
@@ -690,7 +1005,7 @@ class _CandidatesState extends State<Candidates> {
                                     height: 5,
                                   ),
                                   const Text(
-                                    "ALBERTO DAVID MARTINEZ AGUERO",
+                                    "JOSE ZORILLA",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500, fontSize: 18),
                                   ),
@@ -723,7 +1038,7 @@ class _CandidatesState extends State<Candidates> {
                               MaterialPageRoute(
                                   builder: (context) => const CandidatesTables(
                                     candidateName:
-                                    "MAMERTO MARTINEZ ROLON",
+                                    "FREDIS FLORES",
                                     candidate: 4,
                                     place: "vigilancia",
                                   )),
@@ -747,7 +1062,7 @@ class _CandidatesState extends State<Candidates> {
                                     height: 5,
                                   ),
                                   const Text(
-                                    "MAMERTO MARTINEZ ROLON",
+                                    "FREDIS FLORES",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500, fontSize: 18),
                                   ),
@@ -780,7 +1095,7 @@ class _CandidatesState extends State<Candidates> {
                               MaterialPageRoute(
                                   builder: (context) => const CandidatesTables(
                                     candidateName:
-                                    "MELANIO MORINIGO GALEANO",
+                                    "LUIS A. ROLON",
                                     candidate: 5,
                                     place: "vigilancia",
                                   )),
@@ -804,7 +1119,7 @@ class _CandidatesState extends State<Candidates> {
                                     height: 5,
                                   ),
                                   const Text(
-                                    "MELANIO MORINIGO GALEANO",
+                                    "LUIS A. ROLON",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500, fontSize: 18),
                                   ),
@@ -832,6 +1147,291 @@ class _CandidatesState extends State<Candidates> {
                               ),
                             ),
                         ),
+                        InkWell(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const CandidatesTables(
+                                  candidateName:
+                                  "VICTOR LEGUIZAMON",
+                                  candidate: 6,
+                                  place: "vigilancia",
+                                )),
+                          ),
+                          child:Container(
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: MyTheme.lightYellow,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Lugar 6",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 14),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                const Text(
+                                  "VICTOR LEGUIZAMON",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 18),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text: "$vigilancia6 ",
+                                    style: const TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                                    children: const <TextSpan>[
+                                      TextSpan(
+                                          text: 'votos',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: MyTheme.gray2Text)),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const CandidatesTables(
+                                  candidateName:
+                                  "GUSTAVO VEGA",
+                                  candidate: 7,
+                                  place: "vigilancia",
+                                )),
+                          ),
+                          child:Container(
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: MyTheme.lightYellow,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Lugar 7",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 14),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                const Text(
+                                  "GUSTAVO VEGA",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 18),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text: "$vigilancia7 ",
+                                    style: const TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                                    children: const <TextSpan>[
+                                      TextSpan(
+                                          text: 'votos',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: MyTheme.gray2Text)),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const CandidatesTables(
+                                  candidateName:
+                                  "NILDA CARDOZO",
+                                  candidate: 8,
+                                  place: "vigilancia",
+                                )),
+                          ),
+                          child:Container(
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: MyTheme.lightYellow,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Lugar 8",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 14),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                const Text(
+                                  "NILDA CARDOZO",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 18),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text: "$vigilancia8 ",
+                                    style: const TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                                    children: const <TextSpan>[
+                                      TextSpan(
+                                          text: 'votos',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: MyTheme.gray2Text)),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const CandidatesTables(
+                                  candidateName:
+                                  "BENITO VANNI",
+                                  candidate: 9,
+                                  place: "vigilancia",
+                                )),
+                          ),
+                          child:Container(
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: MyTheme.lightYellow,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Lugar 9",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 14),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                const Text(
+                                  "BENITO VANNI",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 18),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text: "$vigilancia9 ",
+                                    style: const TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                                    children: const <TextSpan>[
+                                      TextSpan(
+                                          text: 'votos',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: MyTheme.gray2Text)),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const CandidatesTables(
+                                  candidateName:
+                                  "YANINA AGUERO",
+                                  candidate: 10,
+                                  place: "vigilancia",
+                                )),
+                          ),
+                          child:Container(
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: MyTheme.lightYellow,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Lugar 10",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 14),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                const Text(
+                                  "YANINA AGUERO",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 18),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text: "$vigilancia10 ",
+                                    style: const TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                                    children: const <TextSpan>[
+                                      TextSpan(
+                                          text: 'votos',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: MyTheme.gray2Text)),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                         const SizedBox(
                           height: 30,
                         ),
@@ -849,7 +1449,7 @@ class _CandidatesState extends State<Candidates> {
                               MaterialPageRoute(
                                   builder: (context) => const CandidatesTables(
                                     candidateName:
-                                    "YOHANA YANINA RUIZ DIAZ ALVARENGA",
+                                    "URSINO CABALLERO",
                                     candidate: 1,
                                     place: "tribunal",
                                   )),
@@ -873,7 +1473,7 @@ class _CandidatesState extends State<Candidates> {
                                     height: 5,
                                   ),
                                   const Text(
-                                    "YOHANA YANINA RUIZ DIAZ ALVARENGA",
+                                    "URSINO CABALLERO",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500, fontSize: 18),
                                   ),
@@ -906,7 +1506,7 @@ class _CandidatesState extends State<Candidates> {
                               MaterialPageRoute(
                                   builder: (context) => const CandidatesTables(
                                     candidateName:
-                                    "EDGAR EUSEBIO BRITEZ RIOS",
+                                    "YAMIL RIVEROS",
                                     candidate: 2,
                                     place: "tribunal",
                                   )),
@@ -930,7 +1530,7 @@ class _CandidatesState extends State<Candidates> {
                                     height: 5,
                                   ),
                                   const Text(
-                                    "EDGAR EUSEBIO BRITEZ RIOS",
+                                    "YAMIL RIVEROS",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500, fontSize: 18),
                                   ),
@@ -963,7 +1563,7 @@ class _CandidatesState extends State<Candidates> {
                               MaterialPageRoute(
                                   builder: (context) => const CandidatesTables(
                                     candidateName:
-                                    "NELSON SEBERIANO VEGA",
+                                    "RUTH AYALA",
                                     candidate: 3,
                                     place: "tribunal",
                                   )),
@@ -987,7 +1587,7 @@ class _CandidatesState extends State<Candidates> {
                                     height: 5,
                                   ),
                                   const Text(
-                                    "NELSON SEBERIANO VEGA",
+                                    "RUTH AYALA",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500, fontSize: 18),
                                   ),
@@ -1020,7 +1620,7 @@ class _CandidatesState extends State<Candidates> {
                               MaterialPageRoute(
                                   builder: (context) => const CandidatesTables(
                                     candidateName:
-                                    "ANGELA AGUILERA GALEANO",
+                                    "ALICIA PEDROZO",
                                     candidate: 4,
                                     place: "tribunal",
                                   )),
@@ -1044,7 +1644,7 @@ class _CandidatesState extends State<Candidates> {
                                     height: 5,
                                   ),
                                   const Text(
-                                    "ANGELA AGUILERA GALEANO",
+                                    "ALICIA PEDROZO",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500, fontSize: 18),
                                   ),
@@ -1072,7 +1672,7 @@ class _CandidatesState extends State<Candidates> {
                               ),
                             ),
                         ),
-                        InkWell(
+                       /* InkWell(
                             onTap: () => Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => const CandidatesTables(
@@ -1128,7 +1728,7 @@ class _CandidatesState extends State<Candidates> {
                                 ],
                               ),
                             ),
-                        ),
+                        ),*/
                       ],
                     ),
                   )));

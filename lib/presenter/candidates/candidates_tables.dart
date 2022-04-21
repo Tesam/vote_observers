@@ -32,7 +32,7 @@ class _CandidatesTablesState extends State<CandidatesTables> {
   late int table10Count;
   late int table11Count;
   late int table12Count;
-  late int table13Count;
+  /*late int table13Count;
   late int table14Count;
   late int table15Count;
   late int table16Count;
@@ -49,7 +49,7 @@ class _CandidatesTablesState extends State<CandidatesTables> {
   late int table27Count;
   late int table28Count;
   late int table29Count;
-  late int table30Count;
+  late int table30Count;*/
 
   bool _isLoading = false;
 
@@ -75,7 +75,7 @@ class _CandidatesTablesState extends State<CandidatesTables> {
     int table10 = await tableResultsTable.getCounter(docID: "table10_${widget.place}${widget.candidate}");
     int table11 = await tableResultsTable.getCounter(docID: "table11_${widget.place}${widget.candidate}");
     int table12 = await tableResultsTable.getCounter(docID: "table12_${widget.place}${widget.candidate}");
-    int table13 = await tableResultsTable.getCounter(docID: "table13_${widget.place}${widget.candidate}");
+    /*int table13 = await tableResultsTable.getCounter(docID: "table13_${widget.place}${widget.candidate}");
     int table14 = await tableResultsTable.getCounter(docID: "table14_${widget.place}${widget.candidate}");
     int table15 = await tableResultsTable.getCounter(docID: "table15_${widget.place}${widget.candidate}");
     int table16 = await tableResultsTable.getCounter(docID: "table16_${widget.place}${widget.candidate}");
@@ -92,7 +92,7 @@ class _CandidatesTablesState extends State<CandidatesTables> {
     int table27 = await tableResultsTable.getCounter(docID: "table27_${widget.place}${widget.candidate}");
     int table28 = await tableResultsTable.getCounter(docID: "table28_${widget.place}${widget.candidate}");
     int table29 = await tableResultsTable.getCounter(docID: "table29_${widget.place}${widget.candidate}");
-    int table30 = await tableResultsTable.getCounter(docID: "table30_${widget.place}${widget.candidate}");
+    int table30 = await tableResultsTable.getCounter(docID: "table30_${widget.place}${widget.candidate}");*/
 
     setState(() {
       table1Count = table1;
@@ -107,7 +107,7 @@ class _CandidatesTablesState extends State<CandidatesTables> {
       table10Count = table10;
       table11Count = table11;
       table12Count = table12;
-      table13Count = table13;
+      /*table13Count = table13;
       table14Count = table14;
       table15Count = table15;
       table16Count = table16;
@@ -124,7 +124,7 @@ class _CandidatesTablesState extends State<CandidatesTables> {
       table27Count = table27;
       table28Count = table28;
       table29Count = table29;
-      table30Count = table30;
+      table30Count = table30;*/
 
       _isLoading = false;
     });
@@ -199,7 +199,7 @@ class _CandidatesTablesState extends State<CandidatesTables> {
               tableCounterContainer(
                   tableNumber: 12,
                   votes: table12Count),
-              tableCounterContainer(
+              /*tableCounterContainer(
                   tableNumber: 13,
                   votes: table13Count),
               tableCounterContainer(
@@ -252,7 +252,7 @@ class _CandidatesTablesState extends State<CandidatesTables> {
                   votes: table29Count),
               tableCounterContainer(
                   tableNumber: 30,
-                  votes: table30Count),
+                  votes: table30Count),*/
             ],
           ),
         ),
