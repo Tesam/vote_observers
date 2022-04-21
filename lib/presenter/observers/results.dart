@@ -2775,7 +2775,7 @@ class _ResultsState extends State<Results> {
                         height: 5,
                       ),
                       const Text(
-                        "YOHANA YANINA RUIZ DIAZ ALVARENGA",
+                        "URSINIO CABALLERO",
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 18),
                       ),
@@ -2803,21 +2803,75 @@ class _ResultsState extends State<Results> {
                             child: MyButton(
                               title: "Agregar",
                               onPressed: () async {
-                                final bool isAdded = await tableResultsTable.incrementCounter(docID: "table${widget.tableNumber}_tribunal1", incrementValue: int.parse(tribunal_1.text));
-                                if(isAdded){
-                                  countersTable.incrementCounter(docID: "tribunal1", incrementValue: int.parse(tribunal_1.text));
-                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                    content: Text(
-                                      'El conteo de YOHANA YANINA RUIZ DIAZ ALVARENGA se agregó correctamente',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(color: Colors.black, fontSize: 16),
-                                    ),
-                                    duration: Duration(seconds: 3),
-                                    backgroundColor: MyTheme.primaryColor,
-                                    padding:
-                                    EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-                                  ));
+                                //get actual count number
+                                final int count = await tableResultsTable.getCounter(docID: "table${widget.tableNumber}_tribunal1");
+
+                                //add firts count
+                                if(count == 0){
+                                  final bool isAdded = await tableResultsTable.incrementCounter(docID: "table${widget.tableNumber}_tribunal1", incrementValue: int.parse(tribunal_1.text));
+                                  if(isAdded){
+                                    countersTable.incrementCounter(docID: "tribunal1", incrementValue: int.parse(tribunal_1.text));
+                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                      content: Text(
+                                        'El conteo de URSINIO CABALLERO se agregó correctamente',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: Colors.black, fontSize: 16),
+                                      ),
+                                      duration: Duration(seconds: 3),
+                                      backgroundColor: MyTheme.primaryColor,
+                                      padding:
+                                      EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                    ));
+                                  }else{
+                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                      content: Text(
+                                        'El conteo de URSINIO CABALLERO NO se agregó correctamente, por favor vuelve a INTENTARLO',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: Colors.black, fontSize: 16),
+                                      ),
+                                      duration: Duration(seconds: 3),
+                                      backgroundColor: MyTheme.redColor,
+                                      padding:
+                                      EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                    ));
+                                  }
                                 }
+                                else{
+                                  //reset last counter on general counter
+                                  await countersTable.decrementCounter(docID: "tribunal1", decrementValue: count);
+                                  //reset last counter on specific table
+                                  await tableResultsTable.decrementCounter(docID: "table${widget.tableNumber}_tribunal1", decrementValue: count);
+
+                                  final bool isAdded = await tableResultsTable.incrementCounter(docID: "table${widget.tableNumber}_tribunal1", incrementValue: int.parse(tribunal_1.text));
+                                  if(isAdded){
+                                    countersTable.incrementCounter(docID: "tribunal1", incrementValue: int.parse(tribunal_1.text));
+                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                      content: Text(
+                                        'El conteo de URSINIO CABALLERO se ACTUALIZÓ correctamente',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: Colors.black, fontSize: 16),
+                                      ),
+                                      duration: Duration(seconds: 3),
+                                      backgroundColor: MyTheme.primaryColor,
+                                      padding:
+                                      EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                    ));
+                                  }else{
+                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                      content: Text(
+                                        'El conteo de URSINIO CABALLERO NO SE ACTUALIZÓ correctamente, por favor vuelve a INTENTARLO',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: Colors.black, fontSize: 16),
+                                      ),
+                                      duration: Duration(seconds: 3),
+                                      backgroundColor: MyTheme.redColor,
+                                      padding:
+                                      EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                    ));
+                                  }
+                                }
+
+                                tribunal_1.text = "";
                               },
                               color: MyTheme.darkBlue,
                             ),
@@ -2846,7 +2900,7 @@ class _ResultsState extends State<Results> {
                         height: 5,
                       ),
                       const Text(
-                        "EDGAR EUSEBIO BRITEZ RIOS",
+                        "YAMIL RIVEROS",
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 18),
                       ),
@@ -2872,21 +2926,75 @@ class _ResultsState extends State<Results> {
                           SizedBox(
                             width: 100,
                             child: MyButton(title: "Agregar", onPressed: () async {
-                              final bool isAdded = await tableResultsTable.incrementCounter(docID: "table${widget.tableNumber}_tribunal2", incrementValue: int.parse(tribunal_2.text));
-                              if(isAdded){
-                                countersTable.incrementCounter(docID: "tribunal2", incrementValue: int.parse(tribunal_2.text));
-                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                  content: Text(
-                                    'El conteo de EDGAR EUSEBIO BRITEZ RIOS se agregó correctamente',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: Colors.black, fontSize: 16),
-                                  ),
-                                  duration: Duration(seconds: 3),
-                                  backgroundColor: MyTheme.primaryColor,
-                                  padding:
-                                  EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-                                ));
+                              //get actual count number
+                              final int count = await tableResultsTable.getCounter(docID: "table${widget.tableNumber}_tribunal2");
+
+                              //add firts count
+                              if(count == 0){
+                                final bool isAdded = await tableResultsTable.incrementCounter(docID: "table${widget.tableNumber}_tribunal2", incrementValue: int.parse(tribunal_2.text));
+                                if(isAdded){
+                                  countersTable.incrementCounter(docID: "tribunal2", incrementValue: int.parse(tribunal_2.text));
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'El conteo de YAMIL RIVEROS se agregó correctamente',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black, fontSize: 16),
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                    backgroundColor: MyTheme.primaryColor,
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  ));
+                                }else{
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'El conteo de YAMIL RIVEROS NO se agregó correctamente, por favor vuelve a INTENTARLO',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black, fontSize: 16),
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                    backgroundColor: MyTheme.redColor,
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  ));
+                                }
                               }
+                              else{
+                                //reset last counter on general counter
+                                await countersTable.decrementCounter(docID: "tribunal2", decrementValue: count);
+                                //reset last counter on specific table
+                                await tableResultsTable.decrementCounter(docID: "table${widget.tableNumber}_tribunal2", decrementValue: count);
+
+                                final bool isAdded = await tableResultsTable.incrementCounter(docID: "table${widget.tableNumber}_tribunal2", incrementValue: int.parse(tribunal_2.text));
+                                if(isAdded){
+                                  countersTable.incrementCounter(docID: "tribunal2", incrementValue: int.parse(tribunal_2.text));
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'El conteo de YAMIL RIVEROS se ACTUALIZÓ correctamente',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black, fontSize: 16),
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                    backgroundColor: MyTheme.primaryColor,
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  ));
+                                }else{
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'El conteo de YAMIL RIVEROS NO SE ACTUALIZÓ correctamente, por favor vuelve a INTENTARLO',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black, fontSize: 16),
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                    backgroundColor: MyTheme.redColor,
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  ));
+                                }
+                              }
+
+                              tribunal_2.text = "";
                             }, color: MyTheme.darkBlue,),
                           ),
                         ],
@@ -2913,7 +3021,7 @@ class _ResultsState extends State<Results> {
                         height: 5,
                       ),
                       const Text(
-                        "NELSON SEBERIANO VEGA",
+                        "RUTH AYALA",
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 18),
                       ),
@@ -2939,21 +3047,75 @@ class _ResultsState extends State<Results> {
                           SizedBox(
                             width: 100,
                             child: MyButton(title: "Agregar", onPressed: () async {
-                              final bool isAdded = await tableResultsTable.incrementCounter(docID: "table${widget.tableNumber}_tribunal3", incrementValue: int.parse(tribunal_3.text));
-                              if(isAdded){
-                                countersTable.incrementCounter(docID: "tribunal3", incrementValue: int.parse(tribunal_3.text));
-                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                  content: Text(
-                                    'El conteo de NELSON SEBERIANO VEGA se agregó correctamente',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: Colors.black, fontSize: 16),
-                                  ),
-                                  duration: Duration(seconds: 3),
-                                  backgroundColor: MyTheme.primaryColor,
-                                  padding:
-                                  EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-                                ));
+                              //get actual count number
+                              final int count = await tableResultsTable.getCounter(docID: "table${widget.tableNumber}_tribunal3");
+
+                              //add firts count
+                              if(count == 0){
+                                final bool isAdded = await tableResultsTable.incrementCounter(docID: "table${widget.tableNumber}_tribunal3", incrementValue: int.parse(tribunal_3.text));
+                                if(isAdded){
+                                  countersTable.incrementCounter(docID: "tribunal3", incrementValue: int.parse(tribunal_3.text));
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'El conteo de RUTH AYALA se agregó correctamente',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black, fontSize: 16),
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                    backgroundColor: MyTheme.primaryColor,
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  ));
+                                }else{
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'El conteo de RUTH AYALA NO se agregó correctamente, por favor vuelve a INTENTARLO',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black, fontSize: 16),
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                    backgroundColor: MyTheme.redColor,
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  ));
+                                }
                               }
+                              else{
+                                //reset last counter on general counter
+                                await countersTable.decrementCounter(docID: "tribunal3", decrementValue: count);
+                                //reset last counter on specific table
+                                await tableResultsTable.decrementCounter(docID: "table${widget.tableNumber}_tribunal3", decrementValue: count);
+
+                                final bool isAdded = await tableResultsTable.incrementCounter(docID: "table${widget.tableNumber}_tribunal3", incrementValue: int.parse(tribunal_3.text));
+                                if(isAdded){
+                                  countersTable.incrementCounter(docID: "tribunal3", incrementValue: int.parse(tribunal_3.text));
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'El conteo de RUTH AYALA se ACTUALIZÓ correctamente',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black, fontSize: 16),
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                    backgroundColor: MyTheme.primaryColor,
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  ));
+                                }else{
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'El conteo de RUTH AYALA NO SE ACTUALIZÓ correctamente, por favor vuelve a INTENTARLO',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black, fontSize: 16),
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                    backgroundColor: MyTheme.redColor,
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  ));
+                                }
+                              }
+
+                              tribunal_3.text = "";
                             }, color: MyTheme.darkBlue,),
                           ),
                         ],
@@ -2980,7 +3142,7 @@ class _ResultsState extends State<Results> {
                         height: 5,
                       ),
                       const Text(
-                        "ANGELA AGUILERA GALEANO",
+                        "ALICIA PEDROZO",
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 18),
                       ),
@@ -3006,21 +3168,75 @@ class _ResultsState extends State<Results> {
                           SizedBox(
                             width: 100,
                             child: MyButton(title: "Agregar", onPressed: () async {
-                              final bool isAdded = await tableResultsTable.incrementCounter(docID: "table${widget.tableNumber}_tribunal4", incrementValue: int.parse(tribunal_4.text));
-                              if(isAdded){
-                                countersTable.incrementCounter(docID: "tribunal4", incrementValue: int.parse(tribunal_4.text));
-                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                  content: Text(
-                                    'El conteo de ANGELA AGUILERA GALEANO se agregó correctamente',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: Colors.black, fontSize: 16),
-                                  ),
-                                  duration: Duration(seconds: 3),
-                                  backgroundColor: MyTheme.primaryColor,
-                                  padding:
-                                  EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-                                ));
+                              //get actual count number
+                              final int count = await tableResultsTable.getCounter(docID: "table${widget.tableNumber}_tribunal4");
+
+                              //add firts count
+                              if(count == 0){
+                                final bool isAdded = await tableResultsTable.incrementCounter(docID: "table${widget.tableNumber}_tribunal4", incrementValue: int.parse(tribunal_4.text));
+                                if(isAdded){
+                                  countersTable.incrementCounter(docID: "tribunal4", incrementValue: int.parse(tribunal_4.text));
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'El conteo de ALICIA PEDROZO se agregó correctamente',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black, fontSize: 16),
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                    backgroundColor: MyTheme.primaryColor,
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  ));
+                                }else{
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'El conteo de ALICIA PEDROZO NO se agregó correctamente, por favor vuelve a INTENTARLO',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black, fontSize: 16),
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                    backgroundColor: MyTheme.redColor,
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  ));
+                                }
                               }
+                              else{
+                                //reset last counter on general counter
+                                await countersTable.decrementCounter(docID: "tribunal4", decrementValue: count);
+                                //reset last counter on specific table
+                                await tableResultsTable.decrementCounter(docID: "table${widget.tableNumber}_tribunal4", decrementValue: count);
+
+                                final bool isAdded = await tableResultsTable.incrementCounter(docID: "table${widget.tableNumber}_tribunal4", incrementValue: int.parse(tribunal_4.text));
+                                if(isAdded){
+                                  countersTable.incrementCounter(docID: "tribunal4", incrementValue: int.parse(tribunal_4.text));
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'El conteo de ALICIA PEDROZO se ACTUALIZÓ correctamente',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black, fontSize: 16),
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                    backgroundColor: MyTheme.primaryColor,
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  ));
+                                }else{
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'El conteo de ALICIA PEDROZO NO SE ACTUALIZÓ correctamente, por favor vuelve a INTENTARLO',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black, fontSize: 16),
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                    backgroundColor: MyTheme.redColor,
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  ));
+                                }
+                              }
+
+                              tribunal_4.text = "";
                             }, color: MyTheme.darkBlue,),
                           ),
                         ],
