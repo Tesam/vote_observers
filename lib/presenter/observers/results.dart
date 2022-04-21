@@ -251,10 +251,10 @@ class _ResultsState extends State<Results> {
                               if(count == 0){
                                 final bool isAdded = await tableResultsTable.incrementCounter(docID: "table${widget.tableNumber}_consejo2", incrementValue: int.parse(consejo_2.text));
                                 if(isAdded){
-                                  countersTable.incrementCounter(docID: "consejo1", incrementValue: int.parse(consejo_1.text));
+                                  countersTable.incrementCounter(docID: "consejo2", incrementValue: int.parse(consejo_2.text));
                                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                     content: Text(
-                                      'El conteo de ATILIO BENITEZ se agregó correctamente',
+                                      'El conteo de CLARA MACIEL se agregó correctamente',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(color: Colors.black, fontSize: 16),
                                     ),
