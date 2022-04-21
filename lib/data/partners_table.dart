@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:vote_observers/domain/models/partner.dart';
-import 'package:vote_observers/domain/models/voters.dart';
 
 class PartnersTable {
   final CollectionReference partnersRef =
@@ -154,5 +153,30 @@ class PartnersTable {
         await Future.delayed(Duration(seconds: 10));
       }).catchError((error) => print("Failed to add partner: $error"));
     }*/
+  }
+
+
+
+  Future<void> addTableResults() async {
+    final CollectionReference tableResultsRef =
+    FirebaseFirestore.instance.collection("table_results_21");
+    for(int j = 1; j < 13; j++){
+      for (int i = 1; i < 11; i++) {
+        tableResultsRef
+            .doc("table${j}_vigilancia$i")
+            .set({
+          'count': 0}, SetOptions(merge: true),)
+            .then((values) async {
+          c++;
+          print("FIREBASE ADDED id = $i");
+          if(i == 12){
+            print("ULTIMO ELEMENTO");
+          }
+          await Future.delayed(Duration(seconds: 10));
+        }).catchError((error) => print("Failed to add partner: $error"));
+      }
+    }
+
+
   }
 }
