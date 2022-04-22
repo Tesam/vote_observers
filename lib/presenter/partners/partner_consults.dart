@@ -188,6 +188,16 @@ class _PartnerConsultsState extends State<PartnerConsults> {
                                               fontWeight: FontWeight.w600),
                                         ),
                                         const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          _partner!.phone,
+                                          style: const TextStyle(
+                                              fontSize: 17.0,
+                                              color: MyTheme.gray2Text,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        const SizedBox(
                                           height: 15,
                                         ),
                                         const Text(
@@ -265,7 +275,6 @@ class _PartnerConsultsState extends State<PartnerConsults> {
                                               fontWeight: FontWeight.w500),
                                           textAlign: TextAlign.center,
                                         ),
-
                                       ],
                                     )
                                   : const Center(
