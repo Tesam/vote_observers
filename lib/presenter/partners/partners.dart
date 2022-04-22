@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:vote_observers/data/counters_table.dart';
 import 'package:vote_observers/data/partners_table.dart';
@@ -69,7 +68,8 @@ class _PartnersState extends State<Partners> {
   }
 
   void _getPartner({required String partnerIdentification}) async {
-    final Partner partner = await partnersTable.getPartner(partnerIdentification: partnerIdentification);
+    final Partner partner = await partnersTable.getPartner(
+        partnerIdentification: partnerIdentification);
     setState(() {
       partners.clear();
       partners.add(partner);
@@ -120,7 +120,8 @@ class _PartnersState extends State<Partners> {
                       child: MyTextField(
                         hintText: "Cédula de identidad del socio",
                         textEditingController: searchController,
-                        onChanged: (value) => _manageEmptySerch(searchValue: value),
+                        onChanged: (value) =>
+                            _manageEmptySerch(searchValue: value),
                       ),
                     ),
                     Container(
@@ -128,7 +129,8 @@ class _PartnersState extends State<Partners> {
                       child: CircleAvatar(
                         backgroundColor: MyTheme.primaryColor,
                         child: IconButton(
-                          onPressed: () => _getPartner(partnerIdentification: searchController.text),
+                          onPressed: () => _getPartner(
+                              partnerIdentification: searchController.text),
                           icon: const Icon(
                             Icons.search,
                             color: Colors.black,
@@ -180,13 +182,16 @@ class _PartnersState extends State<Partners> {
                 ),
                 Expanded(
                   child: Center(
-                    child: (partners.isNotEmpty || (partnersAssignedCount != null) || (partnersGeneralCount != null))
+                    child: (partners.isNotEmpty ||
+                            (partnersAssignedCount != null) ||
+                            (partnersGeneralCount != null))
                         ? ListView.builder(
                             physics: const AlwaysScrollableScrollPhysics(),
                             controller: scrollController,
                             itemCount: partners.length,
                             itemBuilder: (context, index) {
-                              return partnerContainer(partner: partners[index], context: context);
+                              return partnerContainer(
+                                  partner: partners[index], context: context);
                             },
                           )
                         : const CircularProgressIndicator(
@@ -223,7 +228,7 @@ class _PartnersState extends State<Partners> {
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  (partner.phone.isEmpty)? "Sin teléfono" : partner.phone,
+                  (partner.phone.isEmpty) ? "Sin teléfono" : partner.phone,
                   style: const TextStyle(
                       fontSize: 11.0,
                       color: MyTheme.gray2Text,
@@ -254,7 +259,7 @@ class _PartnersState extends State<Partners> {
               ],
             ),
           ),
-          onTap: (){
+          onTap: () {
             _showCallDialog(context: context, partner: partner);
           },
         ),
@@ -268,8 +273,8 @@ class _PartnersState extends State<Partners> {
     );
   }
 
-  void _manageEmptySerch({required String searchValue}){
-    if(searchValue.isEmpty){
+  void _manageEmptySerch({required String searchValue}) {
+    if (searchValue.isEmpty) {
       _getDocuments();
     }
   }
@@ -318,16 +323,16 @@ class _PartnersState extends State<Partners> {
               onPressed: () {
                 (partner.phone.isEmpty)
                     ? ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text(
-                    'Número de teléfono NO asignado',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black, fontSize: 16),
-                  ),
-                  duration: Duration(seconds: 3),
-                  backgroundColor: MyTheme.redColor,
-                  padding:
-                  EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-                ))
+                        content: Text(
+                          'Número de teléfono NO asignado',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.black, fontSize: 16),
+                        ),
+                        duration: Duration(seconds: 3),
+                        backgroundColor: MyTheme.redColor,
+                        padding:
+                            EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                      ))
                     : makePhoneCall('tel:${partner.phone}');
                 Navigator.pop(context);
               },
