@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vote_observers/data/partners_table.dart';
 import 'package:vote_observers/domain/models/partner.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
+import 'package:vote_observers/presenter/utils.dart';
 import 'package:vote_observers/presenter/widgets/my_text_field.dart';
 
 enum ConsultType { partnerId, identification }
@@ -155,10 +156,10 @@ class _PartnerConsultsState extends State<PartnerConsults> {
                   )
                 : Expanded(
                     child: SingleChildScrollView(
-                      child: Stack(
-                        children: [
-                          InkWell(
-                            child: Container(
+                      child: InkWell(
+                        child:  Stack(
+                          children: [
+                            Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(30),
                                   color: Colors.white),
@@ -166,142 +167,199 @@ class _PartnerConsultsState extends State<PartnerConsults> {
                               margin: const EdgeInsets.all(20),
                               child: (_partner != null)
                                   ? Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          _partner!.name,
-                                          textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                              fontSize: 18.0,
-                                              color: MyTheme.gray2Text,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          _partner!.city,
-                                          style: const TextStyle(
-                                              fontSize: 12.0,
-                                              color: MyTheme.gray2Text,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          _partner!.phone,
-                                          style: const TextStyle(
-                                              fontSize: 17.0,
-                                              color: MyTheme.gray2Text,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        const Text(
-                                          "Socio",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 14.0,
-                                              color: MyTheme.gray2Text,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        Text(
-                                          _partner!.partnerId.toString(),
-                                          textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                              fontSize: 16.0,
-                                              color: MyTheme.gray3Text,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        const SizedBox(
-                                          height: 8,
-                                        ),
-                                        const Text(
-                                          "Cédula",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 14.0,
-                                              color: MyTheme.gray2Text,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        Text(
-                                          _partner!.partnerIdentification
-                                              .toString(),
-                                          textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                              fontSize: 16.0,
-                                              color: MyTheme.gray3Text,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        const SizedBox(
-                                          height: 30,
-                                        ),
-                                        Text(
-                                          "Mesa ${_partner!.tableNumber}",
-                                          style: const TextStyle(
-                                              fontSize: 20.0,
-                                              color: MyTheme.gray2Text,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        Text(
-                                          "Orden ${_partner!.tableOrder}",
-                                          style: const TextStyle(
-                                              fontSize: 17.0,
-                                              color: MyTheme.gray2Text,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        const SizedBox(
-                                          height: 30,
-                                        ),
-                                        Text(
-                                          (_partner!.operatorName.isNotEmpty)
-                                              ? "Operador"
-                                              : "",
-                                          style: const TextStyle(
-                                              fontSize: 14.0,
-                                              color: MyTheme.gray2Text,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        Text(
-                                          (_partner!.operatorName.isNotEmpty)
-                                              ? _partner!.operatorName
-                                              : "SIN OPERADOR",
-                                          style: const TextStyle(
-                                              fontSize: 16.0,
-                                              color: MyTheme.gray2Text,
-                                              fontWeight: FontWeight.w500),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ],
-                                    )
+                                crossAxisAlignment:
+                                CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    _partner!.name,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        fontSize: 18.0,
+                                        color: MyTheme.gray2Text,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    _partner!.city,
+                                    style: const TextStyle(
+                                        fontSize: 12.0,
+                                        color: MyTheme.gray2Text,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    _partner!.phone,
+                                    style: const TextStyle(
+                                        fontSize: 17.0,
+                                        color: MyTheme.gray2Text,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  const Text(
+                                    "Socio",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 14.0,
+                                        color: MyTheme.gray2Text,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    _partner!.partnerId.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        fontSize: 16.0,
+                                        color: MyTheme.gray3Text,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  const Text(
+                                    "Cédula",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 14.0,
+                                        color: MyTheme.gray2Text,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    _partner!.partnerIdentification
+                                        .toString(),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        fontSize: 16.0,
+                                        color: MyTheme.gray3Text,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  Text(
+                                    "Mesa ${_partner!.tableNumber}",
+                                    style: const TextStyle(
+                                        fontSize: 20.0,
+                                        color: MyTheme.gray2Text,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    "Orden ${_partner!.tableOrder}",
+                                    style: const TextStyle(
+                                        fontSize: 17.0,
+                                        color: MyTheme.gray2Text,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  Text(
+                                    (_partner!.operatorName.isNotEmpty)
+                                        ? "Operador"
+                                        : "",
+                                    style: const TextStyle(
+                                        fontSize: 14.0,
+                                        color: MyTheme.gray2Text,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    (_partner!.operatorName.isNotEmpty)
+                                        ? _partner!.operatorName
+                                        : "SIN OPERADOR",
+                                    style: const TextStyle(
+                                        fontSize: 16.0,
+                                        color: MyTheme.gray2Text,
+                                        fontWeight: FontWeight.w500),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              )
                                   : const Center(
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 20, vertical: 30),
-                                        child: Text(
-                                          "Selecciona un Socio escribiendo un Número de Cédula o Número de Socio VALIDO",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: MyTheme.gray4Text),
-                                        ),
-                                      ),
-                                    ),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 30),
+                                  child: Text(
+                                    "Selecciona un Socio escribiendo un Número de Cédula o Número de Socio VALIDO",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: MyTheme.gray4Text),
+                                  ),
+                                ),
+                              ),
                             ),
-                            onTap: () {},
+                            CircleAvatar(
+                              backgroundColor: (_partner != null)
+                                  ? (_partner!.voteState)
+                                  ? MyTheme.primaryColor
+                                  : MyTheme.redColor
+                                  : MyTheme.darkYellow,
+                              radius: 10,
+                            ),
+                          ],
+                          alignment: const Alignment(0.8, -0.9),
+                        ),
+                        onTap: () => showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text(
+                              "Llamar",
+                              style: TextStyle(color: MyTheme.darkGreen),
+                            ),
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                            content: SingleChildScrollView(
+                              child: RichText(
+                                text: TextSpan(
+                                  text: 'Desea llamar al socio ',
+                                  style: TextStyle(color: MyTheme.gray2Text),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: _partner!.name,
+                                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                                    const TextSpan(text: '?'),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text(
+                                  'Cancelar',
+                                  style: TextStyle(color: MyTheme.gray2Text),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                child: const Text(
+                                  'Llamar',
+                                  style: TextStyle(color: MyTheme.darkGreen),
+                                ),
+                                onPressed: () {
+                                  (_partner!.phone.isEmpty)
+                                      ? ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'Número de teléfono NO asignado',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black, fontSize: 16),
+                                    ),
+                                    duration: Duration(seconds: 3),
+                                    backgroundColor: MyTheme.redColor,
+                                    padding:
+                                    EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                  ))
+                                      : makePhoneCall('tel:${_partner!.phone}');
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
                           ),
-                          CircleAvatar(
-                            backgroundColor: (_partner != null)
-                                ? (_partner!.voteState)
-                                    ? MyTheme.primaryColor
-                                    : MyTheme.redColor
-                                : MyTheme.darkYellow,
-                            radius: 10,
-                          ),
-                        ],
-                        alignment: const Alignment(0.8, -0.9),
+                        ),
                       ),
                     ),
                   ),
@@ -311,3 +369,5 @@ class _PartnerConsultsState extends State<PartnerConsults> {
     );
   }
 }
+
+
