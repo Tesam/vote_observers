@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
+import 'package:vote_observers/src/presenter/login/login.screen.dart';
+import 'package:vote_observers/src/presenter/widgets/csm_button.dart';
 import 'package:vote_observers/src/presenter/widgets/vote_state_animation.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -51,7 +53,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
             _animationController3.forward();
             Future.delayed(
               const Duration(milliseconds: 800),
-                  () => _animationController4.forward(),
+              () => _animationController4.forward(),
             );
           },
         );
@@ -75,7 +77,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
     return Scaffold(
       backgroundColor: MyTheme.kBackground,
       body: SafeArea(
-        child:   Column(
+        child: Column(
           children: [
             Flexible(
               child: Container(
@@ -119,13 +121,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                                 fontFamily: MyTheme.kFontFamily,
                                 color: MyTheme.kLightColor,
                                 fontSize: 20,
-                                fontWeight: FontWeight.w600
-                            ),
+                                fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 15,),
+                    const SizedBox(
+                      height: 15,
+                    ),
                     SizedBox(
                       width: size.width * 0.5,
                       child: Row(
@@ -143,13 +146,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                                 fontFamily: MyTheme.kFontFamily,
                                 color: MyTheme.kLightColor,
                                 fontSize: 20,
-                                fontWeight: FontWeight.w600
-                            ),
+                                fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 15,),
+                    const SizedBox(
+                      height: 15,
+                    ),
                     SizedBox(
                       width: size.width * 0.5,
                       child: Row(
@@ -167,13 +171,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                                 fontFamily: MyTheme.kFontFamily,
                                 color: MyTheme.kLightColor,
                                 fontSize: 20,
-                                fontWeight: FontWeight.w600
-                            ),
+                                fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 15,),
+                    const SizedBox(
+                      height: 15,
+                    ),
                     SizedBox(
                       width: size.width * 0.5,
                       child: Row(
@@ -191,8 +196,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                                 fontFamily: MyTheme.kFontFamily,
                                 color: MyTheme.kLightColor,
                                 fontSize: 20,
-                                fontWeight: FontWeight.w600
-                            ),
+                                fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),
@@ -203,30 +207,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
               flex: 5,
             ),
             Flexible(
-              child: SizedBox(
-                width: size.width * 0.75,
-                height: 50,
-                //color: MyTheme.kLightColor,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: MyTheme.kPrimaryColor, // background
-                    onPrimary: Colors.white,
-                    elevation: 0,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: const Text(
-                    'Empecemos',
-                    style: TextStyle(
-                      color: MyTheme.kBackground,
-                      fontSize: 17,
-                      fontFamily: MyTheme.kFontFamily,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
+              child: CSMButton(
+                buttonTitle: "Empecemos",
+                onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const LoginScreen())),
               ),
               flex: 1,
             ),
