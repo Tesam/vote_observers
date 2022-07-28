@@ -14,4 +14,36 @@ class MyTheme {
   static const gray3Text = Color(0xFF828282);
   static const gray4Text = Color(0xFFBDBDBD);
   static const background = Color(0xFFF6F6F6);
+
+  //new themes
+  static const kBackground = Color(0xFF364F6B);
+  static const kPrimaryColor = Color(0xFF43DDE6);
+  static const kSecondaryColor = Color(0xFFFC5185);
+  static const kLightColor = Color(0xFFF0F0F0);
+
+  static const kFontFamily = 'Nunito';
+
+  static ThemeData getTheme({required Size size}) {
+    return lightThemeData.copyWith(
+      textTheme: textThemeMobile,
+      primaryColor: primaryColor,
+    );
+  }
+
+  static ThemeData lightThemeData = ThemeData(
+    brightness: Brightness.light,
+    primaryColor: primaryColor,
+    colorScheme: ColorScheme.fromSwatch().copyWith(
+      primary: MyTheme.primaryColor,
+    ),
+  );
+
+  static TextTheme textThemeMobile = const TextTheme(
+    headline1: TextStyle(
+      fontSize: 60,
+      fontWeight: FontWeight.w800,
+      color: primaryColor,
+      fontFamily: kFontFamily,
+    ),
+  );
 }
