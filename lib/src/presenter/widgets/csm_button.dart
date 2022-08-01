@@ -28,7 +28,7 @@ class CSMButton extends StatelessWidget {
             color: MyTheme.kBackground,
             fontSize: 17,
             fontFamily: MyTheme.kFontFamily,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w700,
           ),
         ),
       ),
