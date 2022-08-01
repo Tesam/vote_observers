@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vote_observers/presenter/home.dart';
-import 'package:vote_observers/src/data/repositories/auth_repository_impl.dart';
 import 'package:vote_observers/src/domain/repositories/auth_repository.dart';
+import 'package:vote_observers/src/presenter/home/home_test.dart';
+import 'package:vote_observers/src/presenter/providers/global_providers.dart';
 import 'package:vote_observers/src/presenter/widgets/csm_snackbar.dart';
 
 class UserNotifier extends StateNotifier<bool> {
@@ -18,18 +18,13 @@ class UserNotifier extends StateNotifier<bool> {
     try {
       await authRepository.signInWithEmail(email: email, password: password);
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const Home()));
+          .push(MaterialPageRoute(builder: (context) => const HomeTest()));
     } on FirebaseAuthException catch (_) {
       CSMSnackBar.error(context: context, text: "Correo o contraseña inválidos");
-   //   ScaffoldMessenger.of(context).showSnackBar();
     }
   }
 }
 
 final loggedProvider = StateNotifierProvider<UserNotifier, bool>((ref) {
   return UserNotifier(authRepository: ref.read(authRepositoryProvider));
-});
-
-final authRepositoryProvider = Provider<AuthRepositoryIml>((ref) {
-  return AuthRepositoryIml(FirebaseAuth.instance);
 });

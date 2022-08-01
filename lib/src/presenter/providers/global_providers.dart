@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vote_observers/src/data/repositories/auth_repository_impl.dart';
+import 'package:vote_observers/src/domain/repositories/auth_repository.dart';
 
-final firebaseAuthProvider =
-Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
-
-final authStateChangesProvider = StreamProvider<User?>(
-        (ref) => ref.watch(firebaseAuthProvider).authStateChanges());
+final authRepositoryProvider = Provider<AuthRepository>((ref) {
+  return AuthRepositoryIml(FirebaseAuth.instance);
+});
