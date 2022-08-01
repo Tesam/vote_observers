@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vote_observers/presenter/home.dart';
 import 'package:vote_observers/src/data/repositories/auth_repository_impl.dart';
 import 'package:vote_observers/src/domain/repositories/auth_repository.dart';
+import 'package:vote_observers/src/presenter/widgets/csm_snackbar.dart';
 
 class UserNotifier extends StateNotifier<bool> {
   final AuthRepository authRepository;
@@ -11,16 +12,17 @@ class UserNotifier extends StateNotifier<bool> {
   UserNotifier({required this.authRepository}) : super(false);
 
   Future<void> signInWithEmailAndPassword(
-      {required String email, required String password, required BuildContext context}) async {
-    try{
+      {required String email,
+      required String password,
+      required BuildContext context}) async {
+    try {
       await authRepository.signInWithEmail(email: email, password: password);
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home()));
-    }on FirebaseAuthException catch (_){
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Correo o contraseña inválidos'),
-      ));
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => const Home()));
+    } on FirebaseAuthException catch (_) {
+      CSMSnackBar.error(context: context, text: "Correo o contraseña inválidos");
+   //   ScaffoldMessenger.of(context).showSnackBar();
     }
-
   }
 }
 

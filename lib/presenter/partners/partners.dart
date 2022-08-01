@@ -26,7 +26,7 @@ class _PartnersState extends State<Partners> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback(
+    WidgetsBinding.instance.addPostFrameCallback(
       (_) {
         _onInit();
      /*   _onInitPartnersAssigned();

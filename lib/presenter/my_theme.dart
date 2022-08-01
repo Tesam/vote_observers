@@ -20,6 +20,7 @@ class MyTheme {
   static const kPrimaryColor = Color(0xFF43DDE6);
   static const kSecondaryColor = Color(0xFFFC5185);
   static const kLightColor = Color(0xFFF0F0F0);
+  static const kYellowColor = Color(0xFFFFeB3B);
 
   static const kFontFamily = 'Nunito';
 
