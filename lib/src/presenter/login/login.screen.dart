@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
+import 'package:vote_observers/src/presenter/login/user_notifier.dart';
 import 'package:vote_observers/src/presenter/widgets/csm_button.dart';
 import 'package:vote_observers/src/presenter/widgets/csm_textformfield.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
+  static final TextEditingController _emailController = TextEditingController();
+  static final TextEditingController _passController = TextEditingController();
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -16,7 +21,7 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           children: [
             Flexible(
-              child: Container(
+              child: SizedBox(
                   width: size.width * 0.7,
                   height: double.infinity,
                   child: Column(
@@ -42,7 +47,9 @@ class LoginScreen extends StatelessWidget {
                             height: 1,
                             fontSize: 37),
                       ),
-                      SizedBox(height: 50,),
+                      SizedBox(
+                        height: 50,
+                      ),
                     ],
                   )),
               flex: 3,
@@ -50,16 +57,25 @@ class LoginScreen extends StatelessWidget {
             Flexible(
               child: SizedBox(
                 width: double.infinity,
-                child:   Column(
+                child: Column(
                   children: [
                     SizedBox(
                       width: size.width * 0.75,
-                      child: const CSMTextFormField(hintText: "Correo",),
+                      child: CSMTextFormField(
+                        hintText: "Correo",
+                        controller: _emailController,
+                      ),
                     ),
-                    const SizedBox(height: 8,),
+                    const SizedBox(
+                      height: 8,
+                    ),
                     SizedBox(
                       width: size.width * 0.75,
-                      child: const CSMTextFormField(hintText: "Contraseña",isPassword: true),
+                      child: CSMTextFormField(
+                        hintText: "Contraseña",
+                        isPassword: true,
+                        controller: _passController,
+                      ),
                     ),
                   ],
                 ),
@@ -69,7 +85,15 @@ class LoginScreen extends StatelessWidget {
             Flexible(
               child: CSMButton(
                 buttonTitle: "Ingresar",
-                onPressed: () {},
+                onPressed: () async {
+                  await ref
+                      .read(loggedProvider.notifier)
+                      .signInWithEmailAndPassword(
+                        email: _emailController.text,
+                        password: _passController.text,
+                        context: context,
+                      );
+                },
               ),
               flex: 1,
             ),

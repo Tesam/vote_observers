@@ -3,10 +3,11 @@ import 'package:vote_observers/presenter/my_theme.dart';
 
 class CSMTextFormField extends StatefulWidget {
   const CSMTextFormField(
-      {Key? key, required this.hintText, this.isPassword = false,})
+      {Key? key, required this.hintText, this.isPassword = false, required this.controller})
       : super(key: key);
   final String hintText;
   final bool isPassword;
+  final TextEditingController controller;
 
   @override
   _CSMTextFormFieldState createState() => _CSMTextFormFieldState();
@@ -25,6 +26,7 @@ class _CSMTextFormFieldState extends State<CSMTextFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: (widget.isPassword) ? !isTextVisible : false,
+      controller: widget.controller,
       decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(15),
           border: OutlineInputBorder(
