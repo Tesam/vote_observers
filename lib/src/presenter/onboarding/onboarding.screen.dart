@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
-import 'package:vote_observers/src/presenter/home/home_test.dart';
+import 'package:vote_observers/src/presenter/home/role_checker.dart';
 import 'package:vote_observers/src/presenter/login/login.screen.dart';
 import 'package:vote_observers/src/presenter/providers/global_providers.dart';
 import 'package:vote_observers/src/presenter/widgets/csm_button.dart';
@@ -221,7 +221,7 @@ class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen>
                   return authState.maybeWhen(
                     data: (user) =>
                     user != null ? Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const HomeTest())) : Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => RoleChecker(user: user))) : Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => const LoginScreen())),
                     orElse: () => Scaffold(
                       appBar: AppBar(),

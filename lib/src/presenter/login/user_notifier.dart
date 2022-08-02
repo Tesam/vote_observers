@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vote_observers/src/domain/repositories/auth_repository.dart';
-import 'package:vote_observers/src/presenter/home/home_test.dart';
+import 'package:vote_observers/src/presenter/home/role_checker.dart';
 import 'package:vote_observers/src/presenter/providers/global_providers.dart';
 import 'package:vote_observers/src/presenter/widgets/csm_snackbar.dart';
 
@@ -16,9 +16,9 @@ class UserNotifier extends StateNotifier<bool> {
       required String password,
       required BuildContext context}) async {
     try {
-      await authRepository.signInWithEmail(email: email, password: password);
+      User? user = await authRepository.signInWithEmail(email: email, password: password);
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const HomeTest()));
+          .push(MaterialPageRoute(builder: (context) => RoleChecker(user: user!,)));
     } on FirebaseAuthException catch (_) {
       CSMSnackBar.error(context: context, text: "Correo o contraseña inválidos");
     }
