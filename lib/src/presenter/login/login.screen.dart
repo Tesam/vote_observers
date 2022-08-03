@@ -83,7 +83,7 @@ class LoginScreen extends ConsumerWidget {
               flex: 3,
             ),
             Flexible(
-              child: CSMButton(
+              child: CSMButton.large(
                 buttonTitle: "Ingresar",
                 onPressed: () async {
                   await ref

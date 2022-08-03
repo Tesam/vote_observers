@@ -9,7 +9,7 @@ class HomeTest extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: CSMButton(buttonTitle: "CERRAR SESION", onPressed: () => FirebaseAuth.instance.signOut(),),
+        child: CSMButton.large(buttonTitle: "CERRAR SESION", onPressed: () => FirebaseAuth.instance.signOut(),),
       )
     );
   }

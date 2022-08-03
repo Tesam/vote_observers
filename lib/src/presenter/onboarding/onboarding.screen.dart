@@ -215,7 +215,7 @@ class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen>
               flex: 5,
             ),
             Flexible(
-              child: CSMButton(
+              child: CSMButton.large(
                 buttonTitle: "Empecemos",
                 onPressed: (){
                   return authState.maybeWhen(
