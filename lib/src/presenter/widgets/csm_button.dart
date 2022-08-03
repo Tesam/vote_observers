@@ -2,19 +2,50 @@ import 'package:flutter/material.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 
 class CSMButton extends StatelessWidget {
-  const CSMButton({Key? key, required this.onPressed, required this.buttonTitle}) : super(key: key);
+  const CSMButton.large(
+      {Key? key,
+      required this.onPressed,
+      required this.buttonTitle,
+      this.widthPercent = 0.75,
+        this.height = 50,
+        this.backgroundColor = MyTheme.kPrimaryColor,
+        this.textColor = MyTheme.kBackground,
+        this.textSize = 17,
+        this.textWeight = FontWeight.w700,
+      })
+      : super(key: key);
+
+  const CSMButton.small(
+      {Key? key,
+      required this.onPressed,
+      required this.buttonTitle,
+      required this.widthPercent,
+        this.height = 35,
+        this.backgroundColor = MyTheme.kPrimaryColor,
+        this.textColor = MyTheme.kBackground,
+        this.textSize = 14,
+        this.textWeight = FontWeight.w600,
+      })
+      : super(key: key);
+
   final VoidCallback onPressed;
   final String buttonTitle;
+  final double widthPercent;
+  final double height;
+  final Color backgroundColor;
+  final Color textColor;
+  final double textSize;
+  final FontWeight textWeight;
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return SizedBox(
-      width: size.width * 0.75,
-      height: 50,
+      width: size.width * widthPercent,
+      height: height,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: MyTheme.kPrimaryColor, // background
+          primary: backgroundColor, // background
           onPrimary: Colors.white,
           elevation: 0,
           shape: const RoundedRectangleBorder(
@@ -24,11 +55,11 @@ class CSMButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           buttonTitle,
-          style: const TextStyle(
-            color: MyTheme.kBackground,
+          style: TextStyle(
+            color: textColor,
             fontSize: 17,
             fontFamily: MyTheme.kFontFamily,
-            fontWeight: FontWeight.w700,
+            fontWeight: textWeight,
           ),
         ),
       ),
