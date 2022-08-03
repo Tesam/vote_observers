@@ -5,6 +5,7 @@ import 'package:vote_observers/data/partners_table.dart';
 import 'package:vote_observers/domain/models/partner.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/observers/results.dart';
+import 'package:vote_observers/src/presenter/widgets/csm_button.dart';
 
 enum VoteStatus { voted, notVoted }
 
@@ -47,18 +48,40 @@ class VoterList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Stream collectionStream =
-        FirebaseFirestore.instance.collection('table_${tableNumber}_21').orderBy("order").snapshots();
+    Stream collectionStream = FirebaseFirestore.instance
+        .collection('table_${tableNumber}_21')
+        .orderBy("order")
+        .snapshots();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Mesa $tableNumber",
-          style: const TextStyle(color: MyTheme.gray2Text),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Colegio Natalicio Vasconcellos sdfsdfsdfsdfdsfdsf",
+              style: TextStyle(
+                color: MyTheme.gray3Text,
+                fontFamily: 'Nunito',
+                fontWeight: FontWeight.w600,
+                fontSize: 18,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
+            Text(
+              "Mesa $tableNumber",
+              style: const TextStyle(
+                  color: MyTheme.gray3Text,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700),
+            )
+          ],
         ),
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: MyTheme.kBackground),
         elevation: 0,
-        backgroundColor: MyTheme.background,
+        backgroundColor: MyTheme.kLightColor,
+        automaticallyImplyLeading: false,
         actions: [
           PopupMenuButton(
               itemBuilder: (context) => [
@@ -87,7 +110,7 @@ class VoterList extends StatelessWidget {
                   ]),
         ],
       ),
-      backgroundColor: MyTheme.background,
+      backgroundColor: MyTheme.kLightColor,
       body: StreamBuilder<dynamic>(
         stream: collectionStream,
         builder: (BuildContext context, snapshot) {
@@ -99,7 +122,9 @@ class VoterList extends StatelessWidget {
 
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-              child: CircularProgressIndicator(color: MyTheme.darkGreen,),
+              child: CircularProgressIndicator(
+                color: MyTheme.darkGreen,
+              ),
             );
           }
           return Column(
@@ -145,14 +170,14 @@ class VoterList extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: (voteStatus == VoteStatus.voted)
-                    ? MyTheme.primaryColor
+                    ? MyTheme.kPrimaryColor
                     : MyTheme.grayBackground),
             child: Center(
               child: Text(
                 index.toString(),
                 style: TextStyle(
                     color: (voteStatus == VoteStatus.voted)
-                        ? MyTheme.darkGreen
+                        ? MyTheme.kBackground
                         : MyTheme.gray2Text,
                     fontSize: 20.0),
               ),
@@ -186,15 +211,17 @@ class VoterList extends StatelessWidget {
         return AlertDialog(
           title: const Text(
             "Agregar voto",
-            style: TextStyle(color: MyTheme.darkGreen),
+            style: TextStyle(color: MyTheme.kLightColor),
           ),
+          actionsPadding: const EdgeInsets.all(10),
+          backgroundColor: MyTheme.kBackground,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           content: SingleChildScrollView(
             child: RichText(
               text: TextSpan(
                 text: 'Desea agregar voto de ',
-                style: DefaultTextStyle.of(context).style,
+                style: TextStyle(color: MyTheme.kLightColor),
                 children: <TextSpan>[
                   TextSpan(
                       text: voter,
@@ -205,29 +232,25 @@ class VoterList extends StatelessWidget {
             ),
           ),
           actions: <Widget>[
-            TextButton(
-              child: const Text(
-                'Cancelar',
-                style: TextStyle(color: MyTheme.gray2Text),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+            CSMButton.small(
+              onPressed: () => Navigator.of(context).pop(),
+              buttonTitle: "Cancelar",
+              widthPercent: 0.3,
+              backgroundColor: MyTheme.kSecondaryColor,
+              textColor: MyTheme.kLightColor,
             ),
-            TextButton(
-              child: const Text(
-                'Agregar',
-                style: TextStyle(color: MyTheme.darkGreen),
-              ),
-              onPressed: () async{
+            CSMButton.small(
+              onPressed: () async {
                 await updatePartnerOnTable(order: index.toString());
-                await updatePartnerGeneral(identification: identification.toString());
+                await updatePartnerGeneral(
+                    identification: identification.toString());
                 await updatePartnerGeneralVotes();
 
                 //update partners assigned votes if it's an assigned partner
                 PartnersTable partnersTable = PartnersTable();
-                final Partner partner = await partnersTable.getPartner(partnerIdentification: identification.toString());
-                if(partner.assigned){
+                final Partner partner = await partnersTable.getPartner(
+                    partnerIdentification: identification.toString());
+                if (partner.assigned) {
                   updatePartnerAssignedVotes();
                 }
 
@@ -238,11 +261,13 @@ class VoterList extends StatelessWidget {
                     style: TextStyle(color: Colors.black, fontSize: 16),
                   ),
                   duration: Duration(seconds: 3),
-                  backgroundColor: MyTheme.primaryColor,
+                  backgroundColor: MyTheme.kPrimaryColor,
                   padding: EdgeInsets.symmetric(vertical: 40),
                 ));
                 Navigator.of(context).pop();
               },
+              buttonTitle: "Agregar",
+              widthPercent: 0.3,
             ),
           ],
         );
