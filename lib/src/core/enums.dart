@@ -1,0 +1,1 @@
+enum VotingType {generales, municipales}
