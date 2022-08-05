@@ -5,19 +5,19 @@ class Voter extends Equatable {
   final String name;
   final bool voted;
   final String voterId;
-  final String state;
-  final String city;
-  final String place;
-  final List<VoteInfo> votedList;
+  final String? state;
+  final String? city;
+  final String? place;
+  final List<VoteInfo>? votedList;
 
   const Voter({
     required this.name,
     required this.voted,
     required this.voterId,
-    required this.state,
-    required this.city,
-    required this.place,
-    required this.votedList,
+    this.state,
+    this.city,
+    this.place,
+    this.votedList,
   });
 
   @override
