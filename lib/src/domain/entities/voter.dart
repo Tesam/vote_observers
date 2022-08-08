@@ -1,9 +1,12 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:vote_observers/src/core/enums.dart';
 
+@JsonSerializable()
 class Voter extends Equatable {
   final String name;
   final bool voted;
+  @JsonKey(name: 'voter_id')
   final String voterId;
   final String? state;
   final String? city;
@@ -38,24 +41,6 @@ class Voter extends Equatable {
 
   @override
   bool get stringify => true;
-
-  factory Voter.fromFirebase(String id, Map<String, Object?> doc) {
-    return Voter(
-      name: doc['name'] as String,
-      order: doc['order'] as int,
-      voted: doc['voted'] as bool,
-      voterId: doc['voter_id'] as String,
-    );
-  }
-
-  Map<String, Object?> toFirebase() {
-    return {
-      'name': name,
-      'order': order,
-      'voted': voted,
-      'voter_id': voterId,
-    };
-  }
 }
 
 class VoteInfo extends Equatable {

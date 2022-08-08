@@ -4,6 +4,7 @@ import 'package:vote_observers/data/partners_table.dart';
 import 'package:vote_observers/domain/models/partner.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/observers/results.dart';
+import 'package:vote_observers/src/domain/entities/voter.dart';
 import 'package:vote_observers/src/presenter/voters/voters_stream.dart';
 import 'package:vote_observers/src/presenter/widgets/csm_button.dart';
 
@@ -16,7 +17,7 @@ class VoterTable extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    AsyncValue<dynamic> voters = ref.watch(votersStream("table_1_21"));
+    AsyncValue<dynamic> voters = ref.watch(votersStream("010101001001"));
 
     return Scaffold(
         appBar: AppBar(
@@ -85,17 +86,15 @@ class VoterTable extends ConsumerWidget {
                 Expanded(
                   child: GridView.count(
                     crossAxisCount: 4,
-                    children: voters.docs.map<Widget>((document) {
-                      Map<String, dynamic> data =
-                      document.data()! as Map<String, dynamic>;
-                       return orderContainer(
-                              index: data["order"],
-                              identification: data["identification"].toString(),
-                              context: context,
-                              voter: data["name"],
-                              voteStatus: (data["state"])
-                                  ? VoteStatus.voted
-                                  : VoteStatus.notVoted);
+                    children: voters.map<Widget>((Voter document) {
+                      return orderContainer(
+                          index: document.order,
+                          identification: document.voterId,
+                          context: context,
+                          voter: document.name,
+                          voteStatus: (document.voted)
+                              ? VoteStatus.voted
+                              : VoteStatus.notVoted);
                     }).toList(),
                   ),
                 )

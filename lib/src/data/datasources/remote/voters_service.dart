@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:vote_observers/src/data/models/table_voter_model.dart';
 
 class VotersService {
   const VotersService(this._firebaseFirestore);
@@ -18,10 +19,16 @@ class VotersService {
         .catchError((error) => false);
   }
 
-  Stream getVoters({required String collectionName}) {
+  Stream<List<TableVoterModel>> getVoters({required String collectionName}) {
     return _firebaseFirestore
         .collection(collectionName)
         .orderBy("order")
-        .snapshots();
+        .withConverter<TableVoterModel>(fromFirestore: (snapshot, options) {
+          return TableVoterModel.fromJson(snapshot.data()!);
+        }, toFirestore: (value, options) {
+          return value.toJson();
+        })
+        .snapshots()
+        .map((query) => query.docs.map((snapshot) => snapshot.data()).toList());
   }
 }

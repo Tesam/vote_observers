@@ -20,23 +20,5 @@ class TableVoterModel extends Voter {
   factory TableVoterModel.fromJson(Map<String, dynamic> json) =>
       _$TableVoterModelFromJson(json);
 
-  factory TableVoterModel.fromFirebase(String id, Map<String, Object?> doc) {
-    return TableVoterModel(
-      name: doc['name'] as String,
-      order: doc['order'] as int,
-      voted: doc['voted'] as bool,
-      voterId: doc['voter_id'] as String,
-    );
-  }
-
-  Map<String, Object?> toFirebase() {
-    return {
-      'name': name,
-      'order': order,
-      'voted': voted,
-      'voter_id': voterId,
-    };
-  }
-
   Map<String, dynamic> toJson() => _$TableVoterModelToJson(this);
 }
