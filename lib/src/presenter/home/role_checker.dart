@@ -37,7 +37,7 @@ class RoleChecker extends StatelessWidget {
                       state: snapshot.data!['state']['id'],
                       city: snapshot.data!['city']['id'],
                       place: snapshot.data!['place']['id'],
-                      table: snapshot.data!['table']));
+                      table: snapshot.data!['table']['id']));
             } else {
               return const Home();
             }
