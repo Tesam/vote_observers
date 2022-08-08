@@ -4,6 +4,7 @@ import 'package:vote_observers/data/partners_table.dart';
 import 'package:vote_observers/domain/models/partner.dart';
 import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/observers/results.dart';
+import 'package:vote_observers/src/core/params/table_identification_param.dart';
 import 'package:vote_observers/src/domain/entities/voter.dart';
 import 'package:vote_observers/src/presenter/voters/voters_stream.dart';
 import 'package:vote_observers/src/presenter/widgets/csm_button.dart';
@@ -11,13 +12,13 @@ import 'package:vote_observers/src/presenter/widgets/csm_button.dart';
 enum VoteStatus { voted, notVoted }
 
 class VoterTable extends ConsumerWidget {
-  final String tableNumber;
+  final TableIdentificationParam tableId;
 
-  const VoterTable({Key? key, required this.tableNumber}) : super(key: key);
+  const VoterTable({Key? key, required this.tableId}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    AsyncValue<dynamic> voters = ref.watch(votersStream("010101001001"));
+    AsyncValue<dynamic> voters = ref.watch(votersStreamProvider(tableId.toString()));
 
     return Scaffold(
         appBar: AppBar(
@@ -36,7 +37,7 @@ class VoterTable extends ConsumerWidget {
                 maxLines: 1,
               ),
               Text(
-                "Mesa $tableNumber",
+                "Mesa ${tableId.table}",
                 style: const TextStyle(
                     color: MyTheme.gray3Text,
                     fontSize: 16,
@@ -62,7 +63,7 @@ class VoterTable extends ConsumerWidget {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      Results(tableNumber: tableNumber)),
+                                      Results(tableNumber: tableId.table)),
                             );
                           },
                           title: const Text(

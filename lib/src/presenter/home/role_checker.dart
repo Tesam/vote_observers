@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vote_observers/presenter/home.dart';
+import 'package:vote_observers/src/core/params/table_identification_param.dart';
 import 'package:vote_observers/src/presenter/voters/voters_table.dart';
 import 'package:vote_observers/src/presenter/widgets/csm_loading_screen.dart';
 
@@ -12,21 +13,35 @@ class RoleChecker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<DocumentSnapshot>(
-      stream: FirebaseFirestore.instance.collection('users').doc(user.uid).snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot){
-        if(snapshot.hasError){
-          return Scaffold(body: Center(child: Text(snapshot.error.toString()),));
+      stream: FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .snapshots(),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Scaffold(
+              body: Center(
+            child: Text(snapshot.error.toString()),
+          ));
         }
 
-        switch(snapshot.connectionState){
-          case ConnectionState.waiting: return const CSMLoadingScreen();
-          default: if(snapshot.data!['role'] == "observer"){
-            return VoterTable(tableNumber: snapshot.data!['table'].toString());
-          }else{
-            return const Home();
-          }
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return const CSMLoadingScreen();
+          default:
+            if (snapshot.data!['role'] == "observer") {
+              return VoterTable(
+                  tableId: TableIdentificationParam(
+                      group: snapshot.data!['group']['id'],
+                      state: snapshot.data!['state']['id'],
+                      city: snapshot.data!['city']['id'],
+                      place: snapshot.data!['place']['id'],
+                      table: snapshot.data!['table']));
+            } else {
+              return const Home();
+            }
         }
-
       },
     );
   }
