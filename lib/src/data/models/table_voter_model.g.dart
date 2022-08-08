@@ -11,6 +11,7 @@ TableVoterModel _$TableVoterModelFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       voted: json['voted'] as bool,
       voterId: json['voterId'] as String,
+      order: json['order'] as int,
     );
 
 Map<String, dynamic> _$TableVoterModelToJson(TableVoterModel instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$TableVoterModelToJson(TableVoterModel instance) =>
       'name': instance.name,
       'voted': instance.voted,
       'voterId': instance.voterId,
+      'order': instance.order,
     };

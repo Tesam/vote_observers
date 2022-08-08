@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vote_observers/presenter/home.dart';
-import 'package:vote_observers/presenter/observers/voter_list.dart';
+import 'package:vote_observers/src/presenter/voters/voters_table.dart';
 import 'package:vote_observers/src/presenter/widgets/csm_loading_screen.dart';
 
 class RoleChecker extends StatelessWidget {
@@ -21,7 +21,7 @@ class RoleChecker extends StatelessWidget {
         switch(snapshot.connectionState){
           case ConnectionState.waiting: return const CSMLoadingScreen();
           default: if(snapshot.data!['role'] == "observer"){
-            return VoterList(tableNumber: snapshot.data!['table'].toString());
+            return VoterTable(tableNumber: snapshot.data!['table'].toString());
           }else{
             return const Home();
           }

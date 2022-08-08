@@ -8,6 +8,7 @@ class Voter extends Equatable {
   final String? state;
   final String? city;
   final String? place;
+  final int order;
   final List<VoteInfo>? votedList;
 
   const Voter({
@@ -18,6 +19,7 @@ class Voter extends Equatable {
     this.city,
     this.place,
     this.votedList,
+    required this.order,
   });
 
   @override
@@ -29,12 +31,31 @@ class Voter extends Equatable {
       state,
       city,
       place,
-      votedList
+      votedList,
+      order,
     ];
   }
 
   @override
   bool get stringify => true;
+
+  factory Voter.fromFirebase(String id, Map<String, Object?> doc) {
+    return Voter(
+      name: doc['name'] as String,
+      order: doc['order'] as int,
+      voted: doc['voted'] as bool,
+      voterId: doc['voter_id'] as String,
+    );
+  }
+
+  Map<String, Object?> toFirebase() {
+    return {
+      'name': name,
+      'order': order,
+      'voted': voted,
+      'voter_id': voterId,
+    };
+  }
 }
 
 class VoteInfo extends Equatable {
