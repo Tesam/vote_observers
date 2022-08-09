@@ -1,9 +1,9 @@
 class TableIdentificationParam {
-  String group;
-  String state;
-  String city;
-  String place;
-  String table;
+  Map<String, dynamic> group;
+  Map<String, dynamic> state;
+  Map<String, dynamic> city;
+  Map<String, dynamic> place;
+  Map<String, dynamic> table;
 
   TableIdentificationParam({
     required this.group,
@@ -15,6 +15,6 @@ class TableIdentificationParam {
 
   @override
   String toString() {
-    return "$group$state$city$place$table";
+    return "${group['id']}${state['id']}${city['id']}${place['id']}${table['id']}";
   }
 }

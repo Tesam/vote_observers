@@ -33,11 +33,11 @@ class RoleChecker extends StatelessWidget {
             if (snapshot.data!['role'] == "observer") {
               return VoterTable(
                   tableId: TableIdentificationParam(
-                      group: snapshot.data!['group']['id'],
-                      state: snapshot.data!['state']['id'],
-                      city: snapshot.data!['city']['id'],
-                      place: snapshot.data!['place']['id'],
-                      table: snapshot.data!['table']['id']));
+                      group: snapshot.data!['group'],
+                      state: snapshot.data!['state'],
+                      city: snapshot.data!['city'],
+                      place: snapshot.data!['place'],
+                      table: snapshot.data!['table']));
             } else {
               return const Home();
             }

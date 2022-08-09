@@ -25,9 +25,9 @@ class VoterTable extends ConsumerWidget {
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Colegio Natalicio Vasconcellos sdfsdfsdfsdfdsfdsf",
-                style: TextStyle(
+              Text(
+                tableId.place['name']!,
+                style: const TextStyle(
                   color: MyTheme.gray3Text,
                   fontFamily: 'Nunito',
                   fontWeight: FontWeight.w600,
@@ -37,7 +37,7 @@ class VoterTable extends ConsumerWidget {
                 maxLines: 1,
               ),
               Text(
-                "Mesa ${tableId.table}",
+                "Mesa ${tableId.table['name']}",
                 style: const TextStyle(
                     color: MyTheme.gray3Text,
                     fontSize: 16,
@@ -63,7 +63,9 @@ class VoterTable extends ConsumerWidget {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      Results(tableNumber: tableId.table)),
+                                      Results(tableNumber: tableId.table['name']!
+                                      )
+                              ),
                             );
                           },
                           title: const Text(
