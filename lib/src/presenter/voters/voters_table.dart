@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vote_observers/data/partners_table.dart';
@@ -18,7 +19,8 @@ class VoterTable extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    AsyncValue<dynamic> voters = ref.watch(votersStreamProvider(tableId.toString()));
+    AsyncValue<dynamic> voters =
+        ref.watch(votersStreamProvider(tableId.toString()));
 
     return Scaffold(
         appBar: AppBar(
@@ -62,14 +64,29 @@ class VoterTable extends ConsumerWidget {
                             Navigator.of(context).pop();
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      Results(tableNumber: tableId.table['name']!
-                                      )
-                              ),
+                                  builder: (context) => Results(
+                                      tableNumber: tableId.table['name']!)),
                             );
                           },
                           title: const Text(
                             "Agregar Resultado",
+                            style: TextStyle(
+                                fontSize: 14.0, fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        value: 1,
+                      ),
+                      PopupMenuItem(
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.logout,
+                            color: Colors.black,
+                          ),
+                          onTap: () {
+                            FirebaseAuth.instance.signOut();
+                          },
+                          title: const Text(
+                            "Cerrar Sesión",
                             style: TextStyle(
                                 fontSize: 14.0, fontWeight: FontWeight.w500),
                           ),
@@ -82,27 +99,27 @@ class VoterTable extends ConsumerWidget {
         backgroundColor: MyTheme.kLightColor,
         body: voters.when(
             data: (voters) => Column(
-              children: [
-                const SizedBox(
-                  height: 20,
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Expanded(
+                      child: GridView.count(
+                        crossAxisCount: 4,
+                        children: voters.map<Widget>((Voter document) {
+                          return orderContainer(
+                              index: document.order,
+                              identification: document.voterId,
+                              context: context,
+                              voter: document.name,
+                              voteStatus: (document.voted)
+                                  ? VoteStatus.voted
+                                  : VoteStatus.notVoted);
+                        }).toList(),
+                      ),
+                    )
+                  ],
                 ),
-                Expanded(
-                  child: GridView.count(
-                    crossAxisCount: 4,
-                    children: voters.map<Widget>((Voter document) {
-                      return orderContainer(
-                          index: document.order,
-                          identification: document.voterId,
-                          context: context,
-                          voter: document.name,
-                          voteStatus: (document.voted)
-                              ? VoteStatus.voted
-                              : VoteStatus.notVoted);
-                    }).toList(),
-                  ),
-                )
-              ],
-            ),
             error: (err, stack) => Center(
                   child: Text('Algo salió mal: $err'),
                 ),
