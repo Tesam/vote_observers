@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:vote_observers/src/domain/entities/voting_user.dart';
 
 abstract class AuthRepository {
   Stream<User?> get authStateChanges;
@@ -9,4 +10,8 @@ abstract class AuthRepository {
   });
 
   Future<void> signOut();
+
+  Stream<VotingUser> getUserById({
+    required String uid,
+  });
 }
