@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vote_observers/src/data/models/table_voter_model.dart';
+import 'package:vote_observers/src/presenter/providers/global_providers.dart';
 
 class VotersService {
   const VotersService(this._firebaseFirestore);
@@ -32,3 +34,7 @@ class VotersService {
         .map((query) => query.docs.map((snapshot) => snapshot.data()).toList());
   }
 }
+
+final votersServiceProvider = Provider<VotersService>((ref) {
+  return VotersService(ref.read(firebaseFirestoreProvider));
+});

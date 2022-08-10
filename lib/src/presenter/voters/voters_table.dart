@@ -20,7 +20,7 @@ class VoterTable extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     AsyncValue<dynamic> voters =
-        ref.watch(votersStreamProvider(tableId.toString()));
+        ref.watch(votersStream(tableId.toString()));
 
     return Scaffold(
         appBar: AppBar(
