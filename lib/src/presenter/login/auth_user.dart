@@ -18,10 +18,14 @@ class AuthUser extends StateNotifier<User?> {
   void signOut() => signOutUseCase.signOut();
 
   void signIn({required String email, required String password}) async {
-    state = await signInWithEmailUseCase.signIn(
-      email: email,
-      password: password,
-    );
+    try{
+      state = await signInWithEmailUseCase.signIn(
+        email: email,
+        password: password,
+      );
+    }catch(_){
+      state = null;
+    }
   }
 }
 

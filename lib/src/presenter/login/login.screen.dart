@@ -19,6 +19,7 @@ class LoginScreen extends ConsumerWidget {
 
     ref.listen<User?>(authUserProvider, (_, user) {
       if (user != null) {
+        cleanFields();
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => RoleChecker(
@@ -112,5 +113,10 @@ class LoginScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  void cleanFields(){
+    _emailController.text = "";
+    _passController.text = "";
   }
 }
