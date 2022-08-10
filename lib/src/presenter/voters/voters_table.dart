@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vote_observers/data/partners_table.dart';
@@ -7,6 +6,8 @@ import 'package:vote_observers/presenter/my_theme.dart';
 import 'package:vote_observers/presenter/observers/results.dart';
 import 'package:vote_observers/src/core/params/table_identification_param.dart';
 import 'package:vote_observers/src/domain/entities/voter.dart';
+import 'package:vote_observers/src/presenter/login/auth_user.dart';
+import 'package:vote_observers/src/presenter/login/login.screen.dart';
 import 'package:vote_observers/src/presenter/voters/voters_stream.dart';
 import 'package:vote_observers/src/presenter/widgets/csm_button.dart';
 
@@ -20,7 +21,7 @@ class VoterTable extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     AsyncValue<dynamic> voters =
-        ref.watch(votersStream(tableId.toString()));
+    ref.watch(votersStream(tableId.toString()));
 
     return Scaffold(
         appBar: AppBar(
@@ -53,52 +54,60 @@ class VoterTable extends ConsumerWidget {
           automaticallyImplyLeading: false,
           actions: [
             PopupMenuButton(
-                itemBuilder: (context) => [
-                      PopupMenuItem(
-                        child: ListTile(
-                          leading: const Icon(
-                            Icons.post_add,
-                            color: Colors.black,
-                          ),
-                          onTap: () {
-                            Navigator.of(context).pop();
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => Results(
+                itemBuilder: (context) =>
+                [
+                  PopupMenuItem(
+                    child: ListTile(
+                      leading: const Icon(
+                        Icons.post_add,
+                        color: Colors.black,
+                      ),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  Results(
                                       tableNumber: tableId.table['name']!)),
-                            );
-                          },
-                          title: const Text(
-                            "Agregar Resultado",
-                            style: TextStyle(
-                                fontSize: 14.0, fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                        value: 1,
+                        );
+                      },
+                      title: const Text(
+                        "Agregar Resultado",
+                        style: TextStyle(
+                            fontSize: 14.0, fontWeight: FontWeight.w500),
                       ),
-                      PopupMenuItem(
-                        child: ListTile(
-                          leading: const Icon(
-                            Icons.logout,
-                            color: Colors.black,
-                          ),
-                          onTap: () {
-                            FirebaseAuth.instance.signOut();
-                          },
-                          title: const Text(
-                            "Cerrar Sesión",
-                            style: TextStyle(
-                                fontSize: 14.0, fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                        value: 1,
+                    ),
+                    value: 1,
+                  ),
+                  PopupMenuItem(
+                    child: ListTile(
+                      leading: const Icon(
+                        Icons.logout,
+                        color: Colors.black,
                       ),
-                    ]),
+                      onTap: () {
+                        ref.read(authUserProvider.notifier).signOut();
+
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (context) => const LoginScreen()),
+                          ModalRoute.withName('/'),);
+                      },
+                      title: const Text(
+                        "Cerrar Sesión",
+                        style: TextStyle(
+                            fontSize: 14.0, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    value: 1,
+                  ),
+                ]),
           ],
         ),
         backgroundColor: MyTheme.kLightColor,
         body: voters.when(
-            data: (voters) => Column(
+            data: (voters) =>
+                Column(
                   children: [
                     const SizedBox(
                       height: 20,
@@ -120,22 +129,23 @@ class VoterTable extends ConsumerWidget {
                     )
                   ],
                 ),
-            error: (err, stack) => Center(
+            error: (err, stack) =>
+                Center(
                   child: Text('Algo salió mal: $err'),
                 ),
-            loading: () => const Center(
-                  child: CircularProgressIndicator(
-                    color: MyTheme.darkGreen,
-                  ),
-                )));
+            loading: () =>
+            const Center(
+              child: CircularProgressIndicator(
+                color: MyTheme.darkGreen,
+              ),
+            )));
   }
 
-  Widget orderContainer(
-          {required int index,
-          required String voter,
-          VoteStatus voteStatus = VoteStatus.notVoted,
-          required BuildContext context,
-          required String identification}) =>
+  Widget orderContainer({required int index,
+    required String voter,
+    VoteStatus voteStatus = VoteStatus.notVoted,
+    required BuildContext context,
+    required String identification}) =>
       InkWell(
           child: Container(
             width: 80.0,
@@ -157,28 +167,28 @@ class VoterTable extends ConsumerWidget {
               ),
             ),
           ),
-          onTap: () => (voteStatus == VoteStatus.notVoted)
+          onTap: () =>
+          (voteStatus == VoteStatus.notVoted)
               ? _showAddVoterDialog(
-                  context: context,
-                  voter: voter,
-                  index: index,
-                  identification: identification)
+              context: context,
+              voter: voter,
+              index: index,
+              identification: identification)
               : ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text(
-                    'El voto ya fue registrado!',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black, fontSize: 16),
-                  ),
-                  duration: Duration(seconds: 3),
-                  backgroundColor: MyTheme.lightYellow,
-                  padding: EdgeInsets.symmetric(vertical: 40),
-                )));
+            content: Text(
+              'El voto ya fue registrado!',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            ),
+            duration: Duration(seconds: 3),
+            backgroundColor: MyTheme.lightYellow,
+            padding: EdgeInsets.symmetric(vertical: 40),
+          )));
 
-  Future<void> _showAddVoterDialog(
-      {required BuildContext context,
-      required String voter,
-      required String identification,
-      required int index}) async {
+  Future<void> _showAddVoterDialog({required BuildContext context,
+    required String voter,
+    required String identification,
+    required int index}) async {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
