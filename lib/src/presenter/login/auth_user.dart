@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vote_observers/src/domain/use_cases/authentication/get_auth_state.dart';
 import 'package:vote_observers/src/domain/use_cases/authentication/sign_in_with_email.dart';
 import 'package:vote_observers/src/domain/use_cases/authentication/sign_out.dart';
+import 'package:vote_observers/src/presenter/widgets/csm_snackbar.dart';
 
 class AuthUser extends StateNotifier<User?> {
   AuthUser({
@@ -17,14 +18,14 @@ class AuthUser extends StateNotifier<User?> {
 
   void signOut() => signOutUseCase.signOut();
 
-  void signIn({required String email, required String password}) async {
+  void signIn({required String email, required String password, context}) async {
     try{
       state = await signInWithEmailUseCase.signIn(
         email: email,
         password: password,
       );
-    }catch(_){
-      state = null;
+    }on FirebaseAuthException catch(_){
+      CSMSnackBar.error(context: context, text: "Correo o contraseña inválidos");
     }
   }
 }

@@ -104,6 +104,7 @@ class LoginScreen extends ConsumerWidget {
                   ref.read(authUserProvider.notifier).signIn(
                         email: _emailController.text,
                         password: _passController.text,
+                        context: context,
                       );
                 },
               ),
@@ -115,7 +116,7 @@ class LoginScreen extends ConsumerWidget {
     );
   }
 
-  void cleanFields(){
+  void cleanFields() {
     _emailController.text = "";
     _passController.text = "";
   }
