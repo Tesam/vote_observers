@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vote_observers/presenter/my_theme.dart';
+import 'package:vote_observers/src/my_theme.dart';
 import 'package:vote_observers/src/presenter/home/role_checker.dart';
 import 'package:vote_observers/src/presenter/login/auth_user.dart';
 import 'package:vote_observers/src/presenter/widgets/csm_button.dart';

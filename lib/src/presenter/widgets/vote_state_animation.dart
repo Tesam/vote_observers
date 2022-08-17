@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:vote_observers/presenter/my_theme.dart';
+import 'package:vote_observers/src/my_theme.dart';
 
 class VoteStateAnimation extends StatelessWidget {
   VoteStateAnimation({Key? key, required this.controller}) : super(key: key) {

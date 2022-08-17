@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vote_observers/data/partners_table.dart';
-import 'package:vote_observers/domain/models/partner.dart';
-import 'package:vote_observers/presenter/my_theme.dart';
-import 'package:vote_observers/presenter/observers/results.dart';
+import 'package:vote_observers/on_refactor/data/partners_table.dart';
+import 'package:vote_observers/on_refactor/domain/models/partner.dart';
+import 'package:vote_observers/on_refactor/presenter/observers/results.dart';
 import 'package:vote_observers/src/core/params/table_identification_param.dart';
 import 'package:vote_observers/src/domain/entities/voter.dart';
+import 'package:vote_observers/src/my_theme.dart';
 import 'package:vote_observers/src/presenter/login/auth_user.dart';
 import 'package:vote_observers/src/presenter/login/login.screen.dart';
 import 'package:vote_observers/src/presenter/voters/voters_stream.dart';

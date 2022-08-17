@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vote_observers/presenter/my_theme.dart';
+import 'package:vote_observers/src/my_theme.dart';
 
 class CSMButton extends StatelessWidget {
   const CSMButton.large(
