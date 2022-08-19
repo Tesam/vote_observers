@@ -8,10 +8,12 @@ class Voter extends Equatable {
   final bool voted;
   @JsonKey(name: 'voter_id')
   final String voterId;
-  final String? state;
-  final String? city;
-  final String? place;
+  final Map<String, dynamic>? state;
+  final Map<String, dynamic>? city;
+  final Map<String, dynamic>? place;
+  final Map<String, dynamic>? table;
   final int order;
+  @JsonKey(name: 'voted_list')
   final List<VoteInfo>? votedList;
 
   const Voter({
@@ -22,6 +24,7 @@ class Voter extends Equatable {
     this.city,
     this.place,
     this.votedList,
+    this.table,
     required this.order,
   });
 
@@ -43,9 +46,12 @@ class Voter extends Equatable {
   bool get stringify => true;
 }
 
+@JsonSerializable()
 class VoteInfo extends Equatable {
   final String year;
+  @JsonKey(name: 'voting_type')
   final VotingType votingType;
+  @JsonKey(name: 'is_internal')
   final bool isInternal;
   final bool voted;
 
